@@ -1,0 +1,1 @@
+(stty raw; cat > thing.bin ) < /dev/ttyACM0
