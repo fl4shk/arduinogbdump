@@ -131,7 +131,7 @@ public:  // functions
     
   }
   
-  void set_mbc2_rom_bank ( 
+  //void set_mbc2_rom_bank ( 
   
   bool cart_supported ( char cart_type ) const
   {
