@@ -1,0 +1,5 @@
+syn keyword CTagsStructure cart_header
+syn keyword CTagsMember cart_type dest_code rom_size header_checksum version_num addr_pkt logo_size ram_size wcmd_size mbc old_lc command ninty_logo rcmd_size
+syn keyword CTagsFunction get_rom set_mbc1_ram_bank set_access_mode get_ninty_logo read write_nocrc set_mbc1_rom_bank set_bank read_nocrc write init_logo init get_access_mode tpak cart_supported cart_header enable_tpak
+syn keyword CTagsClass tpak
+

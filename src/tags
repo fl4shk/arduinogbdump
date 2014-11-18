@@ -1,0 +1,45 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+addr_pkt	tpak_cls.h	/^  addr_packet addr_pkt;$/;"	m	class:tpak
+cart_header	tpak_cls.h	/^  cart_header () { init_logo (); }$/;"	f	struct:cart_header
+cart_header	tpak_cls.h	/^struct cart_header$/;"	s
+cart_supported	tpak_cls.h	/^  bool cart_supported ( char cart_type ) const$/;"	f	class:tpak
+cart_type	tpak_cls.h	/^  char cart_type, rom_size, ram_size, dest_code, old_lc, version_num, header_checksum;$/;"	m	struct:cart_header
+command	tpak_cls.h	/^  u8 command [wcmd_size];$/;"	m	class:tpak
+dest_code	tpak_cls.h	/^  char cart_type, rom_size, ram_size, dest_code, old_lc, version_num, header_checksum;$/;"	m	struct:cart_header
+enable_tpak	tpak_cls.h	/^  void enable_tpak ()$/;"	f	class:tpak
+get_access_mode	tpak_cls.h	/^  void get_access_mode ()$/;"	f	class:tpak
+get_ninty_logo	tpak_cls.h	/^  const char *get_ninty_logo () const { return const_cast <const char *>(ninty_logo); }$/;"	f	struct:cart_header
+get_rom	tpak_cls.h	/^  void get_rom ()$/;"	f	class:tpak
+header_checksum	tpak_cls.h	/^  char cart_type, rom_size, ram_size, dest_code, old_lc, version_num, header_checksum;$/;"	m	struct:cart_header
+init_logo	tpak_cls.h	/^  static void init_logo ()$/;"	f	struct:cart_header
+init	tpak_cls.h	/^  void init ()$/;"	f	class:tpak
+logo_size	tpak_cls.h	/^  static const int logo_size = 0x30;$/;"	m	struct:cart_header
+mbc	tpak_cls.h	/^  char mbc;$/;"	m	struct:cart_header
+ninty_logo	tpak_cls.h	/^  static char ninty_logo [logo_size];$/;"	m	struct:cart_header
+old_lc	tpak_cls.h	/^  char cart_type, rom_size, ram_size, dest_code, old_lc, version_num, header_checksum;$/;"	m	struct:cart_header
+ram_size	tpak_cls.h	/^  char cart_type, rom_size, ram_size, dest_code, old_lc, version_num, header_checksum;$/;"	m	struct:cart_header
+rcmd_size	tpak_cls.h	/^  static const word wcmd_size = 35, rcmd_size = 3;$/;"	m	class:tpak
+read_nocrc	tpak_cls.h	/^  void read_nocrc ( u16 read_addr )$/;"	f	class:tpak
+read	tpak_cls.h	/^  void read ( u16 read_addr )$/;"	f	class:tpak
+read	tpak_cls.h	/^  void read ()$/;"	f	class:tpak
+rom_size	tpak_cls.h	/^  char cart_type, rom_size, ram_size, dest_code, old_lc, version_num, header_checksum;$/;"	m	struct:cart_header
+set_access_mode	tpak_cls.h	/^  void set_access_mode ( bool n_mode )$/;"	f	class:tpak
+set_bank	tpak_cls.h	/^  void set_bank ( char n_tpak_bank )$/;"	f	class:tpak
+set_mbc1_ram_bank	tpak_cls.h	/^  void set_mbc1_ram_bank ( char n_ram_bank )$/;"	f	class:tpak
+set_mbc1_rom_bank	tpak_cls.h	/^  void set_mbc1_rom_bank ( char n_rom_bank )$/;"	f	class:tpak
+tpak	tpak_cls.h	/^class tpak$/;"	c
+tpak	tpak_cls.h	/^  tpak () {}$/;"	f	class:tpak
+version_num	tpak_cls.h	/^  char cart_type, rom_size, ram_size, dest_code, old_lc, version_num, header_checksum;$/;"	m	struct:cart_header
+wcmd_size	tpak_cls.h	/^  static const word wcmd_size = 35, rcmd_size = 3;$/;"	m	class:tpak
+write_nocrc	tpak_cls.h	/^  void write_nocrc ( u16 write_addr )$/;"	f	class:tpak
+write_nocrc	tpak_cls.h	/^  void write_nocrc ( u16 write_addr, u8 *msg )    \/\/ doesn't touch write_addr's CRC stuff$/;"	f	class:tpak
+write	tpak_cls.h	/^  void write ( u16 write_addr )$/;"	f	class:tpak
+write	tpak_cls.h	/^  void write ( u16 write_addr, u8 *msg )    \/\/ appends address CRC to write_addr$/;"	f	class:tpak
+write	tpak_cls.h	/^  void write ()$/;"	f	class:tpak
+~cart_header	tpak_cls.h	/^  ~cart_header () {}$/;"	f	struct:cart_header
+~tpak	tpak_cls.h	/^  ~tpak () {}$/;"	f	class:tpak

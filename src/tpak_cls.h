@@ -6,7 +6,7 @@ struct cart_header
 public:  // variables
   static const int logo_size = 0x30;
   
-  char cart_type, rom_size, ram_size, dest_code, old_lc, version_num, header_checksum, ;
+  char cart_type, rom_size, ram_size, dest_code, old_lc, version_num, header_checksum;
   
   char mbc;
   
@@ -147,14 +147,16 @@ public:  // functions
   
   void write ()
   {
-    command [0] = 0x03; command [1] = addr_pkt.hi; command [2] = addr_pkt.lo;
+    command [0] = 0x03; command [1] = addr_pkt.hi; 
+    command [2] = addr_pkt.lo;
     
     N64_stuff ( command, wcmd_size );
   }
   void write ( u16 write_addr )
   {
     addr_pkt.w = calc_addr_crc (write_addr);
-    command [0] = 0x03; command [1] = addr_pkt.hi; command [2] = addr_pkt.lo;
+    command [0] = 0x03; command [1] = addr_pkt.hi; 
+    command [2] = addr_pkt.lo;
     
     N64_stuff ( command, wcmd_size );
   }
@@ -162,14 +164,16 @@ public:  // functions
   {
     addr_pkt.w = calc_addr_crc (write_addr);
     memcpy ( &command [3], msg, 32 );
-    command [0] = 0x03; command [1] = addr_pkt.hi; command [2] = addr_pkt.lo;
+    command [0] = 0x03; command [1] = addr_pkt.hi; 
+    command [2] = addr_pkt.lo;
     
     N64_stuff ( command, wcmd_size );
   }
   void write_nocrc ( u16 write_addr )
   {
     addr_pkt.w = write_addr;
-    command [0] = 0x03; command [1] = addr_pkt.hi; command [2] = addr_pkt.lo;
+    command [0] = 0x03; command [1] = addr_pkt.hi; 
+    command [2] = addr_pkt.lo;
     
     N64_stuff ( command, wcmd_size );
   }
@@ -177,7 +181,8 @@ public:  // functions
   {
     addr_pkt.w = write_addr;
     memcpy ( &command [3], msg, 32 );
-    command [0] = 0x03; command [1] = addr_pkt.hi; command [2] = addr_pkt.lo;
+    command [0] = 0x03; command [1] = addr_pkt.hi; 
+    command [2] = addr_pkt.lo;
     
     N64_stuff ( command, wcmd_size );
   }
@@ -185,21 +190,24 @@ public:  // functions
   
   void read ()
   {
-    command [0] = 0x02; command [1] = addr_pkt.hi; command [2] = addr_pkt.lo;
+    command [0] = 0x02; command [1] = addr_pkt.hi; 
+    command [2] = addr_pkt.lo;
     
     N64_stuff ( command, rcmd_size );
   }
   void read ( u16 read_addr )
   {
     addr_pkt.w = calc_addr_crc (read_addr);
-    command [0] = 0x02; command [1] = addr_pkt.hi; command [2] = addr_pkt.lo;
+    command [0] = 0x02; command [1] = addr_pkt.hi; 
+    command [2] = addr_pkt.lo;
     
     N64_stuff ( command, rcmd_size );
   }
   void read_nocrc ( u16 read_addr )
   {
     addr_pkt.w = read_addr;
-    command [0] = 0x02; command [1] = addr_pkt.hi; command [2] = addr_pkt.lo;
+    command [0] = 0x02; command [1] = addr_pkt.hi; 
+    command [2] = addr_pkt.lo;
     
     N64_stuff ( command, rcmd_size );
   }
