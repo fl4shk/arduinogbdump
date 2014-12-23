@@ -1,15 +1,17 @@
 arduinogbdump
 =============
 
-This is a very much unpolished/unfinished GB/GBC ROM dumper that uses an Arduino, an N64 controller, and an N64 Transfer Pak.
-
-It should be rather easy for someone to take this and make a GB save data dumper/restorer as well, since the N64 Transfer pak can do that as well.
+This is a very much unpolished/unfinished GB/GBC ROM dumper that uses an Arduino, an N64 controller, an N64 Transfer Pak, and a pull-up resistor.
 
 Much of the code used for this project was taken from this project:
 	https://github.com/brownan/Gamecube-N64-Controller
 
-There are some instructions included with that project for actually connecting the Arduino to the N64 controller.
+There are some instructions included with that project for actually 
+connecting the Arduino to the N64 controller.
 
+(Updated Dec. 23, 2014) Planned features include the following:
+	Cartridge Header Parsing (for MBC detection and whatnot)
+	Save Data Dumping/Restoring
 
 
 Here's a tiny amount of the history behind this project, in case anyone cares:  
