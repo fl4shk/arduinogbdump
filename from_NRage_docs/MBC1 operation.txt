@@ -1,0 +1,4 @@
+Writing a value into 0x2000-0x3FFF will select the ROM bank to use. only
+the lower 4 bits of this value are used. If the selected bank, after
+shedding th unused bits, is 0x00, then the bank is set to 0x01
+

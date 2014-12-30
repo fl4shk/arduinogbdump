@@ -1,0 +1,44 @@
+MBC5:
+
+
+Specs, the MBC5 memory sizes in short :
+
+   - ROM upto 64MBit (8MByte) divided into 512 banks, each 16kByte.
+   - RAM upto 1MBit (128kByte) divided into 16 banks, each 8kByte
+ 
+
+    Memory map for the MBC5/CPLD
+
+ MBC5 memory bank switching is obtained by writing the high order adress mask for the
+ memory space in question into latches memorymapped into the normal ROM adresses space
+ as given in the following list.
+
+ -----------------------------------------------------------------------------------------    0x5000
+ RAM Bank Register (RAMB)
+ Switchable RAM bank select (4 AA bits)
+ XXXX BBBB
+ -----------------------------------------------------------------------------------------    0x4000
+ Upper ROM Bank Register (ROMB1)
+ Switchable ROM bank high select (9th RA bit)
+ XXXX XXXH
+ -----------------------------------------------------------------------------------------    0x3000
+ Lower ROM Bank Register (ROMB0)
+ Switchable ROM bank low select (First 8 RA bits)
+ LLLL LLLL
+ -----------------------------------------------------------------------------------------    0x2000
+ External Extended Memory Register (RAMG)
+ (This is ram enable on original MBC5 with 0x0A) 
+    7  6  5  4  3  2  1  0
+     |  |              |
+     |  |           1 = RAM write enable
+     |  |           0 = RAM write inhibit
+     |  |
+     |  1 = LED on
+     |  0 = LED off
+     |
+    1 = IO enable
+    0 = IO disable
+ -----------------------------------------------------------------------------------------    0x0000
+
+After reset : RAMB = bank 0, ROMBx = bank 0, RAMG = 0, LED off and i/o disabled.
+  

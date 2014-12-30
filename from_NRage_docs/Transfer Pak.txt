@@ -1,0 +1,16 @@
+This is all the information I was able to decode from Transfer Pak captures.
+
+Writes:
+
+Addresses C000-FFFF access the GB cart. The actual address written is calculated by gbAddress = (dwAddress & 0x3FFF) | ((TPakCurrentBank & 3) * 0x4000)
+Addresses 8000-8FFF is used to set some flags on the TPak. It's not known what bits mean what, but it is used to enable/disable the GB cart and some spects of the TPak.
+Addresses A000-AFFF is used to set the current TPak bank. This is used when reading/writing the GB Cart.
+Addresses B000-BFFF is used to set some access mode of some sort. It's not known what this is used for.
+
+Reads:
+
+Addresses 8000-8FFF is used to query the enable state. 1 = enabled, 0 = disabled.
+Addresses B000-BFFF is used to query the cart enable state:
+	Returns 0x89 when access mode = 1, 0x80 when mode = 0
+	Sets bit 2 of the first return value if the access mode was recently changed. Will not set bit 2 again untill access mode is changed again.
+Addresses C000-FFFF is used to read the GB Cart. See whe Writes section to find out how to derive the GB Cart address.

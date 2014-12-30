@@ -1,0 +1,805 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html><head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.72 [en] (Win98; I) [Netscape]">
+   <meta name="Author" content="Claus Bjerre Pedersen">
+   <meta name="KeyWords" content="gameboy,gb,mbc,mbc5,mbc-5,CPLD,XILINX,X9572,hardware,hw,memory,controller,io">
+   <meta name="Description" content="(subpage to) Design of a MBC5 like memory controller for the GameBoy in a Xilinx X9572 CPLD."><title>MBC5CPLD for the GameBoy</title></head>
+
+<body alink="#ff0000" bgcolor="#c0f8ba" link="#0000ee" text="#000000" vlink="#551a8b">
+<a name="MBC5CPLD_TOP"></a>
+<table bgcolor="#3366ff" cols="1" width="100%">
+<tbody><tr>
+<td>
+<center><font face="Arial Black"><font color="#ffffff"><font size="+2"> 
+</font></font></font><font face="Arial Narrow"><font size="+3">MBC5/CPLD
+for the GameBoy</font></font>
+<br><i><font face="Arial Narrow"><font size="+2">Design of a MBC5 like memory
+controller for the</font></font></i>
+<br><i><font face="Arial Narrow"><font size="+2">GameBoy implemented in a
+Xilinx XC9572 CPLD.</font></font></i></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center><b><font face="Arial Narrow"><font size="-2">Last updated 19 sep
+2000 <a name="Contents"></a></font><font size="+4">CPLD design </font></font></b></center>
+</td>
+</tr>
+</tbody></table>
+
+<p><b><font face="Arial Narrow"><font color="#ff0000"><font size="+2">Contents
+:</font></font></font></b>
+</p><p><font face="Arial Narrow">  <b>MBC5/CPLD</b></font>
+<table cellspacing="0" width="800">
+<tbody><tr>
+<td width="10%"></td>
+
+<td width="25%"><font face="Arial Narrow"><a href="#Functional_description">Introduction</a></font></td>
+
+<td width="65%"><font face="Arial Narrow">Any kind of information not fitting
+elsewhere.</font></td>
+</tr>
+</tbody></table>
+<font face="Arial Narrow"> <b>CPLD design</b></font>
+<table cellspacing="0" width="800">
+<tbody><tr>
+<td width="10%"></td>
+
+<td width="25%"><font face="Arial Narrow"><a href="#XC9572">The XC9572
+CPLD</a></font></td>
+
+<td width="65%"><font face="Arial Narrow">Description of the Xilinx CPLD</font></td>
+</tr>
+
+<tr>
+<td width="10%"></td>
+
+<td width="25%"><font face="Arial Narrow"><a href="#IOMemoryMap">I/O memory
+map</a></font></td>
+
+<td width="65%"><font face="Arial Narrow">Non-MBC5 functionality stuffed
+into the CPLD.</font></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td width="25%"><font face="Arial Narrow"><a href="#cpld_schematic">The
+CPLD design schematic</a></font></td>
+
+<td width="65%"><font face="Arial Narrow">An attempt to reverse engineer
+the MBC5</font></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td width="25%"><font face="Arial Narrow"><a href="#Simulatorscreenshots">Simulator
+screenshots </a></font></td>
+
+<td width="65%"><font face="Arial Narrow">Included here for the curious
+minds. These are part of the design verification.</font></td>
+</tr>
+</tbody></table>
+<font face="Arial Narrow">  <b>Gameboy basics</b> :</font>
+<table cellspacing="0" width="800">
+<tbody><tr>
+<td width="10%"></td>
+
+<td width="25%"><font face="Arial Narrow"><a href="#BusTiming">Control
+bus Signals &amp; Timing</a></font></td>
+
+<td width="65%"><font face="Arial Narrow">The read, the write etc...</font></td>
+</tr>
+
+<tr>
+<td width="10%"></td>
+
+<td width="25%"><font face="Arial Narrow"><a href="#gameboymemorymap">Gameboy
+memory map</a></font></td>
+
+<td width="65%"><font face="Arial Narrow">Including the external memory
+banks.</font></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td width="25%"><font face="Arial Narrow"><a href="#MBC5memorymap">MBC5</a></font></td>
+
+<td width="65%"><font face="Arial Narrow">Specs, bank switching memory
+map &amp; programming.</font></td>
+</tr>
+</tbody></table>
+<font face="Arial Narrow">  <b>Project pages</b> :</font>
+<table cellspacing="0" width="800">
+<tbody><tr>
+<td></td>
+
+<td width="25%"><font face="Arial Narrow"><a href="http://home1.stofanet.dk/hvaba/gameboy/mbc5cpld/index.html">Index page</a></font></td>
+
+<td width="65%"><font face="Arial Narrow">Main index</font></td>
+</tr>
+</tbody></table>
+<font face="Arial Narrow">  <b>Links section</b> :</font>
+<table cellspacing="0" width="800">
+<tbody><tr>
+<td width="10%"></td>
+
+<td width="25%"><font face="Arial Narrow"><a href="#DOWNLOADS">Downloads</a></font></td>
+
+<td width="65%"></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td><font face="Arial Narrow"><a href="#LINKS%20SECTION">Links &amp; Credits</a></font></td>
+
+<td></td>
+</tr>
+
+<tr>
+<td></td>
+
+<td></td>
+
+<td></td>
+</tr>
+</tbody></table>
+
+<br> 
+<br> 
+<br> 
+<br> 
+</p><p><a name="Functional_description"></a>
+<br> 
+<table bgcolor="#3366ff" cols="1" width="100%">
+<tbody><tr>
+<td><font face="Arial Black"><font color="#ffffff"><font size="+2">  
+MBC5/CPLD INTRODUCTION</font></font></font></td>
+</tr>
+</tbody></table>
+
+</p><div align="right"><i><font face="Arial Narrow">Back to  <a href="#Contents">Contents</a></font></i></div>
+
+<p><br><font face="Arial Narrow"><font size="+2">What's here ?</font> and
+what's not...</font>
+<br><font face="Arial Narrow">On this page you'll basically find what i
+needed of information before and during the implementation of</font>
+<br><font face="Arial Narrow">the CPLD design schematic. The page layout
+probably resembles what could be found in a paper</font>
+<br><font face="Arial Narrow">notebook, but thats the way i used this page
+myself.</font>
+<br><font face="Arial Narrow">As a consequence, a lot of information is
+very likely not included here, either because i didn't need</font>
+<br><font face="Arial Narrow">to have it written down, or because it were
+just as easy to get on the internet. You are welcome to ask</font>
+<br><font face="Arial Narrow">questions though :-)</font>
+</p><p><font face="Arial Narrow">Use the 'contents' list below as the base
+for reading on. This page does not pretend to be user friendly,</font>
+<br><font face="Arial Narrow">so go wild here....</font>
+<br><font face="Arial Narrow">If you are unfamiliar with the Gameboy HW
+&amp; SW, and want to know more, then i recommend the links section (!)</font>
+</p><p><font face="Arial Narrow"><font size="+2">GAMEBOY and/or GBC ?</font></font>
+<br><font face="Arial Narrow">The gameboy referenced on this page is my
+Pocket Gameboy which can be regarded as a first generation</font>
+<br><font face="Arial Narrow">gameboy running of 4MHz. I have no experience
+with a second generation color gameboy (4/ 8 MHz) and</font>
+<br><font face="Arial Narrow">none of the information here intend to cover
+the GBC at all.</font>
+<br><font face="Arial Narrow">Yet.</font>
+</p><p><font face="Arial Narrow"><font size="+2">MBC5 incompabilities in short</font></font>
+<br><font face="Arial Narrow">The CPLD design incorporates a complete MBC5
+functional block, and can replace a original MBC5 controller in</font>
+<br><font face="Arial Narrow">all respects,</font>
+<br><font face="Arial Narrow">- exept when writing to the RAMG (RAM enable/disable)
+register which now includes additional functionality (see below).</font>
+<br><font face="Arial Narrow">- exept that the ROM chip enable must be
+taken from the CPLD <b><i>ROM_CE</i></b> output instead of <b>A15</b> if
+I/O is used, as the I/O</font>
+<br><font face="Arial Narrow">steals memory cells from ROM space.</font>
+</p><p><font face="Arial Narrow"><font size="+2">I/O</font></font>
+<br><font face="Arial Narrow">The CPLD have 25 pins left over from the
+MBC5 emulation, and these pins are thus available for I/O. The current
+layout</font>
+<br><font face="Arial Narrow">is :</font>
+<br><font face="Arial Narrow">    <b><i>24 bits</i></b>
+I/O from a total of 16 possible memory adresses. The actual layout is determined
+when the</font>
+<br><font face="Arial Narrow">    CPLD programming file
+is generated together with a given I/O block defining memorymap and I/O
+registers.</font>
+<br><font face="Arial Narrow">    With the XC9572 CPLD there
+is very limited room for sophisticated I/O functionalities once the MBC5
+part is</font>
+<br><font face="Arial Narrow">    in place.</font>
+<br><font face="Arial Narrow">    <b><i>LED </i></b>
+Controlled from RAMG register. Visual debug/trap/i'm alive indicator.</font>
+</p><p><font face="Arial Narrow">It would be trivial to expand the memory capabilities
+beyond the native MBC5 limits of 8MByte/128kByte for</font>
+<br><font face="Arial Narrow">ROM respectively RAM sizes, but it isn't
+implemented at present. The cost would be an I/O pin for each</font>
+<br><font face="Arial Narrow">two-fold increase in either of the memory
+spaces.</font>
+</p><p><font face="Arial Narrow"><font size="+2">POWER</font></font>
+<br><font face="Arial Narrow">Approx. 70 mA. It would be nice if it were
+possible to power the CPLD down, but it would be at the expense</font>
+<br><font face="Arial Narrow">of some strange logic levels at the output
+ports.</font>
+<br><font face="Arial Narrow">Never mind, lets say the whole thing is not
+very suited for normal battery usage for the time being...</font>
+<br> 
+</p><p><a name="XC9572"></a>
+<br> 
+<table bgcolor="#3366ff" cols="1" width="100%">
+<tbody><tr>
+<td><font face="Arial Black"><font color="#ffffff"><font size="+2">  
+CPLD DESIGN  -  THE XC9572 CPLD</font></font></font></td>
+</tr>
+</tbody></table>
+
+</p><div align="right"><i><font face="Arial Narrow">Back to  <a href="#Contents">Contents</a></font></i></div>
+<b><font face="Arial Narrow"><font color="#ff0000"><font size="+2">The XC9572
+CPLD</font></font></font></b>
+<p><font face="Arial Narrow">The XC9572 is an ISP (in system programmable)
+CPLD chip housed in a a 84pin PLCC package.</font>
+<br><font face="Arial Narrow">Pros and cons : Sucks a lot of juice and
+makes glue logic design a complete thrill.</font>
+<br><font face="Arial Narrow">See <a href="http://home1.stofanet.dk/hvaba/gameboy/mbc5cpld/mbc5cpld.html#LINKS%20SECTION">Links
+&amp; Credits</a> for a link to the Xilinx website containing the XC9572.</font>
+</p><p><b><font face="Arial Narrow"><font size="+1">ISP, in-system programming</font></font></b>
+<br><font face="Arial Narrow">The ISP is done via an JTAG (boundary scan)
+interface. To build an simple JTAG interface yourself</font>
+<br><font face="Arial Narrow">see Andrew March in the links section. He
+has a page dedicated to a simple PC parallel port JTAG</font>
+<br><font face="Arial Narrow">interface, software as well as hardware.</font>
+</p><p><font face="Arial Narrow">Enough of that.</font>
+<br> 
+<br> 
+</p><p><a name="IOMemoryMap"></a>
+<br> 
+<table bgcolor="#3366ff" cols="1" width="100%">
+<tbody><tr>
+<td><font face="Arial Black"><font color="#ffffff"><font size="+2">  
+CPLD DESIGN  -  I/O MEMORY MAP</font></font></font></td>
+</tr>
+</tbody></table>
+
+</p><div align="right"><i><font face="Arial Narrow">Back to <a href="#Contents">Contents</a></font></i></div>
+<font face="Arial Narrow">A total of 16 adresses, 0x7FF0 to 0x7FFF, are
+allocated for i/o at the end/top of the switchable ROM bank.</font>
+<br><font face="Arial Narrow">The active low CPLD pin <b><i>IO_CE</i></b>
+are asserted whenever there is read or write to any of these 16 adresses</font>
+<br><font face="Arial Narrow">when i/o is enabled via the RAMG register.
+If a given i/o cell in the i/o memory map per definition is either</font>
+<br><font face="Arial Narrow">output or input, then the <b><i>IO_CE</i></b>
+can be used instead of <b><i>RD</i></b> and <b><i>WR</i></b> signals once
+the adress is decoded.</font>
+<p><font face="Arial Narrow">The CPLD chip have 24 pins free for i/o in
+the basic design here, how they are used can easily be</font>
+<br><font face="Arial Narrow">modified given a specific application. So
+far a basic layout with three byte-wide i/o ports are tested.</font>
+<br> 
+<br> 
+<table border="1" cols="3" width="600">
+<tbody><tr>
+<td><b><font face="Arial Narrow"><font size="+2">I/O Configuration 1</font></font></b></td>
+
+<td><b><font face="Arial Narrow">WRITE - Output ports and CPLD register(s)</font></b></td>
+
+<td><b><font face="Arial Narrow">READ - Input ports</font></b></td>
+</tr>
+
+<tr>
+<td><font face="Arial Narrow">0x7FF3 - 0x7FFF</font></td>
+
+<td><font face="Arial Narrow">Free</font></td>
+
+<td><font face="Arial Narrow">Free</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial Narrow">0x7FF2</font></td>
+
+<td><font face="Arial Narrow">PORTB B[7:0]</font></td>
+
+<td><font face="Arial Narrow">PORTC C[7:0]</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial Narrow">0x7FF1</font></td>
+
+<td><font face="Arial Narrow">PORTA DDR (Note1)</font></td>
+
+<td><font face="Arial Narrow">Free</font></td>
+</tr>
+
+<tr>
+<td><font face="Arial Narrow">0x7FF0 </font></td>
+
+<td><font face="Arial Narrow">PORTA A[3:0] if enabled via DDR (Note2)</font></td>
+
+<td><font face="Arial Narrow">PORTA A[7:0]</font></td>
+</tr>
+</tbody></table>
+
+</p><p><font face="Arial Narrow">Three 8bit ports occupy 3 of the 16 i/o adresses,
+all nescessary decoding</font>
+<br><font face="Arial Narrow">of the internal i/o registers are housed
+in the CPLD.</font>
+<br> 
+<br> 
+</p><p><font face="Arial Narrow">Note1</font>
+<br><font face="Arial Narrow">PORTA DDR, data direction register for PORTA[3:0}:</font>
+<br><font face="Arial Narrow">DDR[0] = 1  PORTA[3:0] are outputs.
+(They will be present in a PORTA read)</font>
+<br><font face="Arial Narrow">DDR[0] = 0  PORTA[3:0] are inputs.</font>
+</p><p><font face="Arial Narrow">Note2</font>
+<br><font face="Arial Narrow">Data written to port A are always latched
+internally in the CPLD. The DDR[0] bit only determines</font>
+<br><font face="Arial Narrow">the PORTA[3:0] direction.</font>
+</p><p><a name="cpld_schematic"></a>
+<br> 
+<table bgcolor="#3366ff" cols="1" width="100%">
+<tbody><tr>
+<td><font face="Arial Black"><font color="#ffffff"><font size="+2">  
+CPLD DESIGN  -  SCHEMATIC</font></font></font></td>
+</tr>
+</tbody></table>
+
+</p><div align="right"><i><font face="Arial Narrow">Back to  <a href="#Contents">Contents</a></font></i></div>
+
+<p><br><font face="Arial Narrow">The CPLD JTAG programming file is generated
+from a standard looking electronics schematic</font>
+<br><font face="Arial Narrow">drawing made in the Xilinx Foundation software
+package.</font>
+</p><p><font face="Arial Narrow">There are two major parts, emulation of the
+original MBC5 chip and i/o. There is no textual</font>
+<br><font face="Arial Narrow">description here of the functionalities that
+makes up a MBC5, and the same goes for the</font>
+<br><font face="Arial Narrow">implementation of the i/o. You will have
+to dig all out for yourself from the chapters below</font>
+<br><font face="Arial Narrow">and from browsing through the references.</font>
+</p><p><b><font face="Arial Narrow"><font size="+1">Xilinx mbc5/cpld schematic.</font></font></b>
+<br><font face="Arial Narrow">See downloads section for a readable postscript
+file of the schematic. The gates and registers</font>
+<br><font face="Arial Narrow">which can be identified below are all part
+of the MBC5 emulation, the I/0 resides in a modular</font>
+<br><font face="Arial Narrow">macro block (lower right corner).</font>
+</p><p><img src="mbc5cpld_files/cpldsche.gif" border="2" height="414" width="543">
+<br> 
+<br> 
+<br> 
+</p><p><a name="Simulatorscreenshots"></a>
+<br> 
+<table bgcolor="#3366ff" cols="1" width="100%">
+<tbody><tr>
+<td><font face="Arial Black"><font color="#ffffff"><font size="+2">  
+CPLD DESIGN  -   SIMULATOR SCREENSHOTS</font></font></font></td>
+</tr>
+</tbody></table>
+
+</p><div align="right"><i><font face="Arial Narrow">Back to  <a href="#Contents">Contents</a></font></i></div>
+<font face="Arial Narrow">These screenshots are screendumps from the logic
+simulator part / waveform viewer of the Xilinx Foundation package.</font>
+<br><font face="Arial Narrow">Note that the graphs imply an machine cycle
+(instruction) time of 1000ns for clarity, the actual 1/(Fosc/4) will be
+slightly less.</font>
+<br><font face="Arial Narrow">For simplicity the graphs assume that the
+processor uses 4 T states for all the generic read/write operations used.
+This</font>
+<br><font face="Arial Narrow">is not a real life situation.</font>
+<br><font face="Arial Narrow">Internal signals burried in the CPLD have
+a leading "CPLD_".</font>
+<br><font face="Arial Narrow">The adress value of 0x8000 in the first 1/4
+of the machine cycle is the gameboy way of avoiding bus conflicts...</font>
+<br> 
+<p><b><font face="Arial Narrow"><font size="+2">Simulator Screenshot #1</font></font></b>
+<br><b><font face="Arial Narrow"><font size="+1">Defining switchable rom
+bank and reads from fixed and switchable banks :</font></font></b>
+<br><font face="Arial Narrow">Initial state is reset.</font>
+<br><font face="Arial Narrow">Cycle 1 :  <b><font size="+1">Set switchable
+bank</font></b>  : ROMB0 is set to 0x12 with a write into 0x4000.
+ROMB1 is not programmed and contains 0x00 from the initial reset.</font>
+<br><font face="Arial Narrow">Cycle 2 :  <b><font size="+1">Read fixed</font></b>  
+: A ROM read from fixed ROM bank 0x0000 - the resulting adress is 0x 0
+0000 0000.</font>
+<br><font face="Arial Narrow">Cycle 3 :  <b><font size="+1">Read switchable</font></b> 
+: A ROM read from switchable ROM bank 0x4000 - the flash rom adress uses
+RA = 0x12</font>
+<br><font face="Arial Narrow">Output :    ROM read @ 1.25
+us uses a RA = 0x000 but the one @ 2.25 us uses a RA = 0x012</font>
+</p><p><img src="mbc5cpld_files/sim_rom.gif" border="2" height="201" width="967">
+<br><i><font face="Arial Narrow">Figure Simulator Screenshot #1   
+(rom_bank)</font></i>
+</p><p><b><font face="Arial Narrow"><font size="+2">Simulator Screenshot #2</font></font></b>
+<br><b><font face="Arial Narrow"><font size="+1">A write to port A after
+initial setups : (I/O configuration #1)</font></font></b>
+<br><font face="Arial Narrow">Initial state is reset.</font>
+<br><font face="Arial Narrow">Cycle 1 :  <b><font size="+1">I/O Enable
+</font></b>I/O
+space is enabled in upper part of switchable ROM bank with a write setting
+RAMG[7] = 1    (Data 0x80 latched at 820us)</font>
+<br><font face="Arial Narrow">Cycle 2 :  <b><font size="+1">DDR = output</font></b>
+A write to port A DDR at 0x7FF1 with 0x01. Output is low from reset. (Data
+0x01 latched at 1.82us)</font>
+<br><font face="Arial Narrow">Cycle 3 :  <b><font size="+1">Port A write
+</font></b>A
+write to port A at 0x7FF0 with 0x34. (Data 0x34 latched at 2.82us)</font>
+<br><font face="Arial Narrow">Output :   Port A outputs a 0xZ4
+as A[7:4] are always inputs.</font>
+</p><p><img src="mbc5cpld_files/sim_i4o4.gif" border="2" height="217" width="966">
+<br><i><font face="Arial Narrow">Figure Simulator Screenshot #2   
+(i4o4_enable_outputs_wr)</font></i>
+<br> 
+<br> 
+</p><p><a name="BusTiming"></a>
+<br> 
+<table bgcolor="#3366ff" cols="1" width="100%">
+<tbody><tr>
+<td><font face="Arial Black"><font color="#ffffff"><font size="+2">  
+GAMEBOY  -  CONTROL BUS SIGNALS</font></font></font></td>
+</tr>
+</tbody></table>
+
+</p><div align="right"><i><font face="Arial Narrow">Back to  <a href="#Contents">Contents</a></font></i></div>
+<font face="Arial Narrow">These are the control signals available on the
+cartridge connector. Basically i have read</font>
+<br><font face="Arial Narrow">other peoples findings and then done some
+probing to verify/clarify the descriptions for myself.</font>
+<br><font face="Arial Narrow">I have used my old and un-trustworthy analog
+20MHz scope for my measurements, so</font>
+<br><font face="Arial Narrow">don't beleave any of the numbers below :-)</font>
+<p><font face="Arial Narrow">Name     Cartridge pin       
+MBC5 pin</font>
+<br>
+</p><hr align="left" size="1" width="300">
+<br><b><font face="Arial Narrow">WR       
+Pin 3                  
+?</font></b>
+<br><font face="Arial Narrow">Write enable. Straight standard no-nonsense
+active low write pulse.</font>
+<p><b><font face="Arial Narrow">RD        
+Pin 4                  
+?</font></b>
+<br><font face="Arial Narrow">Read enable. Bizarre i-comb-my-hair-with-a-machine-gun
+non-standard normally low signal.</font>
+<br><font face="Arial Narrow">Only enters high state in write cycles. It
+goes high after approx. 150ns. from machine cycle start</font>
+<br><font face="Arial Narrow">and it remains here 20-30 ns into the following
+machine cycle.</font>
+<br><font face="Arial Narrow">The apparent result from a low <b>RD</b>
+signal would normally be spurios reads from the RAM and/or</font>
+<br><font face="Arial Narrow">flash-ROM chips whenever there wasn't a write
+cycle in progress. Two signals make the setup</font>
+<br><font face="Arial Narrow">work properly anyway, and that is the <b>A15</b>
+line and the <b>CS</b> signal.</font>
+<br><font face="Arial Narrow">The <b>A15</b> line always enters high state
+during the first part of a machine cycle which inhibits the</font>
+<br><font face="Arial Narrow">ROM space in the lower 32k of the memory
+map and selects the RAM memory space.</font>
+<br><font face="Arial Narrow">The happy news is that the RAM chip enable
+(generated in the CPLD) uses the processor</font>
+<br><font face="Arial Narrow"><b>CS</b> signal, which like the <b>A15</b>
+line are valid longer than it takes the micro to decide if it is going</font>
+<br><font face="Arial Narrow">to make a read or a write. The last thing
+to note is that the <b>A15</b> line is the last adress line to</font>
+<br><font face="Arial Narrow">change, that is the remainder of the adressbus
+is valid before ROM would be selected by a low</font>
+<br><font face="Arial Narrow"><b>A15</b>. (The adress bus actually seems
+to be 10000000 XXXXXXXX at each machine cycle start)</font>
+</p><p><b><font face="Arial Narrow">CS      
+Pin 5                  
+?</font></b>
+<br><font face="Arial Narrow">Ram chip select. Also seen labeled <b>MREQ</b>
+&amp; <b>RCS</b>. Active low pulse on read &amp; write access to both the</font>
+<br><font face="Arial Narrow">fixed (GB internal 0xC000-0xDFFF) and switchable
+(on cart, 0xA000-0xBFFF) RAM banks.</font>
+<br><font face="Arial Narrow">Apparently a mirror of internal RAM is selected
+at 0xE000-0xDDFF ?</font>
+<br><font face="Arial Narrow">Hooked directly to CS for the internal 8
+kByte RAM.</font>
+<br><font face="Arial Narrow">Machine cycle start to <b>CS</b> is 220ns.</font>
+</p><p><b><font face="Arial Narrow">CLK      Pin 2                  
+N/A</font></b>
+<br><font face="Arial Narrow">Fosc/4 clock output (hi/lo). Note that <b>CLK</b>
+is disabled (high level) while the micro is in HALT state (to save power).</font>
+<br><font face="Arial Narrow">(On my game this gives a very distinct look
+with a 'square' signal consisting of a first part with the CLK running</font>
+<br><font face="Arial Narrow">and then a idle part with the micro HALT'ed.
+The period is 17ms, or 59 Hz, which equals the video V-blank intr.)</font>
+<br><font face="Arial Narrow"><b>CLK</b> logical OR'ed with the <b>RD</b>
+signal can fix the <b>RD</b> signal to make it behave like a descent normally</font>
+<br><font face="Arial Narrow">high level / active low control line. (like
+<b>WR</b>).
+<b>CLK</b>
+is not used for bus timing here.</font>
+</p><p><font face="Arial Narrow"><font size="+2">Z80 clock vocabulary</font></font>
+<br><font face="Arial Narrow">The original Z80 processor instructions consisted
+of 1 to 5 machine cycles, each made up of 3,4 or 5</font>
+<br><font face="Arial Narrow">T-states which again equaled the processor
+clock.</font>
+</p><p><font face="Arial Narrow">Instructions on the gameboy Z80 derivative
+consists of 1,2 or 3 machine cycles, each made up of exactly 4</font>
+<br><font face="Arial Narrow">T-states which again equals the processor
+clock. The <b>CLK</b> output can therefore be regarded as a machine</font>
+<br><font face="Arial Narrow">cycle clock... This is my version and i'll
+stick to it untill somebody convince me otherwise :-)</font>
+<br> 
+<br> 
+</p><p><a name="gameboymemorymap"></a>
+<br> 
+<table bgcolor="#3366ff" cols="1" width="100%">
+<tbody><tr>
+<td><font face="Arial Black"><font color="#ffffff"><font size="+2">  
+GAMEBOY  -  MEMORY MAP</font></font></font></td>
+</tr>
+</tbody></table>
+
+</p><div align="right"><i><font face="Arial Narrow">Back to <a href="#Contents">Contents</a></font></i></div>
+<font face="Arial Narrow">  This table lists the entire 64kByte adress
+space the gameboy processor can access.</font>
+<br><font face="Arial Narrow">  In short the layout is ROM in lower
+32 kByte, then 16 kByte of RAM and up at the top</font>
+<br><font face="Arial Narrow">  comes internal registers.</font>
+<p><font size="+1">  <b><font face="Arial Narrow">Description                                                                     
+Hex                 
+Binary</font></b></font>
+</p><p><font face="Arial Narrow">  Interrupt Enable Register</font>
+<br><font face="Arial Narrow">-----------------------------------------------------------------------------------------   
+FFFF</font>
+<br><font face="Arial Narrow">  Internal RAM</font>
+<br><font face="Arial Narrow">-----------------------------------------------------------------------------------------   
+FF80</font>
+<br><font face="Arial Narrow">  Empty but unusable for I/O</font>
+<br><font face="Arial Narrow">-----------------------------------------------------------------------------------------  
+FF4C</font>
+<br><font face="Arial Narrow">  I/O ports</font>
+<br><font face="Arial Narrow">-----------------------------------------------------------------------------------------   
+FF00</font>
+<br><font face="Arial Narrow">  Empty but unusable for I/O</font>
+<br><font face="Arial Narrow">-----------------------------------------------------------------------------------------   
+FEA0</font>
+<br><font face="Arial Narrow">  Sprite Attrib Memory (OAM)</font>
+<br><font face="Arial Narrow">-----------------------------------------------------------------------------------------   
+FE00</font>
+<br><font face="Arial Narrow">  Partial echo of 8kByte Internal RAM
+(1)</font>
+<br><font face="Arial Narrow">-----------------------------------------------------------------------------------------   
+E000    </font><font face="Courier New,Courier">11100000
+00000000</font>
+<br><font face="Arial Narrow">  8kByte Internal RAM</font>
+<br><font face="Arial Narrow">-----------------------------------------------------------------------------------------   
+C000    </font><font face="Courier New,Courier">11000000
+00000000</font>
+<br><font face="Arial Narrow">  8kByte switchable RAM bank (Latched
+via MBC5 pins "AA")</font>
+<br><font face="Arial Narrow">  This is 17 bit wide in order to access
+1MBit.</font>
+<br><font face="Courier New,Courier"> B BBBAAAAA AAAAAAAA</font>
+<br><font face="Arial Narrow">-----------------------------------------------------------------------------------------   
+A000    </font><font face="Courier New,Courier">10100000
+00000000</font>
+<br><font face="Arial Narrow">  8kByte Video RAM</font>
+<br><font face="Arial Narrow">-----------------------------------------------------------------------------------------   
+8000     </font><font face="Courier New,Courier">10000000
+00000000</font>
+<br><font face="Arial Narrow">  16kByte switchable ROM bank (Latched
+to MBC5 pins "RA")</font>
+<br><font face="Arial Narrow">  Bank 0-511 (The 0 bank here is a MBC5
+speciality)</font>
+<br><font face="Arial Narrow">  </font><font face="Courier New,Courier">HLLLLLL
+LLAAAAAA AAAAAAAA</font><font face="Arial Narrow"> (64MBit)</font>
+<br><font face="Arial Narrow">  (i/o resides in this bank, see below)</font>
+<br><font face="Arial Narrow">-----------------------------------------------------------------------------------------   
+4000</font>
+<br><font face="Arial Narrow">  16kByte ROM</font>
+<br><font face="Arial Narrow">  Bank 0</font>
+<br><font face="Arial Narrow">-----------------------------------------------------------------------------------------   
+0000</font>
+</p><p><font face="Arial Narrow"> This table is extracted from Pan doc
+(rev 12-Mar-98)</font>
+</p><p><font face="Arial Narrow">(1) The internal RAM uses A14 = 1 for CE (and
+CS for /CE).</font>
+</p><p><font face="Arial Narrow"> Where :</font>
+<br><font face="Arial Narrow"> B : RAMB -    
+MBC5 RAM bank select bits</font>
+<br><font face="Arial Narrow"> H : ROMB1 - MBC5 ROM high bank select
+bits</font>
+<br><font face="Arial Narrow"> L : ROMB0 -  MBC5 ROM low bank
+select bits</font>
+<br><font face="Arial Narrow"> A : CPU generated adress</font>
+<br> 
+</p><p><a name="MBC5memorymap"></a>
+<br> 
+<table bgcolor="#3366ff" cols="1" width="100%">
+<tbody><tr>
+<td><font face="Arial Black"><font color="#ffffff"><font size="+2">  
+GAMEBOY  -  MBC5</font></font></font></td>
+</tr>
+</tbody></table>
+
+</p><div align="right"><i><font face="Arial Narrow">Back to  <a href="#Contents">Contents</a></font></i></div>
+<font face="Arial Narrow"> Specs, memory map &amp; programming</font>
+<p><font face="Arial Narrow">  <b>The original MBC5</b></font>
+</p><p><font face="Arial Narrow">See Ref 1 for the pin-out of the original
+MBC5 chip.</font>
+<br><font face="Arial Narrow">The total number of signal pins on the original
+MBC5 is 29, 8 bit databus, upper 4 bits of the adress bus,</font>
+<br><font face="Arial Narrow">9 bits for the ROM latch, 4 for the RAM latch
+and 4 controls including reset.</font>
+<br> 
+<br> 
+</p><p><font face="Arial Narrow">  <b> Specs, the MBC5 memory sizes
+in short :</b></font>
+</p><p><font face="Arial Narrow">   - ROM upto 64MBit (8MByte) divided
+into 512 banks, each 16kByte.</font>
+<br><font face="Arial Narrow">   - RAM upto 1MBit (128kByte)
+divided into 16 banks, each 8kByte</font>
+<br> 
+</p><p><font face="Arial Narrow">    M<b>emory map for the MBC5/CPLD</b></font>
+</p><p><font face="Arial Narrow"> MBC5 memory bank switching is obtained
+by writing the high order adress mask for the</font>
+<br><font face="Arial Narrow"> memory space in question into latches
+memorymapped into the normal ROM adresses space</font>
+<br><font face="Arial Narrow"> as given in the following list.</font>
+</p><p><font face="Arial Narrow"> -----------------------------------------------------------------------------------------   
+0x5000</font>
+<br><font face="Arial Narrow"> RAM Bank Register (RAMB)</font>
+<br><font face="Arial Narrow"> Switchable RAM bank select (4 AA bits)</font>
+<br><font face="Arial Narrow"> </font><font face="Courier New,Courier">XXXX
+BBBB</font>
+<br><font face="Arial Narrow"> -----------------------------------------------------------------------------------------   
+0x4000</font>
+<br><font face="Arial Narrow"> Upper ROM Bank Register (ROMB1)</font>
+<br><font face="Arial Narrow"> Switchable ROM bank high select (9th
+RA bit)</font>
+<br><font face="Arial Narrow"> </font><font face="Courier New,Courier">XXXX
+XXXH</font>
+<br><font face="Arial Narrow"> -----------------------------------------------------------------------------------------   
+0x3000</font>
+<br><font face="Arial Narrow"> Lower ROM Bank Register (ROMB0)</font>
+<br><font face="Arial Narrow"> Switchable ROM bank low select (First
+8 RA bits)</font>
+<br><font face="Arial Narrow"> </font><font face="Courier New,Courier">LLLL
+LLLL</font>
+<br><font face="Arial Narrow"> -----------------------------------------------------------------------------------------   
+0x2000</font>
+<br><font face="Arial Narrow"> External Extended Memory Register (RAMG)</font>
+<br><font face="Arial Narrow"> (This is ram enable on original MBC5
+with 0x0A)</font>
+</p><p><b><font face="Courier New,Courier"><font size="-1">    
+7  6  5  4  3  2  1  0</font></font></b>
+<br><font face="Courier New,Courier"><font size="-1">    
+|  |             
+|</font></font>
+<br><font face="Courier New,Courier"><font size="-1">    
+|  |           </font><b>1</b><font size="-1">
+= RAM write enable</font></font>
+<br><font face="Courier New,Courier"><font size="-1">    
+|  |           </font><b>0</b><font size="-1">
+= RAM write inhibit</font></font>
+<br><font face="Courier New,Courier"><font size="-1">    
+|  |</font></font>
+<br><font face="Courier New,Courier"><font size="-1">    
+|  </font><b>1</b><font size="-1"> = LED on</font></font>
+<br><font face="Courier New,Courier"><font size="-1">    
+|  </font><b>0</b><font size="-1"> = LED off</font></font>
+<br><font face="Courier New,Courier"><font size="-1">    
+|</font></font>
+<br><font face="Courier New,Courier"><font size="-1">    </font><b>1</b><font size="-1">
+= IO enable</font></font>
+<br><font face="Courier New,Courier"><font size="-1">    </font><b>0</b><font size="-1">
+= IO disable</font></font>
+<br><font face="Arial Narrow"> -----------------------------------------------------------------------------------------   
+0x0000</font>
+</p><p><font face="Arial Narrow">After reset : RAMB = bank 0, ROMBx = bank
+0, RAMG = 0, LED off and i/o disabled.</font>
+<br> 
+</p><p><font face="Arial Narrow">    <b>Programming, including
+I/O access</b></font>
+</p><p><font face="Arial Narrow">Note that read-back of the bank switching
+registers are impossible, allthough it would have</font>
+<br><font face="Arial Narrow">been a nice opportunity. You'll have to keep
+track yourself without any elegant read-modify-write</font>
+<br><font face="Arial Narrow">instructions.</font>
+</p><p><b><font face="Arial Narrow">C programming  - GBDK</font></b>
+<br><font face="Arial Narrow">See the original GB.H which includes MBC5
+capabilities. Note that this will work fine</font>
+<br><font face="Arial Narrow">with the cpld implementation here (as per
+GBDK v 2.1.0). The RAMG register write</font>
+<br><font face="Arial Narrow">must be modified if you want to include the
+I/O ports, both for the enable/disable switching</font>
+<br><font face="Arial Narrow">and for i/o read and writes. You can use
+this <a href="http://home1.stofanet.dk/hvaba/gameboy/mbc5cpld/mbc5cpld.h">MBC5CPLD.H</a> include file.</font>
+<br><font face="Arial Narrow">Notice that lcc should define the MBC5 controller
+with a 0x1A in cell 0x0147.</font>
+</p><p><b><font face="Arial Narrow">Assembler programming</font></b>
+<br><font face="Arial Narrow">If you can program in assembler you will
+know what to do better than me :-)</font>
+</p><p><b><font face="Arial Narrow">Emulators</font></b>
+<br><font face="Arial Narrow">Obviously there is no emulators with support
+of the cpld i/o so the only real option here is to</font>
+<br><font face="Arial Narrow">use big-bang testing on the real hardware.</font>
+<br><font face="Arial Narrow">There is no emulators with support of the
+full 128kByte ram area.</font>
+<br><font face="Arial Narrow">Perhaps the full 1MByte rom area are supported
+by emulators, i'll have to check that out...</font>
+<br> 
+</p><p><a name="DOWNLOADS"></a>
+<br> 
+<table bgcolor="#3366ff" cols="1" width="100%">
+<tbody><tr>
+<td><font color="#ffffff"><font size="+2"><font face="Arial Narrow"> 
+</font><font face="Arial Black">DOWNLOADS</font></font></font></td>
+</tr>
+</tbody></table>
+
+</p><div align="right"><i><font face="Arial Narrow">Back to  <a href="#Contents">Contents</a></font></i></div>
+<b><font face="Arial Narrow"><font size="+2">Software :</font></font></b>
+<br><font face="Arial Narrow">  The JTAG programming file for the
+CPLD are mailware at present. This means you'll get it if you mail me !</font>
+<br><font face="Arial Narrow">  It is not an attempt to develop a
+god complex, but so far nobody have ever used this thing but me,</font>
+<br><font face="Arial Narrow">  and before anyone tries it, i would
+like to have the possiblity to ensure the pages and downloads are</font>
+<br><font face="Arial Narrow">  up-to-date. And of course in the case
+of hardware newbies, to try and scare them away :-)</font>
+<br> 
+<p><b><font face="Arial Narrow"><font size="+2">Xilinx schematic</font></font></b>
+<br><b><font face="Arial Narrow">MBC5 plots :</font></b>
+<br><font face="Arial Narrow">  MBC5/CPLD plot file (as seen above)
+- postscript file (150kByte) <a href="http://home1.stofanet.dk/hvaba/gameboy/mbc5cpld/sch_cpld.prn">here</a></font>
+<br><font face="Arial Narrow">  Macro : MBC5_BANK_SELECTS in pdf format
+: <a href="http://home1.stofanet.dk/hvaba/gameboy/mbc5cpld/mbc_bank_selects.pdf">mbc5_bank_selects.pdf</a></font><font face="Arial Narrow"></font>
+</p><p><b><font face="Arial Narrow">I/O Macro Subplots :</font></b>
+<br><font face="Arial Narrow">  IO configuration #1 - 4 files zip'ed
+<a href="http://home1.stofanet.dk/hvaba/gameboy/mbc5cpld/macros_1.zip">here</a></font>
+</p><p><a name="LINKS SECTION"></a>
+<br> 
+<table bgcolor="#3366ff" cols="1" width="100%">
+<tbody><tr>
+<td><font face="Arial Black"><font color="#ffffff"><font size="+2">  
+GAMEBOY  -  LINKS &amp; CREDITS</font></font></font></td>
+</tr>
+</tbody></table>
+
+</p><div align="right"><i><font face="Arial Narrow">Back to  <a href="#Contents">Contents</a></font></i></div>
+
+<p><br><b><font face="Arial Narrow"><font size="+2">XILINX</font></font></b>
+</p><p><img src="mbc5cpld_files/bullet5.gif" alt="&#8226;" border="0" height="11" width="15"><font face="Arial Narrow">
+Xilinx product short on the XC9572 at  <a href="http://www.xilinx.com/products/xc9500.htm">http://www.xilinx.com/products/xc9500.htm</a></font>
+<br><img src="mbc5cpld_files/bullet5.gif" alt="&#8226;" border="0" height="11" width="15"><font face="Arial Narrow">
+Xilinx schematic of a parallel port JTAG cable   <a href="http://www.xilinx.com/support/programr/files/0380507.pdf">http://www.xilinx.com/support/programr/files/0380507.pdf</a></font>
+</p><p><b><font face="Arial Narrow"><font size="+2">GAMEBOY</font></font></b>
+</p><p><b><font face="Arial Narrow">     Ref 1. The Number
+One supplier of anything gameboy related, Jeff Frohwein</font></b>
+<br><img src="mbc5cpld_files/bullet5.gif" alt="&#8226;" border="0" height="11" width="15"><font face="Arial Narrow">
+GameBoy Universe Center of Gravity  :  <a href="http://home.hiwaay.net/%7Ejfrohwei/gameboy/">http://home.HiWAAY.net/~jfrohwei/gameboy/</a></font>
+</p><p><b><font face="Arial Narrow">    Other fine people (i
+remember to have ripped)  (you can find them via GameBoy Universe
+Center of Gravity)</font></b>
+<br><img src="mbc5cpld_files/bullet5.gif" alt="&#8226;" border="0" height="11" width="15"><font face="Arial Narrow">
+Pan (the tech paper no 1) :</font>
+<br><img src="mbc5cpld_files/bullet5.gif" alt="&#8226;" border="0" height="11" width="15"><font face="Arial Narrow">
+Andrew March (where i first saw the Xilinx CPLD) : <a href="http://www.icenet.com.au/%7Eamarch/">http://www.icenet.com.au/~amarch/</a></font>
+<br><img src="mbc5cpld_files/bullet5.gif" alt="&#8226;" border="0" height="11" width="15"><font face="Arial Narrow">
+Kashi (bus timings) :    <a href="http://www.keisei.tsukuba.ac.jp/%7Ekashima/games/gbread2e.html">http://www.keisei.tsukuba.ac.jp/~kashima/games/gbread2e.html</a></font>
+<br><img src="mbc5cpld_files/bullet5.gif" alt="&#8226;" border="0" height="11" width="15"><font face="Arial Narrow">
+The Karlsruhe project, Marc Rawer :  <a href="http://www.fh-karlsruhe.de/fbnw/html/Gameboy/">http://www.fh-karlsruhe.de/fbnw/html/Gameboy/</a></font>
+</p><p><b><font face="Arial Narrow">     People i forgot
+i have ripped...</font></b>
+<br><img src="mbc5cpld_files/bullet5.gif" alt="&#8226;" border="0" height="11" width="15"><font face="Arial Narrow">
+Thanks to you too :-)  And please tell me...</font>
+</p><p><b><font face="Arial Narrow">     People i didn't
+rip (but having related sites)</font></b>
+<br><img src="mbc5cpld_files/bullet5.gif" alt="&#8226;" border="0" height="11" width="15"><font face="Arial Narrow">
+Lukas ? An MBC in a Phillips PAL. <a href="http://pc1-archbo.bot.unibas.ch/%7Elukas/GBprojects/mbc.html">http://pc1-archbo.bot.unibas.ch/~lukas/GBprojects/mbc.html</a></font>
+<br><img src="mbc5cpld_files/bullet5.gif" alt="&#8226;" border="0" height="11" width="15"><font face="Arial Narrow">
+The Z80 processor, check out <a href="http://www.geocities.com/SiliconValley/Peaks/3938/z80_home.htm">http://www.geocities.com/SiliconValley/Peaks/3938/z80_home.htm</a></font>
+</p><p>
+</p><hr>
+</body></html>

@@ -1,0 +1,19 @@
+Please note, that this document describes reading/writing on the actual cartridge, disregarding all internal gameboy architecture.
+
+Writing a value to 0x2000-0x3FFF will set the current selected ROM bank. This bank is located at 0x4000-0x7FFF. Also, when bank 0 is selected, it is remapped to be bank 1. Bank 1 is the default selection.
+
+When selecting the ROM bank, if you specify a bank number >= 0x40, the number will roll back to 0x00
+
+
+Writing a value to 0x4000-0x5FFF will set the current RAM bank, accessable at 0xA000-0xBFFF. if a value >= 0x04 is given, the value will cycle back to 0x00. Bank 0 is the default selection.
+
+Memory Map:
+0x0000-0x3FFF = ROM Bank 0, unswitchable
+  0x0000-0x1FFF (Write) = RAM Bank Write Enable (0x0A = Enable, 0x00 = Disable)
+  0x2000-0x3FFF (Write) = ROM Bank Select (0x00-0x3F)
+0x4000-0x7FFF = ROM Bank X, switchable
+  0x4000-0x5FFF (Write) = RAM Bank Select (0x00-0x03)
+  0x6000-0x7FFF (Write) = Counter Latch (0x00=unlatch, 0x01=latch)
+0x8000-0x9FFF = Memory hole (returns 0x00)
+0xA000-0xBFFF = Cartridge RAM, switchable
+0xC000-0xFFFF = Memory hole (returns 0x00)
