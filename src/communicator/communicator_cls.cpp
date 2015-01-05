@@ -28,19 +28,101 @@ using namespace std;
 #include "communicator_cls.hpp"
 
 
-communicator::communicator ( int s_fd, const string& s_of_name, 
-	const string& s_if_name )
-	:  fd (s_fd), of_name (s_of_name), if_name (s_if_name)
+communicator::communicator ( int argc, char** argv )
 {
-	if ( of_name != "" )
+	//if ( of_name != "" )
+	//{
+	//	ofile.open ( of_name, ios_base::out | ios_base::binary );
+	//}
+	//
+	//if ( if_name != "" )
+	//{
+	//	ifile.open ( if_name, ios_base::in | ios_base::binary );
+	//}
+	
+	fd = open ( argv [1], O_RDWR | O_NOCTTY | O_NONBLOCK );
+	
+	if ( fd < 0 )
 	{
-		ofile.open ( of_name, ios_base::out | ios_base::binary );
+		cout << "Error opening Arduino." << endl;
+		return;
 	}
 	
-	if ( if_name != "" )
+	string argv2 = argv [2], argv3 = argv [3];
+	
+	communicator_action action;
+	
+	if ( argv2 == "dump_rom" )
 	{
-		ifile.open ( if_name, ios_base::in | ios_base::binary );
+		action = do_rom_dump;
 	}
+	else if ( argv2 == "dump_ram" )
+	{
+		action = do_ram_dump;
+	}
+	else if ( argv2 == "restore_ram" )
+	{
+		action = do_ram_restore;
+	}
+	else
+	{
+		cout << "Error:  Invalid command.\n";
+		return;
+	}
+	
+	
+	
+	u16 start_bank = 0x0000, num_banks = 0x0000;
+	
+	switch (action)
+	{
+		case do_rom_dump:
+			of_name = argv3;
+			ofile.open ( of_name, ios_base::out | ios_base::binary );
+			
+			if ( argc > 4 )
+			{
+				stringstream the_sstm;
+				the_sstm << argv [4];
+				
+				the_sstm >> start_bank;
+			}
+			if ( argc > 5 )
+			{
+				stringstream the_sstm;
+				the_sstm << argv [5];
+				
+				the_sstm >> num_banks;
+			}
+			// Arguments past argv [5] are ignored
+			
+			dump_rom ( start_bank, num_banks );
+			
+			break;
+		
+		case do_ram_dump:
+			//of_name = argv3;
+			//ofile.open ( of_name, ios_base::out | ios_base::binary );
+			
+			
+			break;
+		
+		case do_ram_restore:
+			//if_name = argv3;
+			//ifile.open ( if_name, ios_base::in | ios_base::binary );
+			
+			
+			break;
+		
+		default:
+			cout << "There's some weird bug....\n";
+			return;
+			break;
+	}
+	
+	
+	
+	get_cart_stuff ();
 	
 }
 
@@ -252,7 +334,63 @@ void communicator::dump_rom_test ()
 
 
 
-void communicator::rom_only_dump_rom ( u16 start_bank, u16 num_banks )
+void communicator::rom_only_dump_single_rom_bank ( u16 bank )
+{
+	cout << "Dumping ROM bank " << bank << endl;
+	
+	if ( bank == 0x0000 )
+	{
+		hl_read_bytes_and_write_to_ofile ( 0x0000, 0x4000 );
+	}
+	else
+	{
+		hl_read_bytes_and_write_to_ofile ( 0x4000, 0x4000 );
+	}
+}
+
+void communicator::mbc1_dump_single_rom_bank ( u16 bank )
+{
+	cout << "Dumping ROM bank " << bank << endl;
+	
+	
+}
+
+void communicator::mbc2_dump_single_rom_bank ( u16 bank )
+{
+	cout << "Dumping ROM bank " << bank << endl;
+	
+	
+}
+
+void communicator::mbc3_dump_single_rom_bank ( u16 bank )
+{
+	cout << "Dumping ROM bank " << bank << endl;
+	
+	if ( bank == 0x0000 )
+	{
+		hl_read_bytes_and_write_to_ofile ( 0x0000, 0x4000 );
+	}
+	else
+	{
+		hl_write_rept_byte ( 0x2000, (u8)( bank & 0x7f ) );
+		hl_read_bytes_and_write_to_ofile ( 0x4000, 0x4000 );
+	}
+}
+
+void communicator::mbc5_dump_single_rom_bank ( u16 bank )
+{
+	cout << "Dumping ROM bank " << bank << endl;
+	
+	// MBC5 is nice because it lets me do everything with just the
+	// SWITCHABLE ROM bank
+	hl_write_rept_byte ( 0x2000, (u8)( bank & 0xff ) );
+	hl_read_bytes_and_write_to_ofile ( 0x4000, 0x4000 );
+}
+
+
+
+
+void communicator::rom_only_dump_rom ()
 {
 	
 }
@@ -278,38 +416,20 @@ void communicator::mbc3_dump_rom ( u16 start_bank, u16 num_banks )
 		cout << "Error:  The cartridge doesn't seem to have an MBC3!\n";
 		return;
 	}
+	cout << "The cartridge DOES have an MBC3!\n";
 	
-	if ( num_banks == 0x0000 )
+	if ( ( num_banks == 0x0000 ) || ( num_banks - start_bank ) > rom_size )
 	{
-		if ( start_bank == 0x0000 )
+		for ( uint i=start_bank; i<rom_size; ++i )
 		{
-			cout << "Dumping ROM bank 0" << endl;
-			
-			// Read ROM Bank 0x00
-			hl_read_bytes_and_write_to_ofile ( 0x0000, 0x4000 );
-			
-			
-			for ( uint i=1; i<rom_size; ++i )
-			{
-				// Set the ROM bank
-				hl_write_rept_byte ( 0x2000, (u8)( i & 0x7f ) );
-				
-				cout << "Dumping ROM bank " << i << endl;
-				
-				hl_read_bytes_and_write_to_ofile ( 0x4000, 0x4000 );
-			}
+			mbc3_dump_single_rom_bank (i);
 		}
-		else
+	}
+	else
+	{
+		for ( uint i=start_bank; i<start_bank+num_banks; ++i )
 		{
-			for ( uint i=start_bank; i<rom_size; ++i )
-			{
-				// Set the ROM bank
-				hl_write_rept_byte ( 0x2000, (u8)( i & 0x7f ) );
-				
-				cout << "Dumping ROM bank " << i << endl;
-				
-				hl_read_bytes_and_write_to_ofile ( 0x4000, 0x4000 );
-			}
+			mbc3_dump_single_rom_bank (i);
 		}
 	}
 }
@@ -334,28 +454,58 @@ void communicator::mbc5_dump_rom ( u16 start_bank, u16 num_banks )
 	}
 	
 	
-	// MBC5 is nice and lets me do everything with just the SWITCHABLE ROM
-	// bank
-	if ( num_banks == 0x0000 )
+	if ( ( num_banks == 0x0000 ) || ( num_banks - start_bank ) > rom_size )
 	{
+		cout << "1234\n\n";
 		for ( uint i=start_bank; i<rom_size; ++i )
 		{
-			// Set the lower 8 bits of the ROM bank
-			hl_write_rept_byte ( 0x2000, (u8)( i & 0xff ) );
-			// Set the high bit to 0x00
-			hl_write_rept_byte ( 0x3000, 0x00 );
-			
-			cout << "Dumping ROM bank " << i << endl;
-			
-			hl_read_bytes_and_write_to_ofile ( 0x4000, 0x4000 );
+			mbc5_dump_single_rom_bank (i);
 		}
 	}
 	else
 	{
-		
-		//for ( uint i=start_bank; i<num_banks; ++i )
-		//{
-		//}
+		cout << "5678\n\n";
+		for ( uint i=start_bank; i<start_bank+num_banks; ++i )
+		{
+			mbc5_dump_single_rom_bank (i);
+		}
 	}
 	
+	
+}
+
+void communicator::dump_rom ( u16 start_bank, u16 num_banks )
+{
+	get_cart_stuff ();
+	
+	if ( cart_mbc_type == rom_only )
+	{
+		cout << "No MBC at all, just a 32 kiB ROM\n";
+		rom_only_dump_rom ();
+	}
+	else if ( ( cart_mbc_type >= mbc1 ) && ( cart_mbc_type <= mbc1_ram ) )
+	{
+		cout << "MBC1\n";
+		mbc1_dump_rom ( start_bank, num_banks );
+	}
+	else if ( cart_mbc_type == mbc2 )
+	{
+		cout << "MBC2\n";
+		mbc2_dump_rom ( start_bank, num_banks );
+	}
+	else if ( ( cart_mbc_type >= mbc3 ) && ( cart_mbc_type <= mbc3_ram ) )
+	{
+		cout << "MBC3\n";
+		mbc3_dump_rom ( start_bank, num_banks );
+	}
+	else if ( ( cart_mbc_type >= mbc5 ) && ( cart_mbc_type <= mbc5_ram ) )
+	{
+		cout << "MBC3\n";
+		mbc5_dump_rom ( start_bank, num_banks );
+	}
+	
+	else
+	{
+		cout << "Error:  Unknown ROM type\n";
+	}
 }
