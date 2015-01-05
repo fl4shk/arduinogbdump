@@ -13,4 +13,11 @@ extern char N64_mem_dump [N64_mem_size+1];
 static const word N64_byte_size = 33;
 extern unsigned char N64_mem_managed [N64_byte_size];
 
+
+// Buffer for Serial.readBytesUntil ()
+static const int bufsize = 1072;
+extern char buf [bufsize];
+
+
+
 #endif		// some_globals_h

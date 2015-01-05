@@ -45,8 +45,9 @@ public:  // functions
 	void write ( u16 write_addr );
 	void write ( u16 write_addr, u8* msg );
 	
-	// Write a single byte
+	// Write a single, repeated byte
 	void write_byte ( u16 write_addr, u8 data );
+	
 	
 	//// doesn't touch write_addr's CRC stuff
 	//void write_nocrc ( u16 write_addr );

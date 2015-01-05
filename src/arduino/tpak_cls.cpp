@@ -116,7 +116,7 @@ void tpak::write ( u16 write_addr, u8* msg )
 }
 
 
-// Write a single byte
+// Write a single, repeated byte
 void tpak::write_byte ( u16 write_addr, u8 data )
 {
 	addr_pkt.w = calc_addr_crc (write_addr);

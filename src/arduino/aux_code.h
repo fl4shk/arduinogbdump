@@ -21,7 +21,7 @@ static const byte default_bitwise_thing = 0x04;
 static const byte micro_bitwise_thing = 0x02;
 
 
-// If I knew the correct value for the Arduion Mega, I would have said to
+// If I knew the correct value for the Arduino Mega, I would have said to
 // use this for it.
 //static const byte mega_bitwise_thing =
 
@@ -41,6 +41,7 @@ static const byte micro_bitwise_thing = 0x02;
 
 
 void print_mem_managed ();
+void print_mem_managed2 ();
 void write_mem_managed ();
 
 void print_crc_managed ();
@@ -90,6 +91,7 @@ unsigned char calc_data_crc( unsigned char *data );
 void N64_read_addr ();
 
 
+bool cmp_buf ( const char* to_cmp, int num_recv );
 
 
 #endif		// aux_code_h

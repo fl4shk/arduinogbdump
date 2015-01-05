@@ -3,6 +3,9 @@
 #include "tpak_cls.h"
 #include "cart_helper_cls.h"
 
+
+
+
 void print_mem_managed ()
 {
 	for ( int i=0; i<N64_byte_size-1; ++i )
@@ -12,6 +15,18 @@ void print_mem_managed ()
 	}
 	Serial.println ();
 }
+
+// Decimal
+void print_mem_managed2 ()
+{
+	for ( int i=0; i<N64_byte_size-1; ++i )
+	{
+		Serial.print ( N64_mem_managed [i], DEC );
+		Serial.print (" ");
+	}
+	Serial.println ();
+}
+
 void write_mem_managed ()
 {
 	for ( int i=0; i<N64_byte_size-1; ++i )
@@ -56,162 +71,25 @@ void N64_stuff2 ( unsigned char *buff, char length )
 	N64_read_addr ();
 }
 
+
 void tpak_stuff2 ()
 {
-	//tpak pak0; 
-	//
-	//clear_mem_dump ();
-	//pak0.init ();
+	//hamburger.rom_only_dump_rom ();
+	//hamburger.mbc1_dump_rom ();
 	
-	for ( int i=0; i<5; ++i )
-	{
-		Serial.print ("Delay #");
-		Serial.print ( i, DEC );
-		Serial.println (" before reading from the Transfer Pak.");
-		//delay (1000);
-		delay (100);
-	}
+	//hamburger.dump_rom ();
 	
-	clear_mem_dump ();
+	//hamburger.mbc5_dump_ram ();
+	
 	cart_helper hamburger;
 	
-	//hamburger.print_cart_stuff ();
-	//hamburger.rom_only_dump_rom ();
-	hamburger.mbc1_dump_rom ();
-}
-
-void tpak_stuff ()
-{
-	//delay (255+150);
-	//
-	//addr_packet addr_pkt; 
-	//
-	//const word cmd_size = 36;
-	//unsigned char command [cmd_size] = { 0x03, 0x80, 0x01 };
-	//
-	//
-	//// begin tpak init
-	//clear_mem_dump ();
-	//memset ( &command [3], 0x84, 32 );
-	//
-	//N64_stuff ( command, cmd_size-1 );
-	//
-	//manage_mem_dump ();
-	//print_mem_managed ();
-	//delay (100);
-	//
-	//
-	//clear_mem_dump ();
-	//command [0] = 0x02; 
-	////command [1] = 0x80; command [2] = 0x01;
-	//
-	//N64_stuff ( command, 3 );
-	//
-	//manage_mem_dump ();
-	//print_mem_managed ();
-	//delay (100);
-	//
-	//
-	//// need to send this again for some reason
-	//clear_mem_dump ();
-	//command [0] = 0x03;
-	//memset ( &command [3], 0x84, 32 );
-	//
-	//N64_stuff ( command, cmd_size-1 );
-	//
-	//manage_mem_dump ();
-	//print_mem_managed (); 
-	//delay (100);
-	//// end tpak init
-	//
-	//
-	//// read back init state (should be 0x84)
-	//clear_mem_dump ();
-	//command [0] = 0x02; 
-	////command [1] = 0x80; command [2] = 0x01;
-	//
-	//N64_stuff ( command, 3 );
-	//
-	//manage_mem_dump ();
-	//print_mem_managed (); 
-	//delay (100);
-	//
-	//
-	//// get tpak access mode (0x80 if mode 0, 0x89 if mode 1)
-	//clear_mem_dump ();
-	//command [0] = 0x02; 
-	//
-	//addr_pkt.w = calc_addr_crc (0xB000);
-	////command [1] = 0x80; command [2] = 0x01;
-	//command [1] = addr_pkt.hi; command [2] = addr_pkt.lo;
-	//
-	//N64_stuff ( command, 3 );
-	//
-	//manage_mem_dump ();
-	//print_mem_managed ();
-	//delay (100);
-	//
-	//
-	//// set tpak access mode
-	//clear_mem_dump ();
-	//command [0] = 0x03;
-	//memset ( &command [3], 0xFF, 32 );		// 0xFF for good measure
-	//command [1] = addr_pkt.hi; command [2] = addr_pkt.lo;
-	//
-	//N64_stuff ( command, cmd_size-1 );
-	//
-	//manage_mem_dump ();
-	//print_mem_managed (); 
-	//delay (100);
-	//
-	//
-	//// get tpak access mode (0x80 if mode 0, 0x89 if mode 1)
-	//clear_mem_dump ();
-	//command [0] = 0x02; 
-	//
-	//addr_pkt.w = calc_addr_crc (0xB000);
-	////command [1] = 0x80; command [2] = 0x01;
-	//command [1] = addr_pkt.hi; command [2] = addr_pkt.lo;
-	//
-	//N64_stuff ( command, 3 );
-	//
-	//manage_mem_dump ();
-	//print_mem_managed (); 
-	//delay (100);
-	//
-	//
-	//// set current TPak bank
-	//clear_mem_dump ();
-	//command [0] = 0x03;  // write command
-	//memset ( &command [3], 0x00, 32 );
-	//
-	//addr_pkt.w = calc_addr_crc (0xA000);
-	//command [1] = addr_pkt.hi; command [2] = addr_pkt.lo;
-	//
-	//N64_stuff ( command, cmd_size-1 );
-	//
-	//manage_mem_dump ();
-	//print_mem_managed (); 
-	//delay (100);
-	//
-	//
-	//// read address 0xC100 (GB address 0x0100)
-	//clear_mem_dump ();
-	//command [0] = 0x02;		 // read command
-	//
-	//addr_pkt.w = calc_addr_crc (0xC040);
-	//command [1] = addr_pkt.hi; command [2] = addr_pkt.lo;
-	//
-	//N64_stuff ( command, 3 );
-	//
-	//manage_mem_dump ();
-	//print_mem_managed (); 
-	////Serial.println ( calc_data_crc ((unsigned char *)N64_mem_managed), HEX );
-	//delay (100);
-	//
-	//
-	//Serial.println ("Done.");
-	
+	for (;;)
+	{
+		if ( hamburger.interpret_serial_message () == 1 )
+		{
+			return;
+		}
+	}
 }
 
 void translate_raw_data()
@@ -536,3 +414,9 @@ read_loop:
 	
 }
 
+
+
+bool cmp_buf ( const char* to_cmp, int num_recv )
+{
+	return ( strncmp ( buf, to_cmp, num_recv ) == 0 );
+}

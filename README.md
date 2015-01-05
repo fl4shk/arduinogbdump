@@ -7,6 +7,9 @@ N64 controller, an N64 Transfer Pak, and a pull-up resistor.
 
 arduinogbdump is heavily based on brownan's [Gamecube-N64-Controller](https://github.com/brownan/Gamecube-N64-Controller)
 
+*Please note that this readme is not always up to date with the latest
+code, especially regarding Features/Compatibility*
+
 
 #Features/Compatibility
 There is currently support for dumping ROMs from cartridges with the
@@ -59,7 +62,7 @@ The two CRC-related functions were taken from libdragon.
 
 There were also various websites whose URLs escape me.
 
-Additionally, the folks of #n64dev on EFnet were very helpful, especially
-when I was first working on this project in Spring 2013.
+Additionally, the folks of #n64dev on EFnet have been very helpful,
+especially when I was first working on this project in Spring 2013.
 
 

@@ -25,9 +25,12 @@ struct N64_status_t {
 
 union addr_packet
 {
-	word w; struct { byte lo, hi; };
+	word w;
+	struct
+	{
+		byte lo, hi;
+	};
 };
-
 
 
 #endif		// misc_types_h
