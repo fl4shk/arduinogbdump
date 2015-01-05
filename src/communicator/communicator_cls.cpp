@@ -456,7 +456,7 @@ void communicator::mbc5_dump_rom ( u16 start_bank, u16 num_banks )
 	
 	if ( ( num_banks == 0x0000 ) || ( num_banks - start_bank ) > rom_size )
 	{
-		cout << "1234\n\n";
+		//cout << "1234\n\n";
 		for ( uint i=start_bank; i<rom_size; ++i )
 		{
 			mbc5_dump_single_rom_bank (i);
@@ -464,7 +464,7 @@ void communicator::mbc5_dump_rom ( u16 start_bank, u16 num_banks )
 	}
 	else
 	{
-		cout << "5678\n\n";
+		//cout << "5678\n\n";
 		for ( uint i=start_bank; i<start_bank+num_banks; ++i )
 		{
 			mbc5_dump_single_rom_bank (i);
@@ -500,7 +500,7 @@ void communicator::dump_rom ( u16 start_bank, u16 num_banks )
 	}
 	else if ( ( cart_mbc_type >= mbc5 ) && ( cart_mbc_type <= mbc5_ram ) )
 	{
-		cout << "MBC3\n";
+		cout << "MBC5\n";
 		mbc5_dump_rom ( start_bank, num_banks );
 	}
 	
