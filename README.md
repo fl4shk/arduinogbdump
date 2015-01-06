@@ -12,16 +12,29 @@ code, especially regarding Features/Compatibility*
 
 
 #Features/Compatibility
-There is currently support for dumping ROMs from cartridges with the
-following cartridge types:
+There is currently support for dumping ROMs from cartridges of the
+following types:
   1.  ROM Only (32 kiB)
-  2.  MBC1 (Incomplete support, only works for up to 32 ROM banks)
+  2.  MBC2
+  3.  MBC3
+  4.  MBC5 (incomplete support, only works for ROMs up to 4 MiB)
 
-Save data dumping/restoring support is also planned, but is not yet
-implemented.
+There is currently support for dumping RAM from cartridges of the following
+types:
+  1.  MBC2
+  2.  MBC3 (No RTC support yet)
+  3.  MBC5
 
 
-All testing has been done on Linux.
+There is currently support for restoring RAM to cartridges of the following
+types:
+  2.  MBC3 (No RTC support yet)
+  3.  MBC5
+
+
+All testing of the communicator program has been done on Linux.  It is not
+known whether it would even compile on other systems, but there's a good
+chance of it working on other Unices (such as FreeBSD).
 
 
 #How to Connect the Arduino Board to the N64 Controller

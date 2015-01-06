@@ -207,7 +207,6 @@ void communicator::hl_read_32_bytes ( u16 gb_addr )
 }
 
 
-// Note:  I need to make something like this for writing data
 void communicator::hl_read_bytes_and_write_to_ofile ( u16 gb_start_addr, 
 	u16 num_bytes )
 {
@@ -433,6 +432,15 @@ void communicator::mbc2_dump_single_rom_bank ( u16 bank )
 {
 	cout << "Dumping ROM bank " << bank << endl;
 	
+	if ( bank == 0x0000 )
+	{
+		hl_read_bytes_and_write_to_ofile ( 0x0000, 0x4000 );
+	}
+	else
+	{
+		hl_write_rept_byte ( 0x2100, (u8)( bank & 0x0f ) );
+		hl_read_bytes_and_write_to_ofile ( 0x4000, 0x4000 );
+	}
 	
 }
 
@@ -466,7 +474,16 @@ void communicator::mbc5_dump_single_rom_bank ( u16 bank )
 
 void communicator::rom_only_dump_rom ()
 {
+	get_cart_stuff ();
 	
+	if ( cart_mbc_type != rom_only )
+	{
+		cout << "Error:  The cartridge type is not \"rom_only\"!\n";
+		return;
+	}
+	
+	rom_only_dump_single_rom_bank (0x0000);
+	rom_only_dump_single_rom_bank (0x0001);
 }
 
 void communicator::mbc1_dump_rom ( u16 start_bank, u16 num_banks )
@@ -474,8 +491,23 @@ void communicator::mbc1_dump_rom ( u16 start_bank, u16 num_banks )
 	
 }
 
-void communicator::mbc2_dump_rom ( u16 start_bank, u16 num_banks )
+void communicator::mbc2_dump_rom ()
 {
+	get_cart_stuff ();
+	
+	if ( cart_mbc_type != mbc2 )
+	{
+		cout << "Error:  The cartrdige doesn't seem to have an MBC2!\n";
+		return;
+	}
+	//cout << "The cartridge DOES have an MBC2!\n";
+	
+	
+	for ( uint i=0; i<rom_size; ++i )
+	{
+		mbc2_dump_single_rom_bank (i);
+	}
+	
 	
 }
 
@@ -554,7 +586,16 @@ void communicator::mbc1_dump_ram ()
 }
 void communicator::mbc2_dump_ram ()
 {
+	// All MBC2 chips have built-in RAM (512x4bits)
 	
+	// Enable RAM so we can read from it
+	hl_write_rept_byte ( 0x0000, 0x0a );
+	
+	// Read the RAM contents
+	hl_read_bytes_and_write_to_ofile ( 0xa000, 0x200 );
+	
+	// Disable RAM again, for safety
+	hl_write_rept_byte ( 0x0000, 0x00 );
 }
 void communicator::mbc3_dump_ram ()
 {
@@ -930,7 +971,7 @@ void communicator::dump_rom ( u16 start_bank, u16 num_banks )
 	else if ( cart_mbc_type == mbc2 )
 	{
 		cout << "MBC2\n";
-		mbc2_dump_rom ( start_bank, num_banks );
+		mbc2_dump_rom ();
 	}
 	else if ( ( cart_mbc_type >= mbc3 ) && ( cart_mbc_type <= mbc3_ram ) )
 	{

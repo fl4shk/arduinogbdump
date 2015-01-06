@@ -69,7 +69,7 @@ public:		// functions
 	// Main ROM dumping functions
 	void rom_only_dump_rom ();
 	void mbc1_dump_rom ( u16 start_bank=0x0000, u16 num_banks=0x0000 );
-	void mbc2_dump_rom ( u16 start_bank=0x0000, u16 num_banks=0x0000 );
+	void mbc2_dump_rom ();
 	void mbc3_dump_rom ( u16 start_bank=0x0000, u16 num_banks=0x0000 );
 	void mbc5_dump_rom ( u16 start_bank=0x0000, u16 num_banks=0x0000 );
 	
