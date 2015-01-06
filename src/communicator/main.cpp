@@ -40,12 +40,9 @@ int main ( int argc, char** argv )
 	//communicator the_communicator ( fd, argv [2], "" );
 	
 	
-	//cout << the_communicator.cart_mbc_type << endl;
-	//cout << the_communicator.rom_size << endl;
-	//cout << the_communicator.ram_size << endl;
-	//
-	//
-	//
+	
+	
+	
 	//if ( argc == 3 )
 	//{
 	//	the_communicator.dump_rom ();

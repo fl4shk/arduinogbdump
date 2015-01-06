@@ -454,6 +454,7 @@ int cart_helper::interpret_serial_message ()
 			
 		}
 	}
+	
 	else if ( buf [0] == sm_gb_read_var_num_bytes )
 	{
 		addr_packet gb_start_addr_pkt, num_bytes_pkt;
@@ -483,6 +484,91 @@ int cart_helper::interpret_serial_message ()
 			manage_mem_dump ();
 			write_mem_managed ();
 		}
+	}
+	
+	// The (arbitrary) maximum number of bytes that can be sent to the
+	// Arduino is 1024
+	else if ( buf [0] == sm_gb_write_var_num_bytes )
+	{
+		addr_packet gb_start_addr_pkt, num_bytes_pkt;
+		
+		// The GB address to read from is in buf [1] and buf [2] (u16)
+		gb_start_addr_pkt.hi = (byte)(buf [1]);
+		gb_start_addr_pkt.lo = (byte)(buf [2]);
+		
+		// The number of bytes to write is in buf [3] and buf [4] (u16)
+		num_bytes_pkt.hi = (byte)(buf [3]);
+		num_bytes_pkt.lo = (byte)(buf [4]);
+		
+		
+		u16 gb_start_addr = gb_start_addr_pkt.w,
+			num_bytes = num_bytes_pkt.w;
+		
+		
+		// 8*4 == 32.  Yay, math!
+		for ( uint i=0; i<8; ++i )
+		{
+			Serial.write (gb_start_addr_pkt.hi);
+			Serial.write (gb_start_addr_pkt.lo);
+			
+			Serial.write (num_bytes_pkt.hi);
+			Serial.write (num_bytes_pkt.lo);
+		}
+		
+		
+		long left_to_read = num_bytes;
+		
+		while ( left_to_read > 0 )
+		{
+			int num_recv2 = Serial.readBytes 
+				( &(buf [num_bytes - left_to_read]), 1024 );
+			
+			left_to_read -= num_recv2;
+			
+		}
+		
+		
+		u8 tpak_bank = calc_tpak_bank (gb_start_addr);
+		long tpak_addr = calc_tpak_addr (gb_start_addr);
+		long tpak_addr_end = tpak_addr + num_bytes;
+		my_tpak.set_bank (tpak_bank);
+		
+		const uint num_to_write = 32;
+		u8 to_write [num_to_write];
+		
+		//memcpy ( to_write, &( buf [gb_start_addr-0xa000] ), num_to_write );
+		
+		//for ( uint i=0; i<num_to_write; ++i )
+		//{
+		//	Serial.print ( ( (u16)( buf [i]) ) & 0xff, HEX );
+		//	Serial.print (" ");
+		//}
+		//Serial.println ();
+		
+		//Serial.println ( ( tpak_addr - 0xe000 ) / 0x400, HEX );
+		//Serial.println ( tpak_addr, HEX );
+		
+		
+		long buf_slot = 0x0000;
+		for ( ; tpak_addr<tpak_addr_end; tpak_addr+=0x20, buf_slot += 0x20 )
+		{
+			memcpy ( to_write, &( buf [buf_slot] ), num_to_write );
+			my_tpak.write ( tpak_addr, to_write );
+			
+			
+			//Serial.print ( tpak_addr - 0xe000, HEX );
+			//Serial.print (" ");
+		}
+		Serial.println ();
+		
+		
+		//for ( uint i=0; i<32; ++i )
+		//{
+		//	Serial.print ( ( (u16)(buf [i]) ) & 0xff, HEX );
+		//	Serial.print (" ");
+		//}
+		//Serial.println ();
+		
 	}
 	
 	else

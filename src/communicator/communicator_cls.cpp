@@ -48,7 +48,9 @@ communicator::communicator ( int argc, char** argv )
 		return;
 	}
 	
+	
 	string argv2 = argv [2], argv3 = argv [3];
+	
 	
 	communicator_action action;
 	
@@ -71,7 +73,6 @@ communicator::communicator ( int argc, char** argv )
 	}
 	
 	
-	
 	u16 start_bank = 0x0000, num_banks = 0x0000;
 	
 	switch (action)
@@ -79,6 +80,13 @@ communicator::communicator ( int argc, char** argv )
 		case do_rom_dump:
 			of_name = argv3;
 			ofile.open ( of_name, ios_base::out | ios_base::binary );
+			
+			if ( !ofile.is_open () )
+			{
+				cout << "Error opening file \"" << of_name << "\" for"
+					<< " writing!\n";
+				return;
+			}
 			
 			if ( argc > 4 )
 			{
@@ -101,16 +109,32 @@ communicator::communicator ( int argc, char** argv )
 			break;
 		
 		case do_ram_dump:
-			//of_name = argv3;
-			//ofile.open ( of_name, ios_base::out | ios_base::binary );
+			of_name = argv3;
+			ofile.open ( of_name, ios_base::out | ios_base::binary );
 			
+			if ( !ofile.is_open () )
+			{
+				cout << "Error opening file \"" << of_name << "\" for"
+					<< " writing!\n";
+				return;
+			}
+			
+			dump_ram ();
 			
 			break;
 		
 		case do_ram_restore:
-			//if_name = argv3;
-			//ifile.open ( if_name, ios_base::in | ios_base::binary );
+			if_name = argv3;
+			ifile.open ( if_name, ios_base::in | ios_base::binary );
 			
+			if ( !ifile.is_open () )
+			{
+				cout << "Error opening file \"" << if_name << "\" for"
+					<< " reading!\n";
+				return;
+			}
+			
+			restore_ram ();
 			
 			break;
 		
@@ -273,6 +297,56 @@ void communicator::hl_write_rept_byte ( u16 gb_addr, u8 the_byte )
 }
 
 
+
+// The max value for num_bytes is 1024 (0x400)
+// More than 0x400 bytes will probably cause a buffer overflow on
+// the Arduino.
+void communicator::hl_read_from_ifile_and_write_bytes ( u16 gb_start_addr,
+	u16 num_bytes, u8 gb_ram_bank )
+{
+	send_buf [0] = sm_gb_write_var_num_bytes;
+	
+	addr_packet gb_start_addr_pkt, num_bytes_pkt;
+	
+	gb_start_addr_pkt.w = gb_start_addr;
+	num_bytes_pkt.w = num_bytes;
+	
+	send_buf [1] = gb_start_addr_pkt.hi;
+	send_buf [2] = gb_start_addr_pkt.lo;
+	
+	send_buf [3] = num_bytes_pkt.hi;
+	send_buf [4] = num_bytes_pkt.lo;
+	
+	while ( do_select_for_write (fd) )
+	{
+	}
+	write ( fd, send_buf.data (), 5 );
+	
+	loop_for_reading_32_bytes ();
+	
+	while ( do_select_for_write (fd) )
+	{
+	}
+	
+	ifile.seekg ( gb_start_addr - 0xa000 + ( 0x2000 * gb_ram_bank ) );
+	ifile.read ( send_buf.data (), num_bytes );
+	
+	cout << hex << ifile.tellg () << endl;
+	
+	write ( fd, send_buf.data (), num_bytes );
+	
+	
+	string from_arduino;
+	
+	while ( do_select_for_read (fd) )
+	{
+	}
+	do_arduino_read ( fd, from_arduino );
+	
+	cout << from_arduino;
+	//cout << "LIVE TO BEEF AGAIN!  Is end.\n\n\n";
+}
+
 inline int communicator::loop_for_reading_32_bytes ()
 {
 	int left_to_read = 32;
@@ -416,7 +490,7 @@ void communicator::mbc3_dump_rom ( u16 start_bank, u16 num_banks )
 		cout << "Error:  The cartridge doesn't seem to have an MBC3!\n";
 		return;
 	}
-	cout << "The cartridge DOES have an MBC3!\n";
+	//cout << "The cartridge DOES have an MBC3!\n";
 	
 	if ( ( num_banks == 0x0000 ) || ( num_banks - start_bank ) > rom_size )
 	{
@@ -471,8 +545,373 @@ void communicator::mbc5_dump_rom ( u16 start_bank, u16 num_banks )
 		}
 	}
 	
+}
+
+// Main RAM dumping functions
+void communicator::mbc1_dump_ram ()
+{
 	
 }
+void communicator::mbc2_dump_ram ()
+{
+	
+}
+void communicator::mbc3_dump_ram ()
+{
+	switch (ram_size)
+	{
+		case rs_none:
+			cout << "Error:  This cartridge doesn't have any RAM.\n";
+			break;
+		
+		// 0x800 bytes (2 kiB) of RAM (not even a full 8 kiB bank)
+		// I'm not sure MBC5 cartridges ever had only 2 kiB of RAM.
+		case rs_2:
+			// Enable RAM so we can read from it
+			hl_write_rept_byte ( 0x0000, 0x0a );
+			
+			// Now we read the 2 kiB of RAM
+			hl_read_bytes_and_write_to_ofile ( 0xa000, 0x800 );
+			
+			// Disable RAM for safety
+			hl_write_rept_byte ( 0x0000, 0x00 );
+			
+			break;
+		
+		
+		// 0x2000 bytes (8 kiB) of RAM (only one full 8 kiB bank)
+		case rs_8:
+			// Enable RAM so we can read from it
+			hl_write_rept_byte ( 0x0000, 0x0a );
+			
+			// Now we read the 8 kiB of RAM
+			hl_read_bytes_and_write_to_ofile ( 0xa000, 0x2000 );
+			
+			// Disable RAM for safety
+			hl_write_rept_byte ( 0x0000, 0x00 );
+			
+			
+			break;
+		
+		case rs_32:
+			for ( uint i=0; i<4; ++i )
+			{
+				cout << "Dumping RAM bank " << i << endl;
+				
+				// In order to set the RAM bank, we have to disable RAM
+				hl_write_rept_byte ( 0x0000, 0x00 );
+				
+				// Now we set the RAM bank
+				hl_write_rept_byte ( 0x4000, (u8)( i & 0x0f ) );
+				
+				// Then we enable RAM again
+				hl_write_rept_byte ( 0x0000, 0x0a );
+				
+				
+				// Now we read the 8 kiB of RAM
+				hl_read_bytes_and_write_to_ofile ( 0xa000, 0x2000 );
+			}
+			
+			// Disable RAM for safety
+			hl_write_rept_byte ( 0x0000, 0x00 );
+			
+			break;
+		
+		default:
+			
+			break;
+	}
+	
+}
+void communicator::mbc5_dump_ram ()
+{
+	switch (ram_size)
+	{
+		case rs_none:
+			cout << "Error:  This cartridge doesn't have any RAM.\n";
+			break;
+		
+		// 0x800 bytes (2 kiB) of RAM (not even a full 8 kiB bank)
+		// I'm not sure MBC5 cartridges ever had only 2 kiB of RAM.
+		case rs_2:
+			// Enable RAM so we can read from it
+			hl_write_rept_byte ( 0x0000, 0x0a );
+			
+			// Now we read the 2 kiB of RAM
+			hl_read_bytes_and_write_to_ofile ( 0xa000, 0x800 );
+			
+			// Disable RAM for safety
+			hl_write_rept_byte ( 0x0000, 0x00 );
+			
+			break;
+		
+		
+		// 0x2000 bytes (8 kiB) of RAM (only one full 8 kiB bank)
+		case rs_8:
+			// Enable RAM so we can read from it
+			hl_write_rept_byte ( 0x0000, 0x0a );
+			
+			// Now we read the 8 kiB of RAM
+			hl_read_bytes_and_write_to_ofile ( 0xa000, 0x2000 );
+			
+			// Disable RAM for safety
+			hl_write_rept_byte ( 0x0000, 0x00 );
+			
+			
+			break;
+		
+		case rs_32:
+			for ( uint i=0; i<4; ++i )
+			{
+				cout << "Dumping RAM bank " << i << endl;
+				
+				// In order to set the RAM bank, we have to disable RAM
+				hl_write_rept_byte ( 0x0000, 0x00 );
+				
+				// Now we set the RAM bank
+				hl_write_rept_byte ( 0x4000, (u8)( i & 0x0f ) );
+				
+				// Then we enable RAM again
+				hl_write_rept_byte ( 0x0000, 0x0a );
+				
+				
+				// Now we read the 8 kiB of RAM
+				hl_read_bytes_and_write_to_ofile ( 0xa000, 0x2000 );
+			}
+			
+			// Disable RAM for safety
+			hl_write_rept_byte ( 0x0000, 0x00 );
+			
+			break;
+		
+		case rs_128:
+			for ( uint i=0; i<16; ++i )
+			{
+				cout << "Dumping RAM bank " << i << endl;
+				
+				// In order to set the RAM bank, we have to disable RAM
+				hl_write_rept_byte ( 0x0000, 0x00 );
+				
+				// Now we set the RAM bank
+				hl_write_rept_byte ( 0x4000, (u8)( i & 0x0f ) );
+				
+				// Then we enable RAM again
+				hl_write_rept_byte ( 0x0000, 0x0a );
+				
+				
+				// Now we read the 8 kiB of RAM
+				hl_read_bytes_and_write_to_ofile ( 0xa000, 0x2000 );
+			}
+			
+			// Disable RAM for safety
+			hl_write_rept_byte ( 0x0000, 0x00 );
+			
+			break;
+		
+		default:
+			
+			break;
+	}
+}
+
+// Main RAM restoring functions
+void communicator::mbc1_restore_ram ()
+{
+	
+}
+void communicator::mbc2_restore_ram ()
+{
+	
+}
+void communicator::mbc3_restore_ram ()
+{
+	switch (ram_size)
+	{
+		case rs_none:
+			cout << "Error:  This cartridge doesn't have any RAM.\n";
+			break;
+		
+		// 0x800 bytes (2 kiB) of RAM (not even a full 8 kiB bank)
+		// I'm not sure MBC5 cartridges ever had only 2 kiB of RAM.
+		case rs_2:
+			// Enable RAM so we can write to it
+			hl_write_rept_byte ( 0x0000, 0x0a );
+			
+			// Now we write the 2 kiB of RAM
+			//hl_read_bytes_and_write_to_ofile ( 0xa000, 0x800 );
+			
+			hl_read_from_ifile_and_write_bytes ( 0xa000, 0x400 );
+			hl_read_from_ifile_and_write_bytes ( 0xa400, 0x400 );
+			
+			// Disable RAM for safety
+			hl_write_rept_byte ( 0x0000, 0x00 );
+			
+			break;
+		
+		
+		// 0x2000 bytes (8 kiB) of RAM (only one full 8 kiB bank)
+		case rs_8:
+			// Enable RAM so we can read from it
+			hl_write_rept_byte ( 0x0000, 0x0a );
+			
+			// Now we write the 8 kiB of RAM
+			for ( uint i=0x0000; i<0x2000; i+=0x400 )
+			{
+				hl_read_from_ifile_and_write_bytes ( 0xa000 + i, 0x400 );
+			}
+			
+			
+			// Disable RAM for safety
+			hl_write_rept_byte ( 0x0000, 0x00 );
+			
+			break;
+		
+		case rs_32:
+			for ( uint i=0; i<4; ++i )
+			{
+				// Disable RAM so that we can change RAM banks.
+				// It'd be nice if they'd SAY that you need to do that in
+				// places like the Pan Docs.  I had a hard time figuring
+				// out why I wasn't getting valid RAM data, and this was
+				// the reason.  It was a very annoying bug to squash.
+				hl_write_rept_byte ( 0x0000, 0x00 );
+				
+				// Set the RAM bank.
+				hl_write_rept_byte ( 0x4000, (u8)( i & 0x03 ) );
+				
+				// Enable RAM again so we can write to it.
+				hl_write_rept_byte ( 0x0000, 0x0a );
+				
+				
+				// Now we write the 8 kiB of RAM
+				for ( uint j=0x0000; j<0x2000; j+=0x400 )
+				{
+					hl_read_from_ifile_and_write_bytes ( 0xa000 + j, 0x400,
+						i );
+				}
+			}
+			
+			// Disable RAM for safety
+			hl_write_rept_byte ( 0x0000, 0x00 );
+			
+			break;
+		
+		default:
+			
+			break;
+	}
+}
+void communicator::mbc5_restore_ram ()
+{
+	switch (ram_size)
+	{
+		case rs_none:
+			cout << "Error:  This cartridge doesn't have any RAM.\n";
+			break;
+		
+		// 0x800 bytes (2 kiB) of RAM (not even a full 8 kiB bank)
+		// I'm not sure MBC5 cartridges ever had only 2 kiB of RAM.
+		case rs_2:
+			// Enable RAM so we can write to it
+			hl_write_rept_byte ( 0x0000, 0x0a );
+			
+			// Now we write the 2 kiB of RAM
+			//hl_read_bytes_and_write_to_ofile ( 0xa000, 0x800 );
+			
+			hl_read_from_ifile_and_write_bytes ( 0xa000, 0x400 );
+			hl_read_from_ifile_and_write_bytes ( 0xa400, 0x400 );
+			
+			// Disable RAM for safety
+			hl_write_rept_byte ( 0x0000, 0x00 );
+			
+			break;
+		
+		
+		// 0x2000 bytes (8 kiB) of RAM (only one full 8 kiB bank)
+		case rs_8:
+			// Enable RAM so we can read from it
+			hl_write_rept_byte ( 0x0000, 0x0a );
+			
+			// Now we write the 8 kiB of RAM
+			for ( uint i=0x0000; i<0x2000; i+=0x400 )
+			{
+				hl_read_from_ifile_and_write_bytes ( 0xa000 + i, 0x400 );
+			}
+			
+			
+			// Disable RAM for safety
+			hl_write_rept_byte ( 0x0000, 0x00 );
+			
+			break;
+		
+		case rs_32:
+			for ( uint i=0; i<4; ++i )
+			{
+				// Disable RAM so that we can change RAM banks.
+				// It'd be nice if they'd SAY that you need to do that in
+				// places like the Pan Docs.  I had a hard time figuring
+				// out why I wasn't getting valid RAM data, and this was
+				// the reason.  It was a very annoying bug to squash.
+				hl_write_rept_byte ( 0x0000, 0x00 );
+				
+				// Set the RAM bank.
+				hl_write_rept_byte ( 0x4000, (u8)( i & 0x03 ) );
+				
+				// Enable RAM again so we can write to it.
+				hl_write_rept_byte ( 0x0000, 0x0a );
+				
+				
+				// Now we write the 8 kiB of RAM
+				for ( uint j=0x0000; j<0x2000; j+=0x400 )
+				{
+					hl_read_from_ifile_and_write_bytes ( 0xa000 + j, 0x400,
+						i );
+				}
+			}
+			
+			// Disable RAM for safety
+			hl_write_rept_byte ( 0x0000, 0x00 );
+			
+			break;
+		
+		case rs_128:
+			for ( uint i=0; i<16; ++i )
+			{
+				// Disable RAM so that we can change RAM banks.
+				// It'd be nice if they'd SAY that you need to do that in
+				// places like the Pan Docs.  I had a hard time figuring
+				// out why I wasn't getting valid RAM data, and this was
+				// the reason.  It was a very annoying bug to squash.
+				hl_write_rept_byte ( 0x0000, 0x00 );
+				
+				// Set the RAM bank.
+				hl_write_rept_byte ( 0x4000, (u8)( i & 0x0f ) );
+				
+				// Enable RAM again so we can write to it.
+				hl_write_rept_byte ( 0x0000, 0x0a );
+				
+				
+				// Now we write the 8 kiB of RAM
+				for ( uint j=0x0000; j<0x2000; j+=0x400 )
+				{
+					hl_read_from_ifile_and_write_bytes ( 0xa000 + j, 0x400,
+						i );
+				}
+			}
+			
+			// Disable RAM for safety
+			hl_write_rept_byte ( 0x0000, 0x00 );
+			
+			break;
+		
+		default:
+			
+			break;
+	}
+}
+
+
+
 
 void communicator::dump_rom ( u16 start_bank, u16 num_banks )
 {
@@ -509,3 +948,64 @@ void communicator::dump_rom ( u16 start_bank, u16 num_banks )
 		cout << "Error:  Unknown ROM type\n";
 	}
 }
+
+void communicator::dump_ram ()
+{
+	get_cart_stuff ();
+	
+	switch (cart_mbc_type)
+	{
+		case mbc1_ram:
+			mbc1_dump_ram ();
+			break;
+		
+		case mbc2:
+			mbc2_dump_ram ();
+			break;
+		
+		case mbc3_timer_ram:
+		case mbc3_ram:
+			mbc3_dump_ram ();
+			break;
+		
+		case mbc5_ram:
+			mbc5_dump_ram ();
+			break;
+		
+		default:
+			cout << "Error:  There isn't any RAM in this cartridge."
+				<< endl;
+			break;
+	}
+}
+
+void communicator::restore_ram ()
+{
+	get_cart_stuff ();
+	
+	switch (cart_mbc_type)
+	{
+		case mbc1_ram:
+			mbc1_restore_ram ();
+			break;
+		
+		case mbc2:
+			mbc2_restore_ram ();
+			break;
+		
+		case mbc3_timer_ram:
+		case mbc3_ram:
+			mbc3_restore_ram ();
+			break;
+		
+		case mbc5_ram:
+			mbc5_restore_ram ();
+			break;
+		
+		default:
+			cout << "Error:  There isn't any RAM in this cartridge."
+				<< endl;
+			break;
+	}
+}
+

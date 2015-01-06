@@ -43,7 +43,7 @@ enum mbc_type
 enum ram_size_type
 {
 	// non-MBC2, non-MBC5 RAM sizes
-	rs_none,		// 0 kiB of external cart RAM
+	rs_none,		// 1 kiB of external cart RAM
 	rs_2,			// 2 kiB of external cart RAM, not even a full bank
 	rs_8,			// 8 kiB of external cart RAM, 1 bank of 8 kiB
 	rs_32,			// 32 kiB of external cart RAM, 4 banks of 8 kiB each
@@ -77,6 +77,9 @@ enum serial_msg_type
 	
 	// Read a variable number of bytes
 	sm_gb_read_var_num_bytes,
+	  
+	// Write a variable number of bytes to the cartridge
+	sm_gb_write_var_num_bytes,
 	
 };
 

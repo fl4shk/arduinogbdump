@@ -50,8 +50,8 @@ public:		// functions
 	
 	void hl_write_32_bytes ( u16 gb_addr );
 	void hl_write_rept_byte ( u16 gb_addr, u8 the_byte );
-	//void hl_read_from_ifile_and_write_bytes ( u16 gb_start_addr,
-	// u16 num_bytes );
+	void hl_read_from_ifile_and_write_bytes ( u16 gb_start_addr,
+		u16 num_bytes, u8 gb_ram_bank=0x00 );
 	
 	inline int loop_for_reading_32_bytes ();
 	
@@ -74,9 +74,23 @@ public:		// functions
 	void mbc5_dump_rom ( u16 start_bank=0x0000, u16 num_banks=0x0000 );
 	
 	
+	// Main RAM dumping functions
+	void mbc1_dump_ram ();
+	void mbc2_dump_ram ();
+	void mbc3_dump_ram ();
+	void mbc5_dump_ram ();
+	
+	// Main RAM restoring functions
+	void mbc1_restore_ram ();
+	void mbc2_restore_ram ();
+	void mbc3_restore_ram ();
+	void mbc5_restore_ram ();
+	
+	
+	
 	void dump_rom ( u16 start_bank=0x0000, u16 num_banks=0x0000 );
-	//void dump_ram ();
-	//void restore_ram ();
+	void dump_ram ();
+	void restore_ram ();
 };
 
 

@@ -67,8 +67,12 @@ enum serial_msg_type
 	sm_gb_write_32_bytes,
 	
 	
-	// Read a variable number of bytes
+	// Read a variable number of bytes from the cartridge
 	sm_gb_read_var_num_bytes,
+	
+	// Write a variable number of bytes to the cartridge
+	sm_gb_write_var_num_bytes,
+	
 	
 };
 
