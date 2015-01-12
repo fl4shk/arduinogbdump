@@ -1,14 +1,15 @@
 arduinogbdump
 =============
 
-This is an unpolished/unfinished GB/GBC ROM dumper that uses an Arduino, an
-N64 controller, an N64 Transfer Pak, and a pull-up resistor.
+This is a project that can **create GB/GBC ROMs from real cartridges**, as
+well as **copy save data to/from real cartridges.**
+
+Required hardware:  an Arduino, an N64 controller, an N64 Transfer Pak, and
+a pull-up resistor.
 
 
 arduinogbdump is heavily based on brownan's [Gamecube-N64-Controller](https://github.com/brownan/Gamecube-N64-Controller)
 
-*Please note that this readme is not always up to date with the latest
-code, especially regarding Features/Compatibility*
 
 
 #Features/Compatibility
@@ -71,7 +72,8 @@ particular) used the Transfer Pak.  The NRage docs were also instrumental
 for getting this to work.  Some of them have been included with this
 project for reference.
 
-The two CRC-related functions were taken from libdragon.
+The two CRC-related functions were taken from libdragon, though only one of
+them is in use.
 
 There were also various websites whose URLs escape me.
 
