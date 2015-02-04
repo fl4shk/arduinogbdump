@@ -39,10 +39,12 @@ chance of it working on other Unices (such as FreeBSD).
 
 
 #How to Connect the Arduino Board to the N64 Controller
-  1.  Follow the instructions included with brownan's
-  Gamecube-N64-Controller project,
-  2.  And then **also** connect the the N64 controller's power wire to the
-  Arduino's 3.3V source.
+  1.  Attach the N64 controller's red wire to the Arduino's 3.3V supply.
+  2.  **Attach a 1 kOhm pull-up resistor between the Arduino's digital I/O
+  2 and the 3.3 supply.**
+  3.  Attach the N64 controller's white wire to digital I/O 2.
+  4.  Finally, attach the N64 controller's black wire to the Arduino's
+  ground.
 
 
 #Arduino Board Compatibility
@@ -72,12 +74,13 @@ particular) used the Transfer Pak.  The NRage docs were also instrumental
 for getting this to work.  Some of them have been included with this
 project for reference.
 
-The two CRC-related functions were taken from libdragon, though only one of
-them is in use.
+The two CRC-related functions were taken from libdragon (though only one of
+them is in use).
 
 There were also various websites whose URLs escape me.
 
-Additionally, the folks of #n64dev on EFnet have been very helpful,
-especially when I was first working on this project in Spring 2013.
+Additionally, the folks of IRC channel #n64dev on EFnet have been very
+helpful, especially when I was first working on this project in Spring
+2013.
 
 
