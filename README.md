@@ -53,8 +53,7 @@ specific to Arduino boards with 8-bit AVRs clocked at 16 MHz.
 
 The following Arduino boards have been tested and are working with this
 project for sure:
-  1.  Arduino Uno
-  2.  Arduino Micro
+  1.  Arduino Micro
 
 However, it is likely that the other Arduino boards that use the following
 AVR microcontrollers would work as well:
