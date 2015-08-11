@@ -57,11 +57,10 @@ project for sure:
 
 However, it is likely that the other Arduino boards that use the following
 AVR microcontrollers would work as well:
-  1.  ATmega328P or ATmega168
-  2.  ATmega32U4
+  1.  ATmega32U4
 
 
-Support for the Arduino Mega and the Arduino Mega 2560 is planned as well.
+Support for the Arduion Uno, Arduino Mega, and Arduino Mega 2560 is planned as well.
 
 
 #Credits/Thanks
