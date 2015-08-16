@@ -13,6 +13,10 @@ arduinogbdump is heavily based on brownan's [Gamecube-N64-Controller](https://gi
 
 
 #Features/Compatibility
+**Note**:  All GB and GBC **Pokemon** games *should* be possible to dump
+with arduinogbdump.  Not every Pokemon game has been tested, but it is
+believed by the author that all Pokemon games use a supported MBC.
+
 There is currently support for dumping ROMs from cartridges of the
 following types:
   1.  ROM Only (32 kiB)
@@ -39,6 +43,14 @@ chance of it working on other Unices (such as FreeBSD).
 
 
 #How to Connect the Arduino Board to the N64 Controller
+**Note**:  A photo of the setup, called **setup.jpg**, is
+included.  Also note that it is **not** necessary to break the N64
+controller's cable (though the controller cable can certainly be
+re-connected if the user chooses to break it).  Wires can be inserted into
+the holes at the end of the N64 controller's cable.  The holes correspond
+to the red, white, and black wires of the N64 controller (though the author
+*does not* know which order the holes are in).
+
   1.  Attach the N64 controller's red wire to the Arduino's 3.3V supply.
   2.  **Attach a 1 kOhm pull-up resistor between the Arduino's digital I/O
   2 and the 3.3 supply.**
