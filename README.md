@@ -43,8 +43,10 @@ chance of it working on other Unices (such as FreeBSD).
 
 
 #How to Connect the Arduino Board to the N64 Controller
-**Note**:  A photo of the setup, called **setup.jpg**, is
-included.  Also note that it is **not** necessary to break the N64
+Here is a photo of the setup (taken in January, 2015):
+![setup.jpg](setup.jpg)
+ 
+**Note**:  It is **not** necessary to break the N64
 controller's cable (though the controller cable can certainly be
 re-connected if the user chooses to break it).  Wires can be inserted into
 the holes at the end of the N64 controller's cable.  The holes correspond
