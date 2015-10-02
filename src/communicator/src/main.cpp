@@ -30,9 +30,19 @@ int main( int argc, char** argv )
 {
 	if ( argc < 4 )
 	{
-		cout << "Error:  Not enough parameters." << endl;
-		//cout << "Syntax:  " << endl;
-		return 1;
+		cout << "Usage 1:  " << argv[0] << " arduino_serial_file dump_rom "
+			<< "rom.gb\n";
+		cout << "Usage 2:  " << argv[0] << " arduino_serial_file "
+			<< "dump_rom_banks base_name\n";
+		cout << "Usage 3:  " << argv[0] << " arduino_serial_file "
+			<< "dump_rom_banks base_name start_bank\n";
+		cout << "Usage 4:  " << argv[0] << " arduino_serial_file "
+			<< "dump_rom_banks base_name start_bank num_banks\n";
+		cout << "Usage 5:  " << argv[0] << " arduino_serial_file dump_ram "
+			<< "save_data.sav\n";
+		cout << "Usage 6:  " << argv[0] << " arduino_serial_file "
+			<< "restore_ram save_data.sav\n";
+		return 0;
 	}
 	
 	communicator the_communicator( argc, argv );

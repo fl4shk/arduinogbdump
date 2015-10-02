@@ -1,0 +1,251 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+addr_packet	misc_types.hpp	/^union addr_packet$/;"	kind:u
+addr_packet::__anon1::hi	misc_types.hpp	/^		u8 lo, hi;$/;"	kind:m	struct:addr_packet::__anon1	access:public
+addr_packet::__anon1::lo	misc_types.hpp	/^		u8 lo, hi;$/;"	kind:m	struct:addr_packet::__anon1	access:public
+addr_packet::w	misc_types.hpp	/^	u16 w;$/;"	kind:m	union:addr_packet	access:public
+cart_mbc_type	communicator_class.hpp	/^	mbc_type cart_mbc_type;$/;"	kind:m	class:communicator	access:public
+communicator	communicator_class.cpp	/^communicator::communicator( int argc, char** argv )$/;"	kind:f	class:communicator	signature:( int argc, char** argv )
+communicator	communicator_class.hpp	/^	communicator( int argc, char** argv );$/;"	kind:p	class:communicator	access:public	signature:( int argc, char** argv )
+communicator	communicator_class.hpp	/^class communicator$/;"	kind:c
+communicator::cart_mbc_type	communicator_class.hpp	/^	mbc_type cart_mbc_type;$/;"	kind:m	class:communicator	access:public
+communicator::communicator	communicator_class.cpp	/^communicator::communicator( int argc, char** argv )$/;"	kind:f	class:communicator	signature:( int argc, char** argv )
+communicator::communicator	communicator_class.hpp	/^	communicator( int argc, char** argv );$/;"	kind:p	class:communicator	access:public	signature:( int argc, char** argv )
+communicator::dump_ram	communicator_class.cpp	/^void communicator::dump_ram()$/;"	kind:f	class:communicator	signature:()
+communicator::dump_ram	communicator_class.hpp	/^	void dump_ram();$/;"	kind:p	class:communicator	access:public	signature:()
+communicator::dump_rom	communicator_class.cpp	/^void communicator::dump_rom( u16 start_bank, u16 num_banks )$/;"	kind:f	class:communicator	signature:( u16 start_bank, u16 num_banks )
+communicator::dump_rom	communicator_class.hpp	/^	void dump_rom( u16 start_bank=0x0000, u16 num_banks=0x0000 );$/;"	kind:p	class:communicator	access:public	signature:( u16 start_bank=0x0000, u16 num_banks=0x0000 )
+communicator::dump_rom_banks_to_separate_files	communicator_class.cpp	/^void communicator::dump_rom_banks_to_separate_files( u16 start_bank, $/;"	kind:f	class:communicator	signature:( u16 start_bank, u16 num_banks )
+communicator::dump_rom_banks_to_separate_files	communicator_class.hpp	/^	void dump_rom_banks_to_separate_files( u16 start_bank=0x0000,$/;"	kind:p	class:communicator	access:public	signature:( u16 start_bank=0x0000, u16 num_banks=0x0000 )
+communicator::dump_rom_test	communicator_class.cpp	/^void communicator::dump_rom_test()$/;"	kind:f	class:communicator	signature:()
+communicator::dump_rom_test	communicator_class.hpp	/^	void dump_rom_test();$/;"	kind:p	class:communicator	access:public	signature:()
+communicator::fd	communicator_class.hpp	/^	int fd;$/;"	kind:m	class:communicator	access:public
+communicator::get_cart_stuff	communicator_class.cpp	/^void communicator::get_cart_stuff()$/;"	kind:f	class:communicator	signature:()
+communicator::get_cart_stuff	communicator_class.hpp	/^	void get_cart_stuff();$/;"	kind:p	class:communicator	access:public	signature:()
+communicator::hl_read_32_bytes	communicator_class.cpp	/^void communicator::hl_read_32_bytes( u16 gb_addr )$/;"	kind:f	class:communicator	signature:( u16 gb_addr )
+communicator::hl_read_32_bytes	communicator_class.hpp	/^	void hl_read_32_bytes( u16 gb_addr );$/;"	kind:p	class:communicator	access:public	signature:( u16 gb_addr )
+communicator::hl_read_bytes_and_write_to_ofile	communicator_class.cpp	/^void communicator::hl_read_bytes_and_write_to_ofile( u16 gb_start_addr, $/;"	kind:f	class:communicator	signature:( u16 gb_start_addr, u16 num_bytes )
+communicator::hl_read_bytes_and_write_to_ofile	communicator_class.hpp	/^	void hl_read_bytes_and_write_to_ofile( u16 gb_start_addr, $/;"	kind:p	class:communicator	access:public	signature:( u16 gb_start_addr, u16 num_bytes )
+communicator::hl_read_from_ifile_and_write_bytes	communicator_class.cpp	/^void communicator::hl_read_from_ifile_and_write_bytes( u16 gb_start_addr,$/;"	kind:f	class:communicator	signature:( u16 gb_start_addr, u16 num_bytes, u8 gb_ram_bank )
+communicator::hl_read_from_ifile_and_write_bytes	communicator_class.hpp	/^	void hl_read_from_ifile_and_write_bytes( u16 gb_start_addr,$/;"	kind:p	class:communicator	access:public	signature:( u16 gb_start_addr, u16 num_bytes, u8 gb_ram_bank=0x00 )
+communicator::hl_write_32_bytes	communicator_class.cpp	/^void communicator::hl_write_32_bytes( u16 gb_addr )$/;"	kind:f	class:communicator	signature:( u16 gb_addr )
+communicator::hl_write_32_bytes	communicator_class.hpp	/^	void hl_write_32_bytes( u16 gb_addr );$/;"	kind:p	class:communicator	access:public	signature:( u16 gb_addr )
+communicator::hl_write_rept_byte	communicator_class.cpp	/^void communicator::hl_write_rept_byte( u16 gb_addr, u8 the_byte )$/;"	kind:f	class:communicator	signature:( u16 gb_addr, u8 the_byte )
+communicator::hl_write_rept_byte	communicator_class.hpp	/^	void hl_write_rept_byte( u16 gb_addr, u8 the_byte );$/;"	kind:p	class:communicator	access:public	signature:( u16 gb_addr, u8 the_byte )
+communicator::if_name	communicator_class.hpp	/^	string of_name, if_name;$/;"	kind:m	class:communicator	access:public
+communicator::ifile	communicator_class.hpp	/^	fstream ofile, ifile;$/;"	kind:m	class:communicator	access:public
+communicator::loop_for_reading_32_bytes	communicator_class.cpp	/^inline int communicator::loop_for_reading_32_bytes()$/;"	kind:f	class:communicator	signature:()
+communicator::loop_for_reading_32_bytes	communicator_class.hpp	/^	inline int loop_for_reading_32_bytes();$/;"	kind:p	class:communicator	access:public	signature:()
+communicator::mbc1_dump_ram	communicator_class.cpp	/^void communicator::mbc1_dump_ram()$/;"	kind:f	class:communicator	signature:()
+communicator::mbc1_dump_ram	communicator_class.hpp	/^	void mbc1_dump_ram();$/;"	kind:p	class:communicator	access:public	signature:()
+communicator::mbc1_dump_rom	communicator_class.cpp	/^void communicator::mbc1_dump_rom( u16 start_bank, u16 num_banks )$/;"	kind:f	class:communicator	signature:( u16 start_bank, u16 num_banks )
+communicator::mbc1_dump_rom	communicator_class.hpp	/^	void mbc1_dump_rom( u16 start_bank=0x0000, u16 num_banks=0x0000 );$/;"	kind:p	class:communicator	access:public	signature:( u16 start_bank=0x0000, u16 num_banks=0x0000 )
+communicator::mbc1_dump_rom_banks_to_separate_files	communicator_class.cpp	/^void communicator::mbc1_dump_rom_banks_to_separate_files( u16 start_bank, $/;"	kind:f	class:communicator	signature:( u16 start_bank, u16 num_banks )
+communicator::mbc1_dump_rom_banks_to_separate_files	communicator_class.hpp	/^	void mbc1_dump_rom_banks_to_separate_files( u16 start_bank=0x0000, $/;"	kind:p	class:communicator	access:public	signature:( u16 start_bank=0x0000, u16 num_banks=0x0000 )
+communicator::mbc1_dump_single_rom_bank	communicator_class.cpp	/^void communicator::mbc1_dump_single_rom_bank( u16 bank )$/;"	kind:f	class:communicator	signature:( u16 bank )
+communicator::mbc1_dump_single_rom_bank	communicator_class.hpp	/^	void mbc1_dump_single_rom_bank( u16 bank );$/;"	kind:p	class:communicator	access:public	signature:( u16 bank )
+communicator::mbc1_restore_ram	communicator_class.cpp	/^void communicator::mbc1_restore_ram()$/;"	kind:f	class:communicator	signature:()
+communicator::mbc1_restore_ram	communicator_class.hpp	/^	void mbc1_restore_ram();$/;"	kind:p	class:communicator	access:public	signature:()
+communicator::mbc2_dump_ram	communicator_class.cpp	/^void communicator::mbc2_dump_ram()$/;"	kind:f	class:communicator	signature:()
+communicator::mbc2_dump_ram	communicator_class.hpp	/^	void mbc2_dump_ram();$/;"	kind:p	class:communicator	access:public	signature:()
+communicator::mbc2_dump_rom	communicator_class.cpp	/^void communicator::mbc2_dump_rom( u16 start_bank, u16 num_banks )$/;"	kind:f	class:communicator	signature:( u16 start_bank, u16 num_banks )
+communicator::mbc2_dump_rom	communicator_class.hpp	/^	void mbc2_dump_rom( u16 start_bank=0x0000, u16 num_banks=0x0000 );$/;"	kind:p	class:communicator	access:public	signature:( u16 start_bank=0x0000, u16 num_banks=0x0000 )
+communicator::mbc2_dump_rom_banks_to_separate_files	communicator_class.cpp	/^void communicator::mbc2_dump_rom_banks_to_separate_files( u16 start_bank, $/;"	kind:f	class:communicator	signature:( u16 start_bank, u16 num_banks )
+communicator::mbc2_dump_rom_banks_to_separate_files	communicator_class.hpp	/^	void mbc2_dump_rom_banks_to_separate_files( u16 start_bank=0x0000, $/;"	kind:p	class:communicator	access:public	signature:( u16 start_bank=0x0000, u16 num_banks=0x0000 )
+communicator::mbc2_dump_single_rom_bank	communicator_class.cpp	/^void communicator::mbc2_dump_single_rom_bank( u16 bank )$/;"	kind:f	class:communicator	signature:( u16 bank )
+communicator::mbc2_dump_single_rom_bank	communicator_class.hpp	/^	void mbc2_dump_single_rom_bank( u16 bank );$/;"	kind:p	class:communicator	access:public	signature:( u16 bank )
+communicator::mbc2_restore_ram	communicator_class.cpp	/^void communicator::mbc2_restore_ram()$/;"	kind:f	class:communicator	signature:()
+communicator::mbc2_restore_ram	communicator_class.hpp	/^	void mbc2_restore_ram();$/;"	kind:p	class:communicator	access:public	signature:()
+communicator::mbc3_dump_ram	communicator_class.cpp	/^void communicator::mbc3_dump_ram()$/;"	kind:f	class:communicator	signature:()
+communicator::mbc3_dump_ram	communicator_class.hpp	/^	void mbc3_dump_ram();$/;"	kind:p	class:communicator	access:public	signature:()
+communicator::mbc3_dump_rom	communicator_class.cpp	/^void communicator::mbc3_dump_rom( u16 start_bank, u16 num_banks )$/;"	kind:f	class:communicator	signature:( u16 start_bank, u16 num_banks )
+communicator::mbc3_dump_rom	communicator_class.hpp	/^	void mbc3_dump_rom( u16 start_bank=0x0000, u16 num_banks=0x0000 );$/;"	kind:p	class:communicator	access:public	signature:( u16 start_bank=0x0000, u16 num_banks=0x0000 )
+communicator::mbc3_dump_rom_banks_to_separate_files	communicator_class.cpp	/^void communicator::mbc3_dump_rom_banks_to_separate_files( u16 start_bank, $/;"	kind:f	class:communicator	signature:( u16 start_bank, u16 num_banks )
+communicator::mbc3_dump_rom_banks_to_separate_files	communicator_class.hpp	/^	void mbc3_dump_rom_banks_to_separate_files( u16 start_bank=0x0000, $/;"	kind:p	class:communicator	access:public	signature:( u16 start_bank=0x0000, u16 num_banks=0x0000 )
+communicator::mbc3_dump_single_rom_bank	communicator_class.cpp	/^void communicator::mbc3_dump_single_rom_bank( u16 bank )$/;"	kind:f	class:communicator	signature:( u16 bank )
+communicator::mbc3_dump_single_rom_bank	communicator_class.hpp	/^	void mbc3_dump_single_rom_bank( u16 bank );$/;"	kind:p	class:communicator	access:public	signature:( u16 bank )
+communicator::mbc3_restore_ram	communicator_class.cpp	/^void communicator::mbc3_restore_ram()$/;"	kind:f	class:communicator	signature:()
+communicator::mbc3_restore_ram	communicator_class.hpp	/^	void mbc3_restore_ram();$/;"	kind:p	class:communicator	access:public	signature:()
+communicator::mbc5_dump_ram	communicator_class.cpp	/^void communicator::mbc5_dump_ram()$/;"	kind:f	class:communicator	signature:()
+communicator::mbc5_dump_ram	communicator_class.hpp	/^	void mbc5_dump_ram();$/;"	kind:p	class:communicator	access:public	signature:()
+communicator::mbc5_dump_rom	communicator_class.cpp	/^void communicator::mbc5_dump_rom( u16 start_bank, u16 num_banks )$/;"	kind:f	class:communicator	signature:( u16 start_bank, u16 num_banks )
+communicator::mbc5_dump_rom	communicator_class.hpp	/^	void mbc5_dump_rom( u16 start_bank=0x0000, u16 num_banks=0x0000 );$/;"	kind:p	class:communicator	access:public	signature:( u16 start_bank=0x0000, u16 num_banks=0x0000 )
+communicator::mbc5_dump_rom_banks_to_separate_files	communicator_class.cpp	/^void communicator::mbc5_dump_rom_banks_to_separate_files( u16 start_bank, $/;"	kind:f	class:communicator	signature:( u16 start_bank, u16 num_banks )
+communicator::mbc5_dump_rom_banks_to_separate_files	communicator_class.hpp	/^	void mbc5_dump_rom_banks_to_separate_files( u16 start_bank=0x0000, $/;"	kind:p	class:communicator	access:public	signature:( u16 start_bank=0x0000, u16 num_banks=0x0000 )
+communicator::mbc5_dump_single_rom_bank	communicator_class.cpp	/^void communicator::mbc5_dump_single_rom_bank( u16 bank )$/;"	kind:f	class:communicator	signature:( u16 bank )
+communicator::mbc5_dump_single_rom_bank	communicator_class.hpp	/^	void mbc5_dump_single_rom_bank( u16 bank );$/;"	kind:p	class:communicator	access:public	signature:( u16 bank )
+communicator::mbc5_restore_ram	communicator_class.cpp	/^void communicator::mbc5_restore_ram()$/;"	kind:f	class:communicator	signature:()
+communicator::mbc5_restore_ram	communicator_class.hpp	/^	void mbc5_restore_ram();$/;"	kind:p	class:communicator	access:public	signature:()
+communicator::of_name	communicator_class.hpp	/^	string of_name, if_name;$/;"	kind:m	class:communicator	access:public
+communicator::ofile	communicator_class.hpp	/^	fstream ofile, ifile;$/;"	kind:m	class:communicator	access:public
+communicator::ram_size	communicator_class.hpp	/^	ram_size_type ram_size;$/;"	kind:m	class:communicator	access:public
+communicator::recv_buf	communicator_class.hpp	/^	array< char, 1024 > recv_buf;$/;"	kind:m	class:communicator	access:public
+communicator::restore_ram	communicator_class.cpp	/^void communicator::restore_ram()$/;"	kind:f	class:communicator	signature:()
+communicator::restore_ram	communicator_class.hpp	/^	void restore_ram();$/;"	kind:p	class:communicator	access:public	signature:()
+communicator::rom_only_dump_rom	communicator_class.cpp	/^void communicator::rom_only_dump_rom()$/;"	kind:f	class:communicator	signature:()
+communicator::rom_only_dump_rom	communicator_class.hpp	/^	void rom_only_dump_rom();$/;"	kind:p	class:communicator	access:public	signature:()
+communicator::rom_only_dump_rom_banks_to_separate_files	communicator_class.cpp	/^void communicator::rom_only_dump_rom_banks_to_separate_files()$/;"	kind:f	class:communicator	signature:()
+communicator::rom_only_dump_rom_banks_to_separate_files	communicator_class.hpp	/^	void rom_only_dump_rom_banks_to_separate_files();$/;"	kind:p	class:communicator	access:public	signature:()
+communicator::rom_only_dump_single_rom_bank	communicator_class.cpp	/^void communicator::rom_only_dump_single_rom_bank( u16 bank )$/;"	kind:f	class:communicator	signature:( u16 bank )
+communicator::rom_only_dump_single_rom_bank	communicator_class.hpp	/^	void rom_only_dump_single_rom_bank( u16 bank );$/;"	kind:p	class:communicator	access:public	signature:( u16 bank )
+communicator::rom_size	communicator_class.hpp	/^	u16 rom_size;$/;"	kind:m	class:communicator	access:public
+communicator::send_buf	communicator_class.hpp	/^	array< char, 2048 > send_buf;$/;"	kind:m	class:communicator	access:public
+communicator::~communicator	communicator_class.cpp	/^communicator::~communicator()$/;"	kind:f	class:communicator	signature:()
+communicator::~communicator	communicator_class.hpp	/^	~communicator();$/;"	kind:p	class:communicator	access:public	signature:()
+communicator_action	communicator_class.hpp	/^enum communicator_action$/;"	kind:g
+communicator_cls_hpp	communicator_class.hpp	2;"	kind:d
+do_arduino_read	stuffs.cpp	/^void do_arduino_read( int fd, string& from_arduino )$/;"	kind:f	signature:( int fd, string& from_arduino )
+do_arduino_read	stuffs.hpp	/^void do_arduino_read( int fd, string& from_arduino );$/;"	kind:p	signature:( int fd, string& from_arduino )
+do_ram_dump	communicator_class.hpp	/^	do_ram_dump,$/;"	kind:e	enum:communicator_action
+do_ram_restore	communicator_class.hpp	/^	do_ram_restore,$/;"	kind:e	enum:communicator_action
+do_rom_banks_dump	communicator_class.hpp	/^	do_rom_banks_dump,$/;"	kind:e	enum:communicator_action
+do_rom_dump	communicator_class.hpp	/^	do_rom_dump,$/;"	kind:e	enum:communicator_action
+do_select_for_read	stuffs.cpp	/^int do_select_for_read( int fd )$/;"	kind:f	signature:( int fd )
+do_select_for_read	stuffs.hpp	/^int do_select_for_read( int fd );$/;"	kind:p	signature:( int fd )
+do_select_for_write	stuffs.cpp	/^int do_select_for_write( int fd )$/;"	kind:f	signature:( int fd )
+do_select_for_write	stuffs.hpp	/^int do_select_for_write( int fd );$/;"	kind:p	signature:( int fd )
+dump_ram	communicator_class.cpp	/^void communicator::dump_ram()$/;"	kind:f	class:communicator	signature:()
+dump_ram	communicator_class.hpp	/^	void dump_ram();$/;"	kind:p	class:communicator	access:public	signature:()
+dump_rom	communicator_class.cpp	/^void communicator::dump_rom( u16 start_bank, u16 num_banks )$/;"	kind:f	class:communicator	signature:( u16 start_bank, u16 num_banks )
+dump_rom	communicator_class.hpp	/^	void dump_rom( u16 start_bank=0x0000, u16 num_banks=0x0000 );$/;"	kind:p	class:communicator	access:public	signature:( u16 start_bank=0x0000, u16 num_banks=0x0000 )
+dump_rom_banks_to_separate_files	communicator_class.cpp	/^void communicator::dump_rom_banks_to_separate_files( u16 start_bank, $/;"	kind:f	class:communicator	signature:( u16 start_bank, u16 num_banks )
+dump_rom_banks_to_separate_files	communicator_class.hpp	/^	void dump_rom_banks_to_separate_files( u16 start_bank=0x0000,$/;"	kind:p	class:communicator	access:public	signature:( u16 start_bank=0x0000, u16 num_banks=0x0000 )
+dump_rom_test	communicator_class.cpp	/^void communicator::dump_rom_test()$/;"	kind:f	class:communicator	signature:()
+dump_rom_test	communicator_class.hpp	/^	void dump_rom_test();$/;"	kind:p	class:communicator	access:public	signature:()
+fd	communicator_class.hpp	/^	int fd;$/;"	kind:m	class:communicator	access:public
+get_cart_stuff	communicator_class.cpp	/^void communicator::get_cart_stuff()$/;"	kind:f	class:communicator	signature:()
+get_cart_stuff	communicator_class.hpp	/^	void get_cart_stuff();$/;"	kind:p	class:communicator	access:public	signature:()
+hi	misc_types.hpp	/^		u8 lo, hi;$/;"	kind:m	struct:addr_packet::__anon1	access:public
+hl_read_32_bytes	communicator_class.cpp	/^void communicator::hl_read_32_bytes( u16 gb_addr )$/;"	kind:f	class:communicator	signature:( u16 gb_addr )
+hl_read_32_bytes	communicator_class.hpp	/^	void hl_read_32_bytes( u16 gb_addr );$/;"	kind:p	class:communicator	access:public	signature:( u16 gb_addr )
+hl_read_bytes_and_write_to_ofile	communicator_class.cpp	/^void communicator::hl_read_bytes_and_write_to_ofile( u16 gb_start_addr, $/;"	kind:f	class:communicator	signature:( u16 gb_start_addr, u16 num_bytes )
+hl_read_bytes_and_write_to_ofile	communicator_class.hpp	/^	void hl_read_bytes_and_write_to_ofile( u16 gb_start_addr, $/;"	kind:p	class:communicator	access:public	signature:( u16 gb_start_addr, u16 num_bytes )
+hl_read_from_ifile_and_write_bytes	communicator_class.cpp	/^void communicator::hl_read_from_ifile_and_write_bytes( u16 gb_start_addr,$/;"	kind:f	class:communicator	signature:( u16 gb_start_addr, u16 num_bytes, u8 gb_ram_bank )
+hl_read_from_ifile_and_write_bytes	communicator_class.hpp	/^	void hl_read_from_ifile_and_write_bytes( u16 gb_start_addr,$/;"	kind:p	class:communicator	access:public	signature:( u16 gb_start_addr, u16 num_bytes, u8 gb_ram_bank=0x00 )
+hl_write_32_bytes	communicator_class.cpp	/^void communicator::hl_write_32_bytes( u16 gb_addr )$/;"	kind:f	class:communicator	signature:( u16 gb_addr )
+hl_write_32_bytes	communicator_class.hpp	/^	void hl_write_32_bytes( u16 gb_addr );$/;"	kind:p	class:communicator	access:public	signature:( u16 gb_addr )
+hl_write_rept_byte	communicator_class.cpp	/^void communicator::hl_write_rept_byte( u16 gb_addr, u8 the_byte )$/;"	kind:f	class:communicator	signature:( u16 gb_addr, u8 the_byte )
+hl_write_rept_byte	communicator_class.hpp	/^	void hl_write_rept_byte( u16 gb_addr, u8 the_byte );$/;"	kind:p	class:communicator	access:public	signature:( u16 gb_addr, u8 the_byte )
+if_name	communicator_class.hpp	/^	string of_name, if_name;$/;"	kind:m	class:communicator	access:public
+ifile	communicator_class.hpp	/^	fstream ofile, ifile;$/;"	kind:m	class:communicator	access:public
+lo	misc_types.hpp	/^		u8 lo, hi;$/;"	kind:m	struct:addr_packet::__anon1	access:public
+loop_for_reading_32_bytes	communicator_class.cpp	/^inline int communicator::loop_for_reading_32_bytes()$/;"	kind:f	class:communicator	signature:()
+loop_for_reading_32_bytes	communicator_class.hpp	/^	inline int loop_for_reading_32_bytes();$/;"	kind:p	class:communicator	access:public	signature:()
+main	main.cpp	/^int main( int argc, char** argv )$/;"	kind:f	signature:( int argc, char** argv )
+mbc1	misc_types.hpp	/^	mbc1,					\/\/ MBC1 only, no RAM$/;"	kind:e	enum:mbc_type
+mbc1_dump_ram	communicator_class.cpp	/^void communicator::mbc1_dump_ram()$/;"	kind:f	class:communicator	signature:()
+mbc1_dump_ram	communicator_class.hpp	/^	void mbc1_dump_ram();$/;"	kind:p	class:communicator	access:public	signature:()
+mbc1_dump_rom	communicator_class.cpp	/^void communicator::mbc1_dump_rom( u16 start_bank, u16 num_banks )$/;"	kind:f	class:communicator	signature:( u16 start_bank, u16 num_banks )
+mbc1_dump_rom	communicator_class.hpp	/^	void mbc1_dump_rom( u16 start_bank=0x0000, u16 num_banks=0x0000 );$/;"	kind:p	class:communicator	access:public	signature:( u16 start_bank=0x0000, u16 num_banks=0x0000 )
+mbc1_dump_rom_banks_to_separate_files	communicator_class.cpp	/^void communicator::mbc1_dump_rom_banks_to_separate_files( u16 start_bank, $/;"	kind:f	class:communicator	signature:( u16 start_bank, u16 num_banks )
+mbc1_dump_rom_banks_to_separate_files	communicator_class.hpp	/^	void mbc1_dump_rom_banks_to_separate_files( u16 start_bank=0x0000, $/;"	kind:p	class:communicator	access:public	signature:( u16 start_bank=0x0000, u16 num_banks=0x0000 )
+mbc1_dump_single_rom_bank	communicator_class.cpp	/^void communicator::mbc1_dump_single_rom_bank( u16 bank )$/;"	kind:f	class:communicator	signature:( u16 bank )
+mbc1_dump_single_rom_bank	communicator_class.hpp	/^	void mbc1_dump_single_rom_bank( u16 bank );$/;"	kind:p	class:communicator	access:public	signature:( u16 bank )
+mbc1_ram	misc_types.hpp	/^	mbc1_ram,				\/\/ MBC1 and RAM$/;"	kind:e	enum:mbc_type
+mbc1_restore_ram	communicator_class.cpp	/^void communicator::mbc1_restore_ram()$/;"	kind:f	class:communicator	signature:()
+mbc1_restore_ram	communicator_class.hpp	/^	void mbc1_restore_ram();$/;"	kind:p	class:communicator	access:public	signature:()
+mbc2	misc_types.hpp	/^	mbc2,					\/\/ MBC2 (includes built-in RAM)$/;"	kind:e	enum:mbc_type
+mbc2_dump_ram	communicator_class.cpp	/^void communicator::mbc2_dump_ram()$/;"	kind:f	class:communicator	signature:()
+mbc2_dump_ram	communicator_class.hpp	/^	void mbc2_dump_ram();$/;"	kind:p	class:communicator	access:public	signature:()
+mbc2_dump_rom	communicator_class.cpp	/^void communicator::mbc2_dump_rom( u16 start_bank, u16 num_banks )$/;"	kind:f	class:communicator	signature:( u16 start_bank, u16 num_banks )
+mbc2_dump_rom	communicator_class.hpp	/^	void mbc2_dump_rom( u16 start_bank=0x0000, u16 num_banks=0x0000 );$/;"	kind:p	class:communicator	access:public	signature:( u16 start_bank=0x0000, u16 num_banks=0x0000 )
+mbc2_dump_rom_banks_to_separate_files	communicator_class.cpp	/^void communicator::mbc2_dump_rom_banks_to_separate_files( u16 start_bank, $/;"	kind:f	class:communicator	signature:( u16 start_bank, u16 num_banks )
+mbc2_dump_rom_banks_to_separate_files	communicator_class.hpp	/^	void mbc2_dump_rom_banks_to_separate_files( u16 start_bank=0x0000, $/;"	kind:p	class:communicator	access:public	signature:( u16 start_bank=0x0000, u16 num_banks=0x0000 )
+mbc2_dump_single_rom_bank	communicator_class.cpp	/^void communicator::mbc2_dump_single_rom_bank( u16 bank )$/;"	kind:f	class:communicator	signature:( u16 bank )
+mbc2_dump_single_rom_bank	communicator_class.hpp	/^	void mbc2_dump_single_rom_bank( u16 bank );$/;"	kind:p	class:communicator	access:public	signature:( u16 bank )
+mbc2_restore_ram	communicator_class.cpp	/^void communicator::mbc2_restore_ram()$/;"	kind:f	class:communicator	signature:()
+mbc2_restore_ram	communicator_class.hpp	/^	void mbc2_restore_ram();$/;"	kind:p	class:communicator	access:public	signature:()
+mbc3	misc_types.hpp	/^	mbc3,					\/\/ MBC3 only, no RTC, no RAM$/;"	kind:e	enum:mbc_type
+mbc3_dump_ram	communicator_class.cpp	/^void communicator::mbc3_dump_ram()$/;"	kind:f	class:communicator	signature:()
+mbc3_dump_ram	communicator_class.hpp	/^	void mbc3_dump_ram();$/;"	kind:p	class:communicator	access:public	signature:()
+mbc3_dump_rom	communicator_class.cpp	/^void communicator::mbc3_dump_rom( u16 start_bank, u16 num_banks )$/;"	kind:f	class:communicator	signature:( u16 start_bank, u16 num_banks )
+mbc3_dump_rom	communicator_class.hpp	/^	void mbc3_dump_rom( u16 start_bank=0x0000, u16 num_banks=0x0000 );$/;"	kind:p	class:communicator	access:public	signature:( u16 start_bank=0x0000, u16 num_banks=0x0000 )
+mbc3_dump_rom_banks_to_separate_files	communicator_class.cpp	/^void communicator::mbc3_dump_rom_banks_to_separate_files( u16 start_bank, $/;"	kind:f	class:communicator	signature:( u16 start_bank, u16 num_banks )
+mbc3_dump_rom_banks_to_separate_files	communicator_class.hpp	/^	void mbc3_dump_rom_banks_to_separate_files( u16 start_bank=0x0000, $/;"	kind:p	class:communicator	access:public	signature:( u16 start_bank=0x0000, u16 num_banks=0x0000 )
+mbc3_dump_single_rom_bank	communicator_class.cpp	/^void communicator::mbc3_dump_single_rom_bank( u16 bank )$/;"	kind:f	class:communicator	signature:( u16 bank )
+mbc3_dump_single_rom_bank	communicator_class.hpp	/^	void mbc3_dump_single_rom_bank( u16 bank );$/;"	kind:p	class:communicator	access:public	signature:( u16 bank )
+mbc3_ram	misc_types.hpp	/^	mbc3_ram,				\/\/ MBC3 and RAM, but no RTC$/;"	kind:e	enum:mbc_type
+mbc3_restore_ram	communicator_class.cpp	/^void communicator::mbc3_restore_ram()$/;"	kind:f	class:communicator	signature:()
+mbc3_restore_ram	communicator_class.hpp	/^	void mbc3_restore_ram();$/;"	kind:p	class:communicator	access:public	signature:()
+mbc3_timer	misc_types.hpp	/^	mbc3_timer,				\/\/ MBC3 and RTC, but no RAM$/;"	kind:e	enum:mbc_type
+mbc3_timer_ram	misc_types.hpp	/^	mbc3_timer_ram,			\/\/ MBC3, RTC, and RAM$/;"	kind:e	enum:mbc_type
+mbc5	misc_types.hpp	/^	mbc5,					\/\/ MBC5 only, no RAM$/;"	kind:e	enum:mbc_type
+mbc5_dump_ram	communicator_class.cpp	/^void communicator::mbc5_dump_ram()$/;"	kind:f	class:communicator	signature:()
+mbc5_dump_ram	communicator_class.hpp	/^	void mbc5_dump_ram();$/;"	kind:p	class:communicator	access:public	signature:()
+mbc5_dump_rom	communicator_class.cpp	/^void communicator::mbc5_dump_rom( u16 start_bank, u16 num_banks )$/;"	kind:f	class:communicator	signature:( u16 start_bank, u16 num_banks )
+mbc5_dump_rom	communicator_class.hpp	/^	void mbc5_dump_rom( u16 start_bank=0x0000, u16 num_banks=0x0000 );$/;"	kind:p	class:communicator	access:public	signature:( u16 start_bank=0x0000, u16 num_banks=0x0000 )
+mbc5_dump_rom_banks_to_separate_files	communicator_class.cpp	/^void communicator::mbc5_dump_rom_banks_to_separate_files( u16 start_bank, $/;"	kind:f	class:communicator	signature:( u16 start_bank, u16 num_banks )
+mbc5_dump_rom_banks_to_separate_files	communicator_class.hpp	/^	void mbc5_dump_rom_banks_to_separate_files( u16 start_bank=0x0000, $/;"	kind:p	class:communicator	access:public	signature:( u16 start_bank=0x0000, u16 num_banks=0x0000 )
+mbc5_dump_single_rom_bank	communicator_class.cpp	/^void communicator::mbc5_dump_single_rom_bank( u16 bank )$/;"	kind:f	class:communicator	signature:( u16 bank )
+mbc5_dump_single_rom_bank	communicator_class.hpp	/^	void mbc5_dump_single_rom_bank( u16 bank );$/;"	kind:p	class:communicator	access:public	signature:( u16 bank )
+mbc5_ram	misc_types.hpp	/^	mbc5_ram,				\/\/ MBC5 and RAM$/;"	kind:e	enum:mbc_type
+mbc5_restore_ram	communicator_class.cpp	/^void communicator::mbc5_restore_ram()$/;"	kind:f	class:communicator	signature:()
+mbc5_restore_ram	communicator_class.hpp	/^	void mbc5_restore_ram();$/;"	kind:p	class:communicator	access:public	signature:()
+mbc_type	misc_types.hpp	/^enum mbc_type$/;"	kind:g
+misc_types_hpp	misc_types.hpp	2;"	kind:d
+of_name	communicator_class.hpp	/^	string of_name, if_name;$/;"	kind:m	class:communicator	access:public
+ofile	communicator_class.hpp	/^	fstream ofile, ifile;$/;"	kind:m	class:communicator	access:public
+ram_size	communicator_class.hpp	/^	ram_size_type ram_size;$/;"	kind:m	class:communicator	access:public
+ram_size_type	misc_types.hpp	/^enum ram_size_type$/;"	kind:g
+recv_buf	communicator_class.hpp	/^	array< char, 1024 > recv_buf;$/;"	kind:m	class:communicator	access:public
+restore_ram	communicator_class.cpp	/^void communicator::restore_ram()$/;"	kind:f	class:communicator	signature:()
+restore_ram	communicator_class.hpp	/^	void restore_ram();$/;"	kind:p	class:communicator	access:public	signature:()
+rom_only	misc_types.hpp	/^	rom_only,				\/\/ 32 kiB of ROM, no MBC$/;"	kind:e	enum:mbc_type
+rom_only_dump_rom	communicator_class.cpp	/^void communicator::rom_only_dump_rom()$/;"	kind:f	class:communicator	signature:()
+rom_only_dump_rom	communicator_class.hpp	/^	void rom_only_dump_rom();$/;"	kind:p	class:communicator	access:public	signature:()
+rom_only_dump_rom_banks_to_separate_files	communicator_class.cpp	/^void communicator::rom_only_dump_rom_banks_to_separate_files()$/;"	kind:f	class:communicator	signature:()
+rom_only_dump_rom_banks_to_separate_files	communicator_class.hpp	/^	void rom_only_dump_rom_banks_to_separate_files();$/;"	kind:p	class:communicator	access:public	signature:()
+rom_only_dump_single_rom_bank	communicator_class.cpp	/^void communicator::rom_only_dump_single_rom_bank( u16 bank )$/;"	kind:f	class:communicator	signature:( u16 bank )
+rom_only_dump_single_rom_bank	communicator_class.hpp	/^	void rom_only_dump_single_rom_bank( u16 bank );$/;"	kind:p	class:communicator	access:public	signature:( u16 bank )
+rom_size	communicator_class.hpp	/^	u16 rom_size;$/;"	kind:m	class:communicator	access:public
+rs_128	misc_types.hpp	/^	rs_128,			\/\/ 128 kiB of external cart RAM, 16 banks of 8 kiB each$/;"	kind:e	enum:ram_size_type
+rs_2	misc_types.hpp	/^	rs_2,			\/\/ 2 kiB of external cart RAM, not even a full bank$/;"	kind:e	enum:ram_size_type
+rs_32	misc_types.hpp	/^	rs_32,			\/\/ 32 kiB of external cart RAM, 4 banks of 8 kiB each$/;"	kind:e	enum:ram_size_type
+rs_8	misc_types.hpp	/^	rs_8,			\/\/ 8 kiB of external cart RAM, 1 bank of 8 kiB$/;"	kind:e	enum:ram_size_type
+rs_mbc2	misc_types.hpp	/^	rs_mbc2,$/;"	kind:e	enum:ram_size_type
+rs_none	misc_types.hpp	/^	rs_none,		\/\/ 1 kiB of external cart RAM$/;"	kind:e	enum:ram_size_type
+s16	communicator_class.cpp	/^typedef uint16_t u16; typedef int16_t s16;$/;"	kind:t	file:
+s16	main.cpp	/^typedef uint16_t u16; typedef int16_t s16;$/;"	kind:t	file:
+s16	stuffs.cpp	/^typedef uint16_t u16; typedef int16_t s16;$/;"	kind:t	file:
+s32	communicator_class.cpp	/^typedef uint32_t u32; typedef int32_t s32;$/;"	kind:t	file:
+s32	main.cpp	/^typedef uint32_t u32; typedef int32_t s32;$/;"	kind:t	file:
+s32	stuffs.cpp	/^typedef uint32_t u32; typedef int32_t s32;$/;"	kind:t	file:
+s64	communicator_class.cpp	/^typedef uint64_t u64; typedef int64_t s64;$/;"	kind:t	file:
+s64	main.cpp	/^typedef uint64_t u64; typedef int64_t s64;$/;"	kind:t	file:
+s64	stuffs.cpp	/^typedef uint64_t u64; typedef int64_t s64;$/;"	kind:t	file:
+s8	communicator_class.cpp	/^typedef uint8_t u8; typedef int8_t s8;$/;"	kind:t	file:
+s8	main.cpp	/^typedef uint8_t u8; typedef int8_t s8;$/;"	kind:t	file:
+s8	stuffs.cpp	/^typedef uint8_t u8; typedef int8_t s8;$/;"	kind:t	file:
+send_buf	communicator_class.hpp	/^	array< char, 2048 > send_buf;$/;"	kind:m	class:communicator	access:public
+serial_msg_type	misc_types.hpp	/^enum serial_msg_type$/;"	kind:g
+sm_gb_read_32_bytes	misc_types.hpp	/^	sm_gb_read_32_bytes,$/;"	kind:e	enum:serial_msg_type
+sm_gb_read_var_num_bytes	misc_types.hpp	/^	sm_gb_read_var_num_bytes,$/;"	kind:e	enum:serial_msg_type
+sm_gb_write_32_bytes	misc_types.hpp	/^	sm_gb_write_32_bytes,$/;"	kind:e	enum:serial_msg_type
+sm_gb_write_var_num_bytes	misc_types.hpp	/^	sm_gb_write_var_num_bytes,$/;"	kind:e	enum:serial_msg_type
+sm_get_cart_stuff	misc_types.hpp	/^	sm_get_cart_stuff,$/;"	kind:e	enum:serial_msg_type
+sm_print_cart_stuff	misc_types.hpp	/^	sm_print_cart_stuff,$/;"	kind:e	enum:serial_msg_type
+sm_reset_tpak	misc_types.hpp	/^	sm_reset_tpak,$/;"	kind:e	enum:serial_msg_type
+stuffs_hpp	stuffs.hpp	2;"	kind:d
+u16	communicator_class.cpp	/^typedef uint16_t u16; typedef int16_t s16;$/;"	kind:t	file:
+u16	main.cpp	/^typedef uint16_t u16; typedef int16_t s16;$/;"	kind:t	file:
+u16	stuffs.cpp	/^typedef uint16_t u16; typedef int16_t s16;$/;"	kind:t	file:
+u32	communicator_class.cpp	/^typedef uint32_t u32; typedef int32_t s32;$/;"	kind:t	file:
+u32	main.cpp	/^typedef uint32_t u32; typedef int32_t s32;$/;"	kind:t	file:
+u32	stuffs.cpp	/^typedef uint32_t u32; typedef int32_t s32;$/;"	kind:t	file:
+u64	communicator_class.cpp	/^typedef uint64_t u64; typedef int64_t s64;$/;"	kind:t	file:
+u64	main.cpp	/^typedef uint64_t u64; typedef int64_t s64;$/;"	kind:t	file:
+u64	stuffs.cpp	/^typedef uint64_t u64; typedef int64_t s64;$/;"	kind:t	file:
+u8	communicator_class.cpp	/^typedef uint8_t u8; typedef int8_t s8;$/;"	kind:t	file:
+u8	main.cpp	/^typedef uint8_t u8; typedef int8_t s8;$/;"	kind:t	file:
+u8	stuffs.cpp	/^typedef uint8_t u8; typedef int8_t s8;$/;"	kind:t	file:
+uint	communicator_class.cpp	/^typedef unsigned int uint;$/;"	kind:t	file:
+uint	main.cpp	/^typedef unsigned int uint;$/;"	kind:t	file:
+uint	stuffs.cpp	/^typedef unsigned int uint;$/;"	kind:t	file:
+unknown_mbc_type	misc_types.hpp	/^	unknown_mbc_type		\/\/ Debug, etc.$/;"	kind:e	enum:mbc_type
+w	misc_types.hpp	/^	u16 w;$/;"	kind:m	union:addr_packet	access:public
+~communicator	communicator_class.cpp	/^communicator::~communicator()$/;"	kind:f	class:communicator	signature:()
+~communicator	communicator_class.hpp	/^	~communicator();$/;"	kind:p	class:communicator	access:public	signature:()

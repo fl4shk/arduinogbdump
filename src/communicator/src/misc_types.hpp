@@ -1,6 +1,9 @@
 #ifndef misc_types_hpp
 #define misc_types_hpp
 
+
+// This union needs to be updated so that big endian AND little endian
+// hosts are supported.  Currently, ONLY little endian hosts are supported.
 union addr_packet
 {
 	u16 w;

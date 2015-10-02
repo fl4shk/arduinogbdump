@@ -4,8 +4,14 @@
 enum communicator_action
 {
 	do_rom_dump,
+	
+	// do_rom_banks_dump was added because sometimes the Transfer Pak stops
+	// being possible to read from.  It is so finicky.
+	do_rom_banks_dump,
+	
 	do_ram_dump,
-	do_ram_restore
+	do_ram_restore,
+	
 };
 
 class communicator
@@ -25,8 +31,6 @@ public:		// variables
 	
 	// filenames
 	string of_name, if_name;
-	
-	
 	
 	mbc_type cart_mbc_type;
 	u16 rom_size;
@@ -69,9 +73,20 @@ public:		// functions
 	// Main ROM dumping functions
 	void rom_only_dump_rom();
 	void mbc1_dump_rom( u16 start_bank=0x0000, u16 num_banks=0x0000 );
-	void mbc2_dump_rom();
+	void mbc2_dump_rom( u16 start_bank=0x0000, u16 num_banks=0x0000 );
 	void mbc3_dump_rom( u16 start_bank=0x0000, u16 num_banks=0x0000 );
 	void mbc5_dump_rom( u16 start_bank=0x0000, u16 num_banks=0x0000 );
+	
+	
+	void rom_only_dump_rom_banks_to_separate_files();
+	void mbc1_dump_rom_banks_to_separate_files( u16 start_bank=0x0000, 
+		u16 num_banks=0x0000 );
+	void mbc2_dump_rom_banks_to_separate_files( u16 start_bank=0x0000, 
+		u16 num_banks=0x0000 );
+	void mbc3_dump_rom_banks_to_separate_files( u16 start_bank=0x0000, 
+		u16 num_banks=0x0000 );
+	void mbc5_dump_rom_banks_to_separate_files( u16 start_bank=0x0000, 
+		u16 num_banks=0x0000 );
 	
 	
 	// Main RAM dumping functions
@@ -89,6 +104,8 @@ public:		// functions
 	
 	
 	void dump_rom( u16 start_bank=0x0000, u16 num_banks=0x0000 );
+	void dump_rom_banks_to_separate_files( u16 start_bank=0x0000,
+		u16 num_banks=0x0000 );
 	void dump_ram();
 	void restore_ram();
 };

@@ -58,6 +58,10 @@ communicator::communicator( int argc, char** argv )
 	{
 		action = do_rom_dump;
 	}
+	else if ( argv2 == "dump_rom_banks" )
+	{
+		action = do_rom_banks_dump;
+	}
 	else if ( argv2 == "dump_ram" )
 	{
 		action = do_ram_dump;
@@ -105,6 +109,31 @@ communicator::communicator( int argc, char** argv )
 			// Arguments past argv[5] are ignored
 			
 			dump_rom( start_bank, num_banks );
+			
+			break;
+		
+		case do_rom_banks_dump:
+			// In this case, of_name is used as the base name for all the
+			// ROM bank files that are to be generate
+			of_name = argv3;
+			
+			if ( argc > 4 )
+			{
+				stringstream the_sstm;
+				the_sstm << argv[4];
+				
+				the_sstm >> start_bank;
+			}
+			if ( argc > 5 )
+			{
+				stringstream the_sstm;
+				the_sstm << argv[5];
+				
+				the_sstm >> num_banks;
+			}
+			// Arguments past argv[5] are ignored
+			
+			dump_rom_banks_to_separate_files( start_bank, num_banks );
 			
 			break;
 		
@@ -410,7 +439,7 @@ void communicator::rom_only_dump_single_rom_bank( u16 bank )
 {
 	cout << "Dumping ROM bank " << bank << endl;
 	
-	if( bank == 0x0000 )
+	if ( bank == 0x0000 )
 	{
 		hl_read_bytes_and_write_to_ofile( 0x0000, 0x4000 );
 	}
@@ -424,6 +453,24 @@ void communicator::mbc1_dump_single_rom_bank( u16 bank )
 {
 	cout << "Dumping ROM bank " << bank << endl;
 	
+	if ( bank == 0x0000 )
+	{
+		hl_read_bytes_and_write_to_ofile( 0x0000, 0x4000 );
+	}
+	else
+	{
+		// Enable ROM-banking mode
+		hl_write_rept_byte( 0x6000, 0x00 );
+		
+		// Write the upper 2 bits of the ROM bank
+		hl_write_rept_byte( 0x4000, (u8)( ( bank & 0x60 ) >> 5 ) );
+		
+		// Write the lower 5 bits of the ROM bank
+		hl_write_rept_byte( 0x2000, (u8)( bank & 0x1f ) );
+		
+		// Finally, read the ROM bank
+		hl_read_bytes_and_write_to_ofile( 0x4000, 0x4000 );
+	}
 	
 }
 
@@ -487,24 +534,55 @@ void communicator::rom_only_dump_rom()
 
 void communicator::mbc1_dump_rom( u16 start_bank, u16 num_banks )
 {
+	get_cart_stuff();
 	
+	if ( ( cart_mbc_type != mbc1 ) && ( cart_mbc_type != mbc1_ram ) )
+	{
+		cout << "Error:  The cartridge doesn't seem to have an MBC1!\n";
+		return;
+	}
+	
+	if ( ( num_banks == 0x0000 ) || ( num_banks - start_bank ) > rom_size )
+	{
+		for ( uint i=start_bank; i<rom_size; ++i )
+		{
+			mbc1_dump_single_rom_bank(i);
+		}
+	}
+	else
+	{
+		for ( uint i=start_bank; i<start_bank+num_banks; ++i )
+		{
+			mbc1_dump_single_rom_bank(i);
+		}
+	}
 }
 
-void communicator::mbc2_dump_rom()
+void communicator::mbc2_dump_rom( u16 start_bank, u16 num_banks )
 {
 	get_cart_stuff();
 	
 	if ( cart_mbc_type != mbc2 )
 	{
-		cout << "Error:  The cartrdige doesn't seem to have an MBC2!\n";
+		cout << "Error:  The cartridge doesn't seem to have an MBC2!\n";
 		return;
 	}
 	//cout << "The cartridge DOES have an MBC2!\n";
 	
 	
-	for ( uint i=0; i<rom_size; ++i )
+	if ( ( num_banks == 0x0000 ) || ( num_banks - start_bank ) > rom_size )
 	{
-		mbc2_dump_single_rom_bank(i);
+		for ( uint i=start_bank; i<rom_size; ++i )
+		{
+			mbc2_dump_single_rom_bank(i);
+		}
+	}
+	else
+	{
+		for ( uint i=start_bank; i<start_bank+num_banks; ++i )
+		{
+			mbc2_dump_single_rom_bank(i);
+		}
 	}
 	
 	
@@ -578,10 +656,291 @@ void communicator::mbc5_dump_rom( u16 start_bank, u16 num_banks )
 	
 }
 
+
+void communicator::rom_only_dump_rom_banks_to_separate_files()
+{
+	get_cart_stuff();
+	
+	if ( cart_mbc_type != rom_only )
+	{
+		cout << "Error:  The cartridge type is not \"rom_only\"!\n";
+		return;
+	}
+	
+	ofile.open( of_name + "_bank_0.bin", ios_base::out 
+		| ios_base::binary );
+	rom_only_dump_single_rom_bank(0x0000);
+	ofile.close();
+	
+	ofile.open( of_name + "_bank_1.bin", ios_base::out 
+		| ios_base::binary );
+	rom_only_dump_single_rom_bank(0x0001);
+	ofile.close();
+}
+
+void communicator::mbc1_dump_rom_banks_to_separate_files( u16 start_bank, 
+	u16 num_banks )
+{
+	get_cart_stuff();
+	
+	if ( ( cart_mbc_type != mbc1 ) && ( cart_mbc_type != mbc1_ram ) )
+	{
+		cout << "Error:  The cartridge doesn't seem to have an MBC1!\n";
+		return;
+	}
+	
+	if ( ( num_banks == 0x0000 ) || ( num_banks - start_bank ) > rom_size )
+	{
+		for ( uint i=start_bank; i<rom_size; ++i )
+		{
+			stringstream the_sstm;
+			the_sstm << i;
+			
+			string the_bank_str;
+			the_sstm >> the_bank_str;
+			
+			ofile.open( of_name + "_bank_" + the_bank_str + ".bin", 
+				ios_base::out | ios_base::binary );
+			mbc1_dump_single_rom_bank(i);
+			ofile.close();
+		}
+	}
+	else
+	{
+		for ( uint i=start_bank; i<start_bank+num_banks; ++i )
+		{
+			stringstream the_sstm;
+			the_sstm << i;
+			
+			string the_bank_str;
+			the_sstm >> the_bank_str;
+			
+			ofile.open( of_name + "_bank_" + the_bank_str + ".bin", 
+				ios_base::out | ios_base::binary );
+			mbc1_dump_single_rom_bank(i);
+			ofile.close();
+		}
+	}
+}
+
+void communicator::mbc2_dump_rom_banks_to_separate_files( u16 start_bank, 
+	u16 num_banks )
+{
+	get_cart_stuff();
+	
+	if ( cart_mbc_type != mbc2 )
+	{
+		cout << "Error:  The cartridge doesn't seem to have an MBC2!\n";
+		return;
+	}
+	
+	if ( ( num_banks == 0x0000 ) || ( num_banks - start_bank ) > rom_size )
+	{
+		for ( uint i=start_bank; i<rom_size; ++i )
+		{
+			stringstream the_sstm;
+			the_sstm << i;
+			
+			string the_bank_str;
+			the_sstm >> the_bank_str;
+			
+			ofile.open( of_name + "_bank_" + the_bank_str + ".bin", 
+				ios_base::out | ios_base::binary );
+			mbc2_dump_single_rom_bank(i);
+			ofile.close();
+		}
+	}
+	else
+	{
+		for ( uint i=start_bank; i<start_bank+num_banks; ++i )
+		{
+			stringstream the_sstm;
+			the_sstm << i;
+			
+			string the_bank_str;
+			the_sstm >> the_bank_str;
+			
+			ofile.open( of_name + "_bank_" + the_bank_str + ".bin", 
+				ios_base::out | ios_base::binary );
+			mbc2_dump_single_rom_bank(i);
+			ofile.close();
+		}
+	}
+	
+}
+
+void communicator::mbc3_dump_rom_banks_to_separate_files( u16 start_bank, 
+	u16 num_banks )
+{
+	get_cart_stuff();
+	
+	if ( ( cart_mbc_type != mbc3 ) && ( cart_mbc_type != mbc3_timer ) 
+		&& ( cart_mbc_type != mbc3_timer_ram ) 
+		&& ( cart_mbc_type != mbc3_ram ) )
+	{
+		cout << "Error:  The cartridge doesn't seem to have an MBC3!\n";
+		return;
+	}
+	
+	
+	if ( ( num_banks == 0x0000 ) || ( num_banks - start_bank ) > rom_size )
+	{
+		for ( uint i=start_bank; i<rom_size; ++i )
+		{
+			stringstream the_sstm;
+			the_sstm << i;
+			
+			string the_bank_str;
+			the_sstm >> the_bank_str;
+			
+			ofile.open( of_name + "_bank_" + the_bank_str + ".bin", 
+				ios_base::out | ios_base::binary );
+			mbc3_dump_single_rom_bank(i);
+			ofile.close();
+		}
+	}
+	else
+	{
+		for ( uint i=start_bank; i<start_bank+num_banks; ++i )
+		{
+			stringstream the_sstm;
+			the_sstm << i;
+			
+			string the_bank_str;
+			the_sstm >> the_bank_str;
+			
+			ofile.open( of_name + "_bank_" + the_bank_str + ".bin", 
+				ios_base::out | ios_base::binary );
+			mbc3_dump_single_rom_bank(i);
+			ofile.close();
+		}
+	}
+	
+}
+
+void communicator::mbc5_dump_rom_banks_to_separate_files( u16 start_bank, 
+	u16 num_banks )
+{
+	get_cart_stuff();
+	
+	if ( ( cart_mbc_type != mbc5 ) && ( cart_mbc_type != mbc5_ram ) )
+	{
+		cout << "Error:  The cartridge doesn't seem to have an MBC5!\n";
+		return;
+	}
+	
+	if ( rom_size > 256 )
+	{
+		cout << "Error:  Even though the cartridge has an MBC5, it is not"
+			<< " yet supported.\n";
+		cout << "Details:  Too many ROM banks.\n";
+		return;
+	}
+	
+	if ( ( num_banks == 0x0000 ) || ( num_banks - start_bank ) > rom_size )
+	{
+		for ( uint i=start_bank; i<rom_size; ++i )
+		{
+			stringstream the_sstm;
+			the_sstm << i;
+			
+			string the_bank_str;
+			the_sstm >> the_bank_str;
+			
+			ofile.open( of_name + "_bank_" + the_bank_str + ".bin", 
+				ios_base::out | ios_base::binary );
+			mbc5_dump_single_rom_bank(i);
+			ofile.close();
+		}
+	}
+	else
+	{
+		for ( uint i=start_bank; i<start_bank+num_banks; ++i )
+		{
+			stringstream the_sstm;
+			the_sstm << i;
+			
+			string the_bank_str;
+			the_sstm >> the_bank_str;
+			
+			ofile.open( of_name + "_bank_" + the_bank_str + ".bin", 
+				ios_base::out | ios_base::binary );
+			mbc5_dump_single_rom_bank(i);
+			ofile.close();
+		}
+	}
+	
+}
+
+
+
 // Main RAM dumping functions
 void communicator::mbc1_dump_ram()
 {
-	
+	switch (ram_size)
+	{
+		case rs_none:
+			cout << "Error:  This cartridge doesn't have any RAM.\n";
+			break;
+		
+		// 0x800 bytes (2 kiB) of RAM (not even a full 8 kiB bank)
+		case rs_2:
+			// Enable RAM so we can read from it
+			hl_write_rept_byte( 0x0000, 0x0a );
+			
+			// Now we read the 2 kiB of RAM
+			hl_read_bytes_and_write_to_ofile( 0xa000, 0x800 );
+			
+			// Disable RAM for safety
+			hl_write_rept_byte( 0x0000, 0x00 );
+			
+			break;
+		
+		
+		// 0x2000 bytes (8 kiB) of RAM (only one full 8 kiB bank)
+		case rs_8:
+			// Enable RAM so we can read from it
+			hl_write_rept_byte( 0x0000, 0x0a );
+			
+			// Now we read the 8 kiB of RAM
+			hl_read_bytes_and_write_to_ofile( 0xa000, 0x2000 );
+			
+			// Disable RAM for safety
+			hl_write_rept_byte( 0x0000, 0x00 );
+			
+			
+			break;
+		
+		case rs_32:
+			for ( uint i=0; i<4; ++i )
+			{
+				cout << "Dumping RAM bank " << i << endl;
+				
+				// In order to set the RAM bank, we have to disable RAM
+				hl_write_rept_byte( 0x0000, 0x00 );
+				
+				// Now we enable RAM banking mode
+				hl_write_rept_byte( 0x6000, 0x01 );
+				
+				// Now we set the RAM bank
+				hl_write_rept_byte( 0x4000, (u8)( i & 0x0f ) );
+				
+				// Then we enable RAM again
+				hl_write_rept_byte( 0x0000, 0x0a );
+				
+				// Now we read the 8 kiB of RAM
+				hl_read_bytes_and_write_to_ofile( 0xa000, 0x2000 );
+			}
+			
+			// Disable RAM for safety
+			hl_write_rept_byte( 0x0000, 0x00 );
+			
+			break;
+		
+		default:
+			
+			break;
+	}
 }
 void communicator::mbc2_dump_ram()
 {
@@ -970,7 +1329,7 @@ void communicator::dump_rom( u16 start_bank, u16 num_banks )
 	else if ( cart_mbc_type == mbc2 )
 	{
 		cout << "MBC2\n";
-		mbc2_dump_rom();
+		mbc2_dump_rom( start_bank, num_banks );
 	}
 	else if ( ( cart_mbc_type >= mbc3 ) && ( cart_mbc_type <= mbc3_ram ) )
 	{
@@ -982,7 +1341,42 @@ void communicator::dump_rom( u16 start_bank, u16 num_banks )
 		cout << "MBC5\n";
 		mbc5_dump_rom( start_bank, num_banks );
 	}
+	else
+	{
+		cout << "Error:  Unknown ROM type\n";
+	}
+}
+
+void communicator::dump_rom_banks_to_separate_files( u16 start_bank, 
+	u16 num_banks )
+{
+	get_cart_stuff();
 	
+	if ( cart_mbc_type == rom_only )
+	{
+		cout << "No MBC at all, just a 32 kiB ROM\n";
+		rom_only_dump_rom_banks_to_separate_files();
+	}
+	else if ( ( cart_mbc_type >= mbc1 ) && ( cart_mbc_type <= mbc1_ram ) )
+	{
+		cout << "MBC1\n";
+		mbc1_dump_rom_banks_to_separate_files( start_bank, num_banks );
+	}
+	else if ( cart_mbc_type == mbc2 )
+	{
+		cout << "MBC2\n";
+		mbc2_dump_rom_banks_to_separate_files( start_bank, num_banks );
+	}
+	else if ( ( cart_mbc_type >= mbc3 ) && ( cart_mbc_type <= mbc3_ram ) )
+	{
+		cout << "MBC3\n";
+		mbc3_dump_rom_banks_to_separate_files( start_bank, num_banks );
+	}
+	else if ( ( cart_mbc_type >= mbc5 ) && ( cart_mbc_type <= mbc5_ram ) )
+	{
+		cout << "MBC5\n";
+		mbc5_dump_rom_banks_to_separate_files( start_bank, num_banks );
+	}
 	else
 	{
 		cout << "Error:  Unknown ROM type\n";
