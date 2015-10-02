@@ -21,27 +21,27 @@ using namespace std;
 #include "misc_types.hpp"
 #include "stuffs.hpp"
 
-int do_select_for_write ( int fd )
+int do_select_for_write( int fd )
 {
 	fd_set readfds, writefds, exceptfds;
 	int nfds = fd + 1;
 	
-	FD_ZERO (&readfds);
-	FD_ZERO (&writefds);
-	FD_ZERO (&exceptfds);
+	FD_ZERO(&readfds);
+	FD_ZERO(&writefds);
+	FD_ZERO(&exceptfds);
 	
 	// We want to wait until we can write to the Arduino.
-	FD_SET ( fd, &writefds );
+	FD_SET( fd, &writefds );
 	
 	// Wait 1 ms
 	timeval timeout = { 0, 1000 };
 	
-	if ( select ( nfds, &readfds, &writefds, &exceptfds, &timeout ) <= 0 )
+	if ( select( nfds, &readfds, &writefds, &exceptfds, &timeout ) <= 0 )
 	{
 		return 1;
 	}
 	
-	if ( !FD_ISSET ( fd, &writefds ) )
+	if ( !FD_ISSET( fd, &writefds ) )
 	{
 		return 2;
 	}
@@ -50,29 +50,29 @@ int do_select_for_write ( int fd )
 	
 }
 
-int do_select_for_read ( int fd )
+int do_select_for_read( int fd )
 {
 	
 	fd_set readfds, writefds, exceptfds;
 	int nfds = fd + 1;
 	
-	FD_ZERO (&readfds);
-	FD_ZERO (&writefds);
-	FD_ZERO (&exceptfds);
+	FD_ZERO(&readfds);
+	FD_ZERO(&writefds);
+	FD_ZERO(&exceptfds);
 	
 	// We want to wait until we can read from the Arduino.
-	FD_SET ( fd, &readfds );
+	FD_SET( fd, &readfds );
 	
 	
 	// Wait 1 ms
 	timeval timeout = { 0, 1000 };
 	
-	if ( select ( nfds, &readfds, &writefds, &exceptfds, &timeout ) <= 0 )
+	if ( select( nfds, &readfds, &writefds, &exceptfds, &timeout ) <= 0 )
 	{
 		return 1;
 	}
 	
-	if ( !FD_ISSET ( fd, &readfds ) )
+	if ( !FD_ISSET( fd, &readfds ) )
 	{
 		return 2;
 	}
@@ -84,22 +84,22 @@ int do_select_for_read ( int fd )
 
 
 // Send text to the Arduino
-//void do_arduino_write ( int fd, string& to_arduino )
+//void do_arduino_write( int fd, string& to_arduino )
 //{
-//	wait_until_we_can_write (fd);
-//	write ( fd, to_arduino.c_str (), to_arduino.size () );
+//	wait_until_we_can_write(fd);
+//	write( fd, to_arduino.c_str(), to_arduino.size() );
 //}
 
 // Read text from the Arduino
-void do_arduino_read ( int fd, string& from_arduino )
+void do_arduino_read( int fd, string& from_arduino )
 {
-	do_select_for_read (fd);
+	do_select_for_read(fd);
 	from_arduino = "";
 	
 	char c = 0;
 	do
 	{
-		int num_read = read ( fd, &c, 1 );
+		int num_read = read( fd, &c, 1 );
 		
 		if ( num_read > 0 )
 		{

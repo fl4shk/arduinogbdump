@@ -22,11 +22,11 @@ using namespace std;
 
 #include "misc_types.hpp"
 #include "stuffs.hpp"
-#include "communicator_cls.hpp"
+#include "communicator_class.hpp"
 
 
 
-int main ( int argc, char** argv )
+int main( int argc, char** argv )
 {
 	if ( argc < 4 )
 	{
@@ -35,9 +35,9 @@ int main ( int argc, char** argv )
 		return 1;
 	}
 	
-	communicator the_communicator ( argc, argv );
+	communicator the_communicator( argc, argv );
 	
-	//communicator the_communicator ( fd, argv [2], "" );
+	//communicator the_communicator( fd, argv[2], "" );
 	
 	
 	
@@ -45,33 +45,33 @@ int main ( int argc, char** argv )
 	
 	//if ( argc == 3 )
 	//{
-	//	the_communicator.dump_rom ();
+	//	the_communicator.dump_rom();
 	//}
 	//else if ( argc == 4 )
 	//{
 	//	stringstream the_sstm;
-	//	the_sstm << argv [3];
+	//	the_sstm << argv[3];
 	//	
 	//	u16 start_bank;
 	//	the_sstm >> start_bank;
 	//	
-	//	the_communicator.dump_rom (start_bank);
+	//	the_communicator.dump_rom(start_bank);
 	//}
 	//else if ( argc == 5 )
 	//{
 	//	stringstream the_sstm;
 	//	u16 start_bank, num_banks;
 	//	
-	//	the_sstm << argv [3];
+	//	the_sstm << argv[3];
 	//	the_sstm >> start_bank;
-	//	the_sstm.clear ();
+	//	the_sstm.clear();
 	//	
-	//	the_sstm << argv [4];
+	//	the_sstm << argv[4];
 	//	the_sstm >> num_banks;
 	//	
 	//	cout << start_bank << " " << num_banks << endl;
 	//	
-	//	the_communicator.dump_rom ( start_bank, num_banks );
+	//	the_communicator.dump_rom( start_bank, num_banks );
 	//}
 	
 	

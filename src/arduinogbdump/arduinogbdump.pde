@@ -2,35 +2,35 @@
 
 #include "some_globals.h"
 #include "aux_code.h"
-#include "tpak_cls.h"
-#include "cart_helper_cls.h"
+#include "tpak_class.h"
+#include "cart_helper_class.h"
 
 
 
-void setup ()
+void setup()
 {
-	memset ( N64_raw_dump, 0, 33 );
+	memset( N64_raw_dump, 0, 33 );
 	
-	Serial.begin (115200);
+	Serial.begin(115200);
 	
 	// 1 ms timeout
-	Serial.setTimeout (1);
+	Serial.setTimeout(1);
 	
-	pinMode ( 13, OUTPUT );
+	pinMode( 13, OUTPUT );
 	
 	// Communication with gamecube controller on this pin
 	// Don't remove these lines, we don't want to push +5V to the controller
-	digitalWrite ( N64_PIN, LOW );  
-	pinMode ( N64_PIN, INPUT );
+	digitalWrite( N64_PIN, LOW );  
+	pinMode( N64_PIN, INPUT );
 	
 	
 	// Initialize the gamecube controller by sending it a null byte.  This
 	// is unnecessary for a standard controller, but is required for the
 	// Wavebird.
 	unsigned char initialize = 0x00;
-	noInterrupts ();
-	N64_send ( &initialize, 1 );
-	N64_read_addr ();
+	noInterrupts();
+	N64_send( &initialize, 1 );
+	N64_read_addr();
 	
 	
 	// Stupid routine to wait for the gamecube controller to stop
@@ -46,9 +46,9 @@ void setup ()
 		{
 			x = 0;
 			
-			digitalWrite ( 13, HIGH );
-			delay (200);
-			digitalWrite ( 13, LOW );
+			digitalWrite( 13, HIGH );
+			delay(200);
+			digitalWrite( 13, LOW );
 		}
 	}
 	
@@ -61,12 +61,12 @@ void setup ()
 	interrupts();
 	
 	
-	//tpak_stuff2 ();
+	//tpak_stuff_2();
 }
 
 
-void loop ()
+void loop()
 {
-	tpak_stuff2 ();
+	tpak_stuff_2();
 }
 

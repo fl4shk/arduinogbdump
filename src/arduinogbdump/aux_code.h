@@ -55,10 +55,10 @@ void manage_mem_dump ();		// arrange data into bytes
 void N64_stuff ( unsigned char *buff, char length );
 
 
-void N64_stuff2 ( unsigned char *buff, char length );
+void N64_stuff_2 ( unsigned char *buff, char length );
 
 
-void tpak_stuff2 ();
+void tpak_stuff_2();
 
 
 void tpak_stuff ();

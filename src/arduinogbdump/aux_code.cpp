@@ -1,91 +1,93 @@
 
 #include "aux_code.h"
-#include "tpak_cls.h"
-#include "cart_helper_cls.h"
+#include "tpak_class.h"
+#include "cart_helper_class.h"
 
 
 
 
-void print_mem_managed ()
+void print_mem_managed()
 {
 	for ( int i=0; i<N64_byte_size-1; ++i )
 	{
-		Serial.print ( N64_mem_managed [i], HEX );
-		Serial.print (" ");
+		Serial.print( N64_mem_managed[i], HEX );
+		Serial.print(" ");
 	}
-	Serial.println ();
+	Serial.println();
 }
 
 // Decimal
-void print_mem_managed2 ()
+void print_mem_managed_2()
 {
 	for ( int i=0; i<N64_byte_size-1; ++i )
 	{
-		Serial.print ( N64_mem_managed [i], DEC );
-		Serial.print (" ");
+		Serial.print( N64_mem_managed[i], DEC );
+		Serial.print(" ");
 	}
-	Serial.println ();
+	Serial.println();
 }
 
-void write_mem_managed ()
+void write_mem_managed()
 {
 	for ( int i=0; i<N64_byte_size-1; ++i )
 	{
-		Serial.write (N64_mem_managed [i]);
+		Serial.write(N64_mem_managed[i]);
 	}
 }
 
-void print_crc_managed ()
+void print_crc_managed()
 {
-	Serial.println ( N64_mem_managed [N64_byte_size-1], HEX );
+	Serial.println( N64_mem_managed[N64_byte_size-1], HEX );
 }
-void clear_mem_dump ()
+void clear_mem_dump()
 {
-	memset ( &N64_mem_dump, 0x00, N64_mem_size );
+	memset( &N64_mem_dump, 0x00, N64_mem_size );
 }
-void manage_mem_dump ()		// arrange data into bytes 
+void manage_mem_dump()		// arrange data into bytes 
 {
-	memset ( N64_mem_managed, 0, 33 );
+	memset( N64_mem_managed, 0, 33 );
 	for ( int i=0; i<N64_byte_size; ++i )
 	{
 		for ( int j=0; j<8; ++j )
 		{
 			// not sure if this is considered "hackish" or not...
-			N64_mem_managed [i] += ( ( N64_mem_dump [i*8+j]!=0 )<<( 7-j ) );
+			N64_mem_managed[i] += ( ( N64_mem_dump[i*8+j]!=0 )<<( 7-j ) );
 		}
 	}
 }
 
 
-void N64_stuff ( unsigned char *buff, char length )
+void N64_stuff( unsigned char *buff, char length )
 {
-	noInterrupts ();
-	N64_send ( buff, length );
-	N64_read_addr ();
-	interrupts ();
+	noInterrupts();
+	N64_send( buff, length );
+	N64_read_addr();
+	interrupts();
 }
 
-void N64_stuff2 ( unsigned char *buff, char length )
+void N64_stuff_2( unsigned char *buff, char length )
 {
-	N64_send ( buff, length );
-	N64_read_addr ();
+	N64_send( buff, length );
+	N64_read_addr();
 }
 
 
-void tpak_stuff2 ()
+void tpak_stuff_2()
 {
-	//hamburger.rom_only_dump_rom ();
-	//hamburger.mbc1_dump_rom ();
+	//hamburger.rom_only_dump_rom();
+	//hamburger.mbc1_dump_rom();
 	
-	//hamburger.dump_rom ();
+	//hamburger.dump_rom();
 	
-	//hamburger.mbc5_dump_ram ();
+	//hamburger.mbc5_dump_ram();
 	
+	// WHY is hamburger the name of this class instance?  I can't remember
+	// why I did this.
 	cart_helper hamburger;
 	
 	for (;;)
 	{
-		if ( hamburger.interpret_serial_message () == 1 )
+		if ( hamburger.interpret_serial_message() == 1 )
 		{
 			return;
 		}
@@ -368,7 +370,7 @@ unsigned char calc_data_crc( unsigned char *data )
 	return ret;
 }
 
-void N64_read_addr ()
+void N64_read_addr()
 {
 	// listen for the expected 8 bytes of data back from the controller and
 	// blast it out to the N64_raw_dump array, one bit per byte for extra speed.
@@ -416,7 +418,7 @@ read_loop:
 
 
 
-bool cmp_buf ( const char* to_cmp, int num_recv )
+bool cmp_buf( const char* to_cmp, int num_recv )
 {
-	return ( strncmp ( buf, to_cmp, num_recv ) == 0 );
+	return ( strncmp( buf, to_cmp, num_recv ) == 0 );
 }

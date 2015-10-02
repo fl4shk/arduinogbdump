@@ -1,4 +1,4 @@
-CXX_DIRS=$(CURDIR)
+CXX_DIRS=src
 
 
 PROJ=$(shell basename $(CURDIR))
