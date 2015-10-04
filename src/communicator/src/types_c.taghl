@@ -1,24 +1,24 @@
-syn keyword CTagsMember cart_mbc_type ram_size recv_buf rom_bank_size w if_name fd of_name ifile ofile rom_size send_buf lo hi
+syn keyword CTagsMember rom_bank_size w ram_size rom_size cart_mbc_type fd lo ofile hi recv_buf if_name send_buf ifile of_name
 syn keyword CTagsUnion addr_packet
-syn keyword CTagsEnumeratorName communicator_action mbc_type ram_size_type serial_msg_type
-syn keyword CTagsEnumerationValue rs_32 sm_gb_write_var_num_bytes sm_get_cart_stuff mbc3_timer rom_only rs_none mbc1 mbc3 do_rom_dump rs_8 mbc5 rs_mbc2 mbc1_ram mbc2 sm_gb_write_32_bytes unknown_mbc_type sm_gb_read_var_num_bytes do_rom_banks_dump do_ram_dump rs_2 mbc3_ram do_ram_restore rs_128 mbc3_timer_ram sm_gb_read_32_bytes sm_print_cart_stuff mbc5_ram sm_reset_tpak
-syn keyword CTagsFunction mbc1_dump_single_rom_bank mbc1_restore_ram dump_rom_test hl_read_32_bytes mbc2_dump_single_rom_bank hl_read_from_ifile_and_write_bytes hl_write_32_bytes mbc3_dump_ram mbc3_dump_single_rom_bank loop_for_reading_32_bytes hl_read_bytes_and_write_to_ofile dump_ram mbc1_dump_ram rom_only_dump_rom_banks_to_separate_files do_arduino_read mbc2_dump_rom_banks_to_separate_files mbc2_dump_rom
-syn keyword CTagsFunction get_cart_stuff mbc3_dump_rom dump_rom mbc1_dump_rom_banks_to_separate_files mbc2_restore_ram hl_write_rept_byte mbc1_dump_rom main mbc3_dump_rom_banks_to_separate_files restore_ram do_select_for_write mbc5_dump_rom mbc2_dump_ram mbc5_restore_ram mbc5_dump_rom_banks_to_separate_files mbc5_dump_single_rom_bank rom_only_dump_rom loop_for_reading_var_num_bytes mbc3_restore_ram dump_rom_banks_to_separate_files mbc5_dump_ram do_select_for_read rom_only_dump_single_rom_bank
+syn keyword CTagsEnumeratorName communicator_action serial_msg_type ram_size_type mbc_type
+syn keyword CTagsEnumerationValue sm_gb_read_var_num_bytes mbc3_ram mbc5 rs_mbc2 sm_gb_write_var_num_bytes sm_get_cart_stuff rs_8 mbc1_ram sm_gb_read_32_bytes unknown_mbc_type rs_2 sm_print_cart_stuff rs_none mbc3_timer sm_gb_write_32_bytes rs_128 mbc3 do_rom_banks_dump do_ram_dump mbc5_ram rom_only mbc1 sm_reset_tpak do_rom_dump mbc3_timer_ram rs_32 do_ram_restore mbc2
+syn keyword CTagsFunction mbc5_dump_single_rom_bank rom_only_dump_single_rom_bank hl_read_from_ifile_and_write_bytes mbc2_dump_rom mbc5_dump_rom do_select_for_read dump_rom_test mbc5_restore_ram restore_ram hl_write_rept_byte get_cart_stuff mbc2_restore_ram mbc1_dump_single_rom_bank mbc2_dump_ram mbc3_dump_ram dump_rom_banks_to_separate_files hl_write_32_bytes mbc1_dump_rom mbc5_dump_ram dump_rom
+syn keyword CTagsFunction do_arduino_read dump_ram mbc2_dump_rom_banks_to_separate_files rom_only_dump_rom loop_for_reading_var_num_bytes rom_only_dump_rom_banks_to_separate_files mbc3_dump_single_rom_bank loop_for_reading_32_bytes hl_read_32_bytes hl_read_bytes_and_write_to_ofile mbc1_restore_ram mbc3_dump_rom mbc1_dump_ram mbc2_dump_single_rom_bank mbc5_dump_rom_banks_to_separate_files do_select_for_write mbc3_restore_ram main mbc1_dump_rom_banks_to_separate_files mbc3_dump_rom_banks_to_separate_files
 syn keyword CTagsDefinedName communicator_cls_hpp misc_types_hpp stuffs_hpp
 syn keyword CTagsClass communicator
 
 " Matches for file communicator_class.cpp:
 if (has_key(b:TagHighlightPrivate, "NormalisedPath") && b:TagHighlightPrivate["NormalisedPath"] == "communicator_class.cpp") || TagHighlight#Option#GetOption("IgnoreFileScope")
-	syn keyword CTagsType uint s64 u8 s8 u16 u32 s16 u64 s32
-	
-endif
-" Matches for file main.cpp:
-if (has_key(b:TagHighlightPrivate, "NormalisedPath") && b:TagHighlightPrivate["NormalisedPath"] == "main.cpp") || TagHighlight#Option#GetOption("IgnoreFileScope")
-	syn keyword CTagsType uint s64 u8 s8 u16 u32 s16 u64 s32
+	syn keyword CTagsType s64 s32 u64 s8 uint u8 s16 u16 u32
 	
 endif
 " Matches for file stuffs.cpp:
 if (has_key(b:TagHighlightPrivate, "NormalisedPath") && b:TagHighlightPrivate["NormalisedPath"] == "stuffs.cpp") || TagHighlight#Option#GetOption("IgnoreFileScope")
-	syn keyword CTagsType uint s64 u8 s8 u16 u32 s16 u64 s32
+	syn keyword CTagsType s64 s32 u64 s8 uint u8 s16 u16 u32
+	
+endif
+" Matches for file main.cpp:
+if (has_key(b:TagHighlightPrivate, "NormalisedPath") && b:TagHighlightPrivate["NormalisedPath"] == "main.cpp") || TagHighlight#Option#GetOption("IgnoreFileScope")
+	syn keyword CTagsType s64 s32 u64 s8 uint u8 s16 u16 u32
 	
 endif
