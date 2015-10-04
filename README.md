@@ -62,9 +62,10 @@ Also, here is a photo of the setup (taken in January, 2015):
 controller's cable (though the controller cable can certainly be
 re-connected if the user chooses to break it).  Wires can be inserted into
 the holes at the end of the N64 controller's cable.  The holes correspond
-to the red, white, and black wires of the N64 controller, as seen here:  
+to the red, white, and black wires of the N64 controller.
+[Here](http://s.hswstatic.com/gif/n64-pinout.gif) is a schematic of the N64
+controller's connector.
 
-![here](http://s.hswstatic.com/gif/n64-pinout.gif)
 
 
 #Arduino Board Compatibility
