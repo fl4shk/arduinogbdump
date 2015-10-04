@@ -1,0 +1,308 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+N64_HIGH	aux_code.h	40;"	kind:d
+N64_HIGH	aux_code.h	44;"	kind:d
+N64_HIGH	aux_code.h	48;"	kind:d
+N64_LOW	aux_code.h	41;"	kind:d
+N64_LOW	aux_code.h	45;"	kind:d
+N64_LOW	aux_code.h	49;"	kind:d
+N64_PIN	aux_code.h	33;"	kind:d
+N64_QUERY	aux_code.h	42;"	kind:d
+N64_QUERY	aux_code.h	46;"	kind:d
+N64_QUERY	aux_code.h	50;"	kind:d
+N64_byte_size	some_globals.h	/^static const word N64_byte_size = 33;$/;"	kind:v
+N64_get	aux_code.cpp	/^void N64_get()$/;"	kind:f	signature:()
+N64_get	aux_code.h	/^void N64_get();$/;"	kind:p	signature:()
+N64_mem_dump	some_globals.cpp	/^char N64_mem_dump[N64_mem_size+1];$/;"	kind:v
+N64_mem_managed	some_globals.cpp	/^unsigned char N64_mem_managed[N64_byte_size];$/;"	kind:v
+N64_mem_size	some_globals.h	/^static const word N64_mem_size = 264;$/;"	kind:v
+N64_raw_dump	some_globals.cpp	/^char N64_raw_dump[33]; \/\/ 1 received bit per byte$/;"	kind:v
+N64_read_addr	aux_code.cpp	/^void N64_read_addr()$/;"	kind:f	signature:()
+N64_read_addr	aux_code.h	/^void N64_read_addr();$/;"	kind:p	signature:()
+N64_send	aux_code.cpp	/^void N64_send(unsigned char *buffer, char length)$/;"	kind:f	signature:(unsigned char *buffer, char length)
+N64_send	aux_code.h	/^void N64_send(unsigned char *buffer, char length);$/;"	kind:p	signature:(unsigned char *buffer, char length)
+N64_status	some_globals.cpp	/^N64_status_t N64_status;$/;"	kind:v
+N64_status_t	misc_types.h	/^struct N64_status_t {$/;"	kind:s
+N64_status_t::data1	misc_types.h	/^	unsigned char data1;$/;"	kind:m	struct:N64_status_t	access:public
+N64_status_t::data2	misc_types.h	/^	unsigned char data2;$/;"	kind:m	struct:N64_status_t	access:public
+N64_status_t::stick_x	misc_types.h	/^	char stick_x;$/;"	kind:m	struct:N64_status_t	access:public
+N64_status_t::stick_y	misc_types.h	/^	char stick_y;$/;"	kind:m	struct:N64_status_t	access:public
+N64_stuff	aux_code.cpp	/^void N64_stuff( unsigned char *buff, char length )$/;"	kind:f	signature:( unsigned char *buff, char length )
+N64_stuff	aux_code.h	/^void N64_stuff( unsigned char *buff, char length );$/;"	kind:p	signature:( unsigned char *buff, char length )
+N64_stuff_2	aux_code.cpp	/^void N64_stuff_2( unsigned char *buff, char length )$/;"	kind:f	signature:( unsigned char *buff, char length )
+N64_stuff_2	aux_code.h	/^void N64_stuff_2( unsigned char *buff, char length );$/;"	kind:p	signature:( unsigned char *buff, char length )
+PORT_THING	aux_code.h	11;"	kind:d
+PORT_THING	aux_code.h	13;"	kind:d
+PORT_THING	aux_code.h	9;"	kind:d
+addr_packet	misc_types.h	/^union addr_packet$/;"	kind:u
+addr_packet::__anon1::hi	misc_types.h	/^		byte lo, hi;$/;"	kind:m	struct:addr_packet::__anon1	access:public
+addr_packet::__anon1::lo	misc_types.h	/^		byte lo, hi;$/;"	kind:m	struct:addr_packet::__anon1	access:public
+addr_packet::w	misc_types.h	/^	word w;$/;"	kind:m	union:addr_packet	access:public
+addr_pkt	tpak_class.h	/^	addr_packet addr_pkt;$/;"	kind:m	class:tpak	access:protected
+aux_code_h	aux_code.h	2;"	kind:d
+buf	some_globals.cpp	/^char buf[bufsize];$/;"	kind:v
+bufsize	some_globals.h	/^static const int bufsize = 1072;$/;"	kind:v
+calc_addr_crc	aux_code.cpp	/^word calc_addr_crc ( word address )$/;"	kind:f	signature:( word address )
+calc_addr_crc	aux_code.h	/^word calc_addr_crc( word address );$/;"	kind:p	signature:( word address )
+calc_data_crc	aux_code.cpp	/^unsigned char calc_data_crc( unsigned char *data )$/;"	kind:f	signature:( unsigned char *data )
+calc_data_crc	aux_code.h	/^unsigned char calc_data_crc( unsigned char *data );$/;"	kind:p	signature:( unsigned char *data )
+calc_tpak_addr	cart_helper_class.cpp	/^uint16_t cart_helper::calc_tpak_addr( uint16_t gb_addr )$/;"	kind:f	class:cart_helper	signature:( uint16_t gb_addr )
+calc_tpak_addr	cart_helper_class.h	/^	uint16_t calc_tpak_addr( uint16_t gb_addr );$/;"	kind:p	class:cart_helper	access:public	signature:( uint16_t gb_addr )
+calc_tpak_bank	cart_helper_class.cpp	/^uint8_t cart_helper::calc_tpak_bank( uint16_t gb_addr )$/;"	kind:f	class:cart_helper	signature:( uint16_t gb_addr )
+calc_tpak_bank	cart_helper_class.h	/^	uint8_t calc_tpak_bank( uint16_t gb_addr );$/;"	kind:p	class:cart_helper	access:public	signature:( uint16_t gb_addr )
+calc_tpak_bank_and_tpak_addr	cart_helper_class.h	/^	void calc_tpak_bank_and_tpak_addr( uint16_t gb_addr, $/;"	kind:p	class:cart_helper	access:public	signature:( uint16_t gb_addr, uint8_t& tpak_bank, uint16_t& tpak_addr )
+cart_helper	cart_helper_class.cpp	/^cart_helper::cart_helper()$/;"	kind:f	class:cart_helper	signature:()
+cart_helper	cart_helper_class.h	/^	cart_helper();$/;"	kind:p	class:cart_helper	access:public	signature:()
+cart_helper	cart_helper_class.h	/^class cart_helper$/;"	kind:c
+cart_helper::calc_tpak_addr	cart_helper_class.cpp	/^uint16_t cart_helper::calc_tpak_addr( uint16_t gb_addr )$/;"	kind:f	class:cart_helper	signature:( uint16_t gb_addr )
+cart_helper::calc_tpak_addr	cart_helper_class.h	/^	uint16_t calc_tpak_addr( uint16_t gb_addr );$/;"	kind:p	class:cart_helper	access:public	signature:( uint16_t gb_addr )
+cart_helper::calc_tpak_bank	cart_helper_class.cpp	/^uint8_t cart_helper::calc_tpak_bank( uint16_t gb_addr )$/;"	kind:f	class:cart_helper	signature:( uint16_t gb_addr )
+cart_helper::calc_tpak_bank	cart_helper_class.h	/^	uint8_t calc_tpak_bank( uint16_t gb_addr );$/;"	kind:p	class:cart_helper	access:public	signature:( uint16_t gb_addr )
+cart_helper::calc_tpak_bank_and_tpak_addr	cart_helper_class.h	/^	void calc_tpak_bank_and_tpak_addr( uint16_t gb_addr, $/;"	kind:p	class:cart_helper	access:public	signature:( uint16_t gb_addr, uint8_t& tpak_bank, uint16_t& tpak_addr )
+cart_helper::cart_helper	cart_helper_class.cpp	/^cart_helper::cart_helper()$/;"	kind:f	class:cart_helper	signature:()
+cart_helper::cart_helper	cart_helper_class.h	/^	cart_helper();$/;"	kind:p	class:cart_helper	access:public	signature:()
+cart_helper::cart_mbc_type	cart_helper_class.h	/^	mbc_type cart_mbc_type;$/;"	kind:m	class:cart_helper	access:public
+cart_helper::dump_rom	cart_helper_class.h	/^	void dump_rom();$/;"	kind:p	class:cart_helper	access:public	signature:()
+cart_helper::dump_rom	cart_helper_mbc_funcs.h	/^void cart_helper::dump_rom()$/;"	kind:f	class:cart_helper	signature:()
+cart_helper::interpret_raw_data	cart_helper_class.cpp	/^void cart_helper::interpret_raw_data()$/;"	kind:f	class:cart_helper	signature:()
+cart_helper::interpret_raw_data	cart_helper_class.h	/^	void interpret_raw_data();$/;"	kind:p	class:cart_helper	access:public	signature:()
+cart_helper::interpret_serial_message	cart_helper_class.cpp	/^int cart_helper::interpret_serial_message()$/;"	kind:f	class:cart_helper	signature:()
+cart_helper::interpret_serial_message	cart_helper_class.h	/^	int interpret_serial_message();$/;"	kind:p	class:cart_helper	access:public	signature:()
+cart_helper::interpret_serial_message2	cart_helper_class.h	/^	int interpret_serial_message2( int num_recv );$/;"	kind:p	class:cart_helper	access:public	signature:( int num_recv )
+cart_helper::mbc1_disable_ram	cart_helper_class.h	/^	void mbc1_disable_ram();$/;"	kind:p	class:cart_helper	access:public	signature:()
+cart_helper::mbc1_disable_ram	cart_helper_mbc_funcs.h	/^void cart_helper::mbc1_disable_ram()$/;"	kind:f	class:cart_helper	signature:()
+cart_helper::mbc1_dump_ram	cart_helper_class.h	/^	void mbc1_dump_ram();$/;"	kind:p	class:cart_helper	access:public	signature:()
+cart_helper::mbc1_dump_rom	cart_helper_class.h	/^	void mbc1_dump_rom();$/;"	kind:p	class:cart_helper	access:public	signature:()
+cart_helper::mbc1_dump_rom	cart_helper_mbc_funcs.h	/^void cart_helper::mbc1_dump_rom()$/;"	kind:f	class:cart_helper	signature:()
+cart_helper::mbc1_enable_ram	cart_helper_class.h	/^	void mbc1_enable_ram();$/;"	kind:p	class:cart_helper	access:public	signature:()
+cart_helper::mbc1_enable_ram	cart_helper_mbc_funcs.h	/^void cart_helper::mbc1_enable_ram()$/;"	kind:f	class:cart_helper	signature:()
+cart_helper::mbc1_set_rom_bank	cart_helper_class.h	/^	void mbc1_set_rom_bank( uint8_t n_rom_bank_full );$/;"	kind:p	class:cart_helper	access:public	signature:( uint8_t n_rom_bank_full )
+cart_helper::mbc1_set_rom_bank_hi	cart_helper_class.h	/^	void mbc1_set_rom_bank_hi( uint8_t n_rom_bank_hi );$/;"	kind:p	class:cart_helper	access:public	signature:( uint8_t n_rom_bank_hi )
+cart_helper::mbc1_set_rom_bank_lo	cart_helper_class.h	/^	void mbc1_set_rom_bank_lo( uint8_t n_rom_bank_lo );$/;"	kind:p	class:cart_helper	access:public	signature:( uint8_t n_rom_bank_lo )
+cart_helper::mbc1_set_rom_bank_lo	cart_helper_mbc_funcs.h	/^void cart_helper::mbc1_set_rom_bank_lo( uint8_t n_rom_bank_lo )$/;"	kind:f	class:cart_helper	signature:( uint8_t n_rom_bank_lo )
+cart_helper::mbc2_dump_rom	cart_helper_class.h	/^	void mbc2_dump_rom();$/;"	kind:p	class:cart_helper	access:public	signature:()
+cart_helper::mbc3_dump_rom	cart_helper_class.h	/^	void mbc3_dump_rom();$/;"	kind:p	class:cart_helper	access:public	signature:()
+cart_helper::mbc5_disable_ram	cart_helper_class.h	/^	void mbc5_disable_ram();$/;"	kind:p	class:cart_helper	access:public	signature:()
+cart_helper::mbc5_disable_ram	cart_helper_mbc_funcs.h	/^void cart_helper::mbc5_disable_ram()$/;"	kind:f	class:cart_helper	signature:()
+cart_helper::mbc5_dump_ram	cart_helper_class.h	/^	void mbc5_dump_ram();$/;"	kind:p	class:cart_helper	access:public	signature:()
+cart_helper::mbc5_dump_ram	cart_helper_mbc_funcs.h	/^void cart_helper::mbc5_dump_ram()$/;"	kind:f	class:cart_helper	signature:()
+cart_helper::mbc5_dump_rom	cart_helper_class.h	/^	void mbc5_dump_rom();$/;"	kind:p	class:cart_helper	access:public	signature:()
+cart_helper::mbc5_dump_rom	cart_helper_mbc_funcs.h	/^void cart_helper::mbc5_dump_rom()$/;"	kind:f	class:cart_helper	signature:()
+cart_helper::mbc5_enable_ram	cart_helper_class.h	/^	void mbc5_enable_ram();$/;"	kind:p	class:cart_helper	access:public	signature:()
+cart_helper::mbc5_enable_ram	cart_helper_mbc_funcs.h	/^void cart_helper::mbc5_enable_ram()$/;"	kind:f	class:cart_helper	signature:()
+cart_helper::mbc5_set_ram_bank	cart_helper_class.h	/^	void mbc5_set_ram_bank( uint8_t n_ram_bank );$/;"	kind:p	class:cart_helper	access:public	signature:( uint8_t n_ram_bank )
+cart_helper::mbc5_set_ram_bank	cart_helper_mbc_funcs.h	/^void cart_helper::mbc5_set_ram_bank( uint8_t n_ram_bank )$/;"	kind:f	class:cart_helper	signature:( uint8_t n_ram_bank )
+cart_helper::mbc5_set_rom_bank	cart_helper_class.h	/^	void mbc5_set_rom_bank( uint8_t n_rom_bank, uint8_t hbit );$/;"	kind:p	class:cart_helper	access:public	signature:( uint8_t n_rom_bank, uint8_t hbit )
+cart_helper::mbc5_set_rom_bank	cart_helper_mbc_funcs.h	/^void cart_helper::mbc5_set_rom_bank( uint8_t n_rom_bank, uint8_t hbit )$/;"	kind:f	class:cart_helper	signature:( uint8_t n_rom_bank, uint8_t hbit )
+cart_helper::my_tpak	cart_helper_class.h	/^	tpak my_tpak;$/;"	kind:m	class:cart_helper	access:public
+cart_helper::print_cart_stuff	cart_helper_class.cpp	/^void cart_helper::print_cart_stuff()$/;"	kind:f	class:cart_helper	signature:()
+cart_helper::print_cart_stuff	cart_helper_class.h	/^	void print_cart_stuff();$/;"	kind:p	class:cart_helper	access:public	signature:()
+cart_helper::print_raw_data	cart_helper_class.cpp	/^void cart_helper::print_raw_data()$/;"	kind:f	class:cart_helper	signature:()
+cart_helper::print_raw_data	cart_helper_class.h	/^	void print_raw_data();$/;"	kind:p	class:cart_helper	access:public	signature:()
+cart_helper::ram_size	cart_helper_class.h	/^	ram_size_type ram_size;$/;"	kind:m	class:cart_helper	access:public
+cart_helper::raw_cart_type	cart_helper_class.h	/^	uint8_t raw_cart_type;$/;"	kind:m	class:cart_helper	access:public
+cart_helper::raw_ram_size	cart_helper_class.h	/^	uint8_t raw_ram_size;$/;"	kind:m	class:cart_helper	access:public
+cart_helper::raw_rom_size	cart_helper_class.h	/^	uint8_t raw_rom_size;$/;"	kind:m	class:cart_helper	access:public
+cart_helper::read_with_gb_addr	cart_helper_class.cpp	/^void cart_helper::read_with_gb_addr( uint16_t gb_addr )$/;"	kind:f	class:cart_helper	signature:( uint16_t gb_addr )
+cart_helper::read_with_gb_addr	cart_helper_class.h	/^	void read_with_gb_addr( uint16_t gb_addr );$/;"	kind:p	class:cart_helper	access:public	signature:( uint16_t gb_addr )
+cart_helper::rom_only_dump_rom	cart_helper_class.h	/^	void rom_only_dump_rom();$/;"	kind:p	class:cart_helper	access:public	signature:()
+cart_helper::rom_only_dump_rom	cart_helper_mbc_funcs.h	/^void cart_helper::rom_only_dump_rom()$/;"	kind:f	class:cart_helper	signature:()
+cart_helper::rom_size	cart_helper_class.h	/^	uint16_t rom_size;$/;"	kind:m	class:cart_helper	access:public
+cart_helper::set_cart_stuff	cart_helper_class.cpp	/^void cart_helper::set_cart_stuff()$/;"	kind:f	class:cart_helper	signature:()
+cart_helper::set_cart_stuff	cart_helper_class.h	/^	void set_cart_stuff();$/;"	kind:p	class:cart_helper	access:public	signature:()
+cart_helper::set_raw_data	cart_helper_class.cpp	/^void cart_helper::set_raw_data( uint8_t s_raw_cart_type, uint8_t s_raw_rom_size,$/;"	kind:f	class:cart_helper	signature:( uint8_t s_raw_cart_type, uint8_t s_raw_rom_size, uint8_t s_raw_ram_size )
+cart_helper::set_raw_data	cart_helper_class.h	/^	void set_raw_data( uint8_t s_raw_cart_type, uint8_t s_raw_rom_size,$/;"	kind:p	class:cart_helper	access:public	signature:( uint8_t s_raw_cart_type, uint8_t s_raw_rom_size, uint8_t s_raw_ram_size )
+cart_helper::write_byte_with_gb_addr	cart_helper_class.cpp	/^void cart_helper::write_byte_with_gb_addr( uint16_t gb_addr, uint8_t data )$/;"	kind:f	class:cart_helper	signature:( uint16_t gb_addr, uint8_t data )
+cart_helper::write_byte_with_gb_addr	cart_helper_class.h	/^	void write_byte_with_gb_addr( uint16_t gb_addr, uint8_t data );$/;"	kind:p	class:cart_helper	access:public	signature:( uint16_t gb_addr, uint8_t data )
+cart_helper::~cart_helper	cart_helper_class.cpp	/^cart_helper::~cart_helper()$/;"	kind:f	class:cart_helper	signature:()
+cart_helper::~cart_helper	cart_helper_class.h	/^	~cart_helper();$/;"	kind:p	class:cart_helper	access:public	signature:()
+cart_helper_class_h	cart_helper_class.h	2;"	kind:d
+cart_helper_enums_h	cart_helper_enums.h	2;"	kind:d
+cart_helper_mbc_funcs_h	cart_helper_mbc_funcs.h	2;"	kind:d
+cart_mbc_type	cart_helper_class.h	/^	mbc_type cart_mbc_type;$/;"	kind:m	class:cart_helper	access:public
+clear_mem_dump	aux_code.cpp	/^void clear_mem_dump()$/;"	kind:f	signature:()
+clear_mem_dump	aux_code.h	/^void clear_mem_dump();$/;"	kind:p	signature:()
+cmp_buf	aux_code.cpp	/^bool cmp_buf( const char* to_cmp, int num_recv )$/;"	kind:f	signature:( const char* to_cmp, int num_recv )
+cmp_buf	aux_code.h	/^bool cmp_buf( const char* to_cmp, int num_recv );$/;"	kind:p	signature:( const char* to_cmp, int num_recv )
+command	tpak_class.h	/^	uint8_t command[wcmd_size];$/;"	kind:m	class:tpak	access:protected
+current_bank	tpak_class.h	/^	char current_bank;$/;"	kind:m	class:tpak	access:protected
+data1	misc_types.h	/^	unsigned char data1;$/;"	kind:m	struct:N64_status_t	access:public
+data2	misc_types.h	/^	unsigned char data2;$/;"	kind:m	struct:N64_status_t	access:public
+default_bitwise_thing	aux_code.h	/^static const byte default_bitwise_thing = 0x04;$/;"	kind:v
+dump_rom	cart_helper_class.h	/^	void dump_rom();$/;"	kind:p	class:cart_helper	access:public	signature:()
+dump_rom	cart_helper_mbc_funcs.h	/^void cart_helper::dump_rom()$/;"	kind:f	class:cart_helper	signature:()
+enable_tpak	tpak_class.cpp	/^void tpak::enable_tpak()$/;"	kind:f	class:tpak	signature:()
+enable_tpak	tpak_class.h	/^	void enable_tpak();$/;"	kind:p	class:tpak	access:public	signature:()
+get_access_mode	tpak_class.cpp	/^void tpak::get_access_mode()$/;"	kind:f	class:tpak	signature:()
+get_access_mode	tpak_class.h	/^	void get_access_mode();$/;"	kind:p	class:tpak	access:public	signature:()
+get_bank	tpak_class.cpp	/^char tpak::get_bank() const$/;"	kind:f	class:tpak	signature:() const
+get_bank	tpak_class.h	/^	char get_bank() const;$/;"	kind:p	class:tpak	access:public	signature:() const
+hi	misc_types.h	/^		byte lo, hi;$/;"	kind:m	struct:addr_packet::__anon1	access:public
+init	tpak_class.cpp	/^void tpak::init( cart_helper& the_cart_helper )$/;"	kind:f	class:tpak	signature:( cart_helper& the_cart_helper )
+init	tpak_class.h	/^	void init( cart_helper& the_cart_helper );$/;"	kind:p	class:tpak	access:public	signature:( cart_helper& the_cart_helper )
+interpret_raw_data	cart_helper_class.cpp	/^void cart_helper::interpret_raw_data()$/;"	kind:f	class:cart_helper	signature:()
+interpret_raw_data	cart_helper_class.h	/^	void interpret_raw_data();$/;"	kind:p	class:cart_helper	access:public	signature:()
+interpret_serial_message	cart_helper_class.cpp	/^int cart_helper::interpret_serial_message()$/;"	kind:f	class:cart_helper	signature:()
+interpret_serial_message	cart_helper_class.h	/^	int interpret_serial_message();$/;"	kind:p	class:cart_helper	access:public	signature:()
+interpret_serial_message2	cart_helper_class.h	/^	int interpret_serial_message2( int num_recv );$/;"	kind:p	class:cart_helper	access:public	signature:( int num_recv )
+lo	misc_types.h	/^		byte lo, hi;$/;"	kind:m	struct:addr_packet::__anon1	access:public
+loop2	aux_code.cpp	/^void loop2()$/;"	kind:f	signature:()
+loop2	aux_code.h	/^void loop2();$/;"	kind:p	signature:()
+manage_mem_dump	aux_code.cpp	/^void manage_mem_dump()		\/\/ arrange data into bytes $/;"	kind:f	signature:()
+manage_mem_dump	aux_code.h	/^void manage_mem_dump();		\/\/ arrange data into bytes $/;"	kind:p	signature:()
+mbc1	cart_helper_enums.h	/^	mbc1,					\/\/ MBC1 only, no RAM$/;"	kind:e	enum:mbc_type
+mbc1_disable_ram	cart_helper_class.h	/^	void mbc1_disable_ram();$/;"	kind:p	class:cart_helper	access:public	signature:()
+mbc1_disable_ram	cart_helper_mbc_funcs.h	/^void cart_helper::mbc1_disable_ram()$/;"	kind:f	class:cart_helper	signature:()
+mbc1_dump_ram	cart_helper_class.h	/^	void mbc1_dump_ram();$/;"	kind:p	class:cart_helper	access:public	signature:()
+mbc1_dump_rom	cart_helper_class.h	/^	void mbc1_dump_rom();$/;"	kind:p	class:cart_helper	access:public	signature:()
+mbc1_dump_rom	cart_helper_mbc_funcs.h	/^void cart_helper::mbc1_dump_rom()$/;"	kind:f	class:cart_helper	signature:()
+mbc1_enable_ram	cart_helper_class.h	/^	void mbc1_enable_ram();$/;"	kind:p	class:cart_helper	access:public	signature:()
+mbc1_enable_ram	cart_helper_mbc_funcs.h	/^void cart_helper::mbc1_enable_ram()$/;"	kind:f	class:cart_helper	signature:()
+mbc1_ram	cart_helper_enums.h	/^	mbc1_ram,				\/\/ MBC1 and RAM$/;"	kind:e	enum:mbc_type
+mbc1_set_rom_bank	cart_helper_class.h	/^	void mbc1_set_rom_bank( uint8_t n_rom_bank_full );$/;"	kind:p	class:cart_helper	access:public	signature:( uint8_t n_rom_bank_full )
+mbc1_set_rom_bank_hi	cart_helper_class.h	/^	void mbc1_set_rom_bank_hi( uint8_t n_rom_bank_hi );$/;"	kind:p	class:cart_helper	access:public	signature:( uint8_t n_rom_bank_hi )
+mbc1_set_rom_bank_lo	cart_helper_class.h	/^	void mbc1_set_rom_bank_lo( uint8_t n_rom_bank_lo );$/;"	kind:p	class:cart_helper	access:public	signature:( uint8_t n_rom_bank_lo )
+mbc1_set_rom_bank_lo	cart_helper_mbc_funcs.h	/^void cart_helper::mbc1_set_rom_bank_lo( uint8_t n_rom_bank_lo )$/;"	kind:f	class:cart_helper	signature:( uint8_t n_rom_bank_lo )
+mbc2	cart_helper_enums.h	/^	mbc2,					\/\/ MBC2 (includes built-in RAM)$/;"	kind:e	enum:mbc_type
+mbc2_dump_rom	cart_helper_class.h	/^	void mbc2_dump_rom();$/;"	kind:p	class:cart_helper	access:public	signature:()
+mbc3	cart_helper_enums.h	/^	mbc3,					\/\/ MBC3 only, no RTC, no RAM$/;"	kind:e	enum:mbc_type
+mbc3_dump_rom	cart_helper_class.h	/^	void mbc3_dump_rom();$/;"	kind:p	class:cart_helper	access:public	signature:()
+mbc3_ram	cart_helper_enums.h	/^	mbc3_ram,				\/\/ MBC3 and RAM, but no RTC$/;"	kind:e	enum:mbc_type
+mbc3_timer	cart_helper_enums.h	/^	mbc3_timer,				\/\/ MBC3 and RTC, but no RAM$/;"	kind:e	enum:mbc_type
+mbc3_timer_ram	cart_helper_enums.h	/^	mbc3_timer_ram,			\/\/ MBC3, RTC, and RAM$/;"	kind:e	enum:mbc_type
+mbc5	cart_helper_enums.h	/^	mbc5,					\/\/ MBC5 only, no RAM$/;"	kind:e	enum:mbc_type
+mbc5_disable_ram	cart_helper_class.h	/^	void mbc5_disable_ram();$/;"	kind:p	class:cart_helper	access:public	signature:()
+mbc5_disable_ram	cart_helper_mbc_funcs.h	/^void cart_helper::mbc5_disable_ram()$/;"	kind:f	class:cart_helper	signature:()
+mbc5_dump_ram	cart_helper_class.h	/^	void mbc5_dump_ram();$/;"	kind:p	class:cart_helper	access:public	signature:()
+mbc5_dump_ram	cart_helper_mbc_funcs.h	/^void cart_helper::mbc5_dump_ram()$/;"	kind:f	class:cart_helper	signature:()
+mbc5_dump_rom	cart_helper_class.h	/^	void mbc5_dump_rom();$/;"	kind:p	class:cart_helper	access:public	signature:()
+mbc5_dump_rom	cart_helper_mbc_funcs.h	/^void cart_helper::mbc5_dump_rom()$/;"	kind:f	class:cart_helper	signature:()
+mbc5_enable_ram	cart_helper_class.h	/^	void mbc5_enable_ram();$/;"	kind:p	class:cart_helper	access:public	signature:()
+mbc5_enable_ram	cart_helper_mbc_funcs.h	/^void cart_helper::mbc5_enable_ram()$/;"	kind:f	class:cart_helper	signature:()
+mbc5_ram	cart_helper_enums.h	/^	mbc5_ram,				\/\/ MBC5 and RAM$/;"	kind:e	enum:mbc_type
+mbc5_set_ram_bank	cart_helper_class.h	/^	void mbc5_set_ram_bank( uint8_t n_ram_bank );$/;"	kind:p	class:cart_helper	access:public	signature:( uint8_t n_ram_bank )
+mbc5_set_ram_bank	cart_helper_mbc_funcs.h	/^void cart_helper::mbc5_set_ram_bank( uint8_t n_ram_bank )$/;"	kind:f	class:cart_helper	signature:( uint8_t n_ram_bank )
+mbc5_set_rom_bank	cart_helper_class.h	/^	void mbc5_set_rom_bank( uint8_t n_rom_bank, uint8_t hbit );$/;"	kind:p	class:cart_helper	access:public	signature:( uint8_t n_rom_bank, uint8_t hbit )
+mbc5_set_rom_bank	cart_helper_mbc_funcs.h	/^void cart_helper::mbc5_set_rom_bank( uint8_t n_rom_bank, uint8_t hbit )$/;"	kind:f	class:cart_helper	signature:( uint8_t n_rom_bank, uint8_t hbit )
+mbc_type	cart_helper_enums.h	/^enum mbc_type$/;"	kind:g
+mega_bitwise_thing	aux_code.h	/^static const byte mega_bitwise_thing = 0x10;$/;"	kind:v
+micro_bitwise_thing	aux_code.h	/^static const byte micro_bitwise_thing = 0x02;$/;"	kind:v
+misc_types_h	misc_types.h	2;"	kind:d
+my_tpak	cart_helper_class.h	/^	tpak my_tpak;$/;"	kind:m	class:cart_helper	access:public
+print_cart_stuff	cart_helper_class.cpp	/^void cart_helper::print_cart_stuff()$/;"	kind:f	class:cart_helper	signature:()
+print_cart_stuff	cart_helper_class.h	/^	void print_cart_stuff();$/;"	kind:p	class:cart_helper	access:public	signature:()
+print_crc_managed	aux_code.cpp	/^void print_crc_managed()$/;"	kind:f	signature:()
+print_crc_managed	aux_code.h	/^void print_crc_managed();$/;"	kind:p	signature:()
+print_mem_managed	aux_code.cpp	/^void print_mem_managed()$/;"	kind:f	signature:()
+print_mem_managed	aux_code.h	/^void print_mem_managed();$/;"	kind:p	signature:()
+print_mem_managed2	aux_code.h	/^void print_mem_managed2();$/;"	kind:p	signature:()
+print_mem_managed_2	aux_code.cpp	/^void print_mem_managed_2()$/;"	kind:f	signature:()
+print_raw_data	cart_helper_class.cpp	/^void cart_helper::print_raw_data()$/;"	kind:f	class:cart_helper	signature:()
+print_raw_data	cart_helper_class.h	/^	void print_raw_data();$/;"	kind:p	class:cart_helper	access:public	signature:()
+ram_size	cart_helper_class.h	/^	ram_size_type ram_size;$/;"	kind:m	class:cart_helper	access:public
+ram_size_type	cart_helper_enums.h	/^enum ram_size_type$/;"	kind:g
+raw_cart_type	cart_helper_class.h	/^	uint8_t raw_cart_type;$/;"	kind:m	class:cart_helper	access:public
+raw_ram_size	cart_helper_class.h	/^	uint8_t raw_ram_size;$/;"	kind:m	class:cart_helper	access:public
+raw_rom_size	cart_helper_class.h	/^	uint8_t raw_rom_size;$/;"	kind:m	class:cart_helper	access:public
+rcmd_size	tpak_class.h	/^	static const word wcmd_size = 35, rcmd_size = 3;$/;"	kind:m	class:tpak	access:protected
+read	tpak_class.cpp	/^void tpak::read( uint16_t read_addr )$/;"	kind:f	class:tpak	signature:( uint16_t read_addr )
+read	tpak_class.cpp	/^void tpak::read()$/;"	kind:f	class:tpak	signature:()
+read	tpak_class.h	/^	void read( uint16_t read_addr );$/;"	kind:p	class:tpak	access:public	signature:( uint16_t read_addr )
+read	tpak_class.h	/^	void read();$/;"	kind:p	class:tpak	access:public	signature:()
+read_with_gb_addr	cart_helper_class.cpp	/^void cart_helper::read_with_gb_addr( uint16_t gb_addr )$/;"	kind:f	class:cart_helper	signature:( uint16_t gb_addr )
+read_with_gb_addr	cart_helper_class.h	/^	void read_with_gb_addr( uint16_t gb_addr );$/;"	kind:p	class:cart_helper	access:public	signature:( uint16_t gb_addr )
+rom_only	cart_helper_enums.h	/^	rom_only,				\/\/ 32 kiB of ROM, no MBC$/;"	kind:e	enum:mbc_type
+rom_only_dump_rom	cart_helper_class.h	/^	void rom_only_dump_rom();$/;"	kind:p	class:cart_helper	access:public	signature:()
+rom_only_dump_rom	cart_helper_mbc_funcs.h	/^void cart_helper::rom_only_dump_rom()$/;"	kind:f	class:cart_helper	signature:()
+rom_size	cart_helper_class.h	/^	uint16_t rom_size;$/;"	kind:m	class:cart_helper	access:public
+rs_128	cart_helper_enums.h	/^	rs_128,			\/\/ 128 kiB of external cart RAM, 16 banks of 8 kiB each$/;"	kind:e	enum:ram_size_type
+rs_2	cart_helper_enums.h	/^	rs_2,			\/\/ 2 kiB of external cart RAM, not even a full bank$/;"	kind:e	enum:ram_size_type
+rs_32	cart_helper_enums.h	/^	rs_32,			\/\/ 32 kiB of external cart RAM, 4 banks of 8 kiB each$/;"	kind:e	enum:ram_size_type
+rs_8	cart_helper_enums.h	/^	rs_8,			\/\/ 8 kiB of external cart RAM, 1 bank of 8 kiB$/;"	kind:e	enum:ram_size_type
+rs_mbc2	cart_helper_enums.h	/^	rs_mbc2,$/;"	kind:e	enum:ram_size_type
+rs_none	cart_helper_enums.h	/^	rs_none,		\/\/ 0 kiB of external cart RAM$/;"	kind:e	enum:ram_size_type
+serial_msg_type	cart_helper_enums.h	/^enum serial_msg_type$/;"	kind:g
+set_access_mode	tpak_class.cpp	/^void tpak::set_access_mode( bool n_mode )$/;"	kind:f	class:tpak	signature:( bool n_mode )
+set_access_mode	tpak_class.h	/^	void set_access_mode( bool n_mode );$/;"	kind:p	class:tpak	access:public	signature:( bool n_mode )
+set_bank	tpak_class.cpp	/^void tpak::set_bank( char n_tpak_bank )$/;"	kind:f	class:tpak	signature:( char n_tpak_bank )
+set_bank	tpak_class.h	/^	void set_bank( char n_tpak_bank );$/;"	kind:p	class:tpak	access:public	signature:( char n_tpak_bank )
+set_cart_stuff	cart_helper_class.cpp	/^void cart_helper::set_cart_stuff()$/;"	kind:f	class:cart_helper	signature:()
+set_cart_stuff	cart_helper_class.h	/^	void set_cart_stuff();$/;"	kind:p	class:cart_helper	access:public	signature:()
+set_raw_data	cart_helper_class.cpp	/^void cart_helper::set_raw_data( uint8_t s_raw_cart_type, uint8_t s_raw_rom_size,$/;"	kind:f	class:cart_helper	signature:( uint8_t s_raw_cart_type, uint8_t s_raw_rom_size, uint8_t s_raw_ram_size )
+set_raw_data	cart_helper_class.h	/^	void set_raw_data( uint8_t s_raw_cart_type, uint8_t s_raw_rom_size,$/;"	kind:p	class:cart_helper	access:public	signature:( uint8_t s_raw_cart_type, uint8_t s_raw_rom_size, uint8_t s_raw_ram_size )
+sm_gb_read_32_bytes	cart_helper_enums.h	/^	sm_gb_read_32_bytes,$/;"	kind:e	enum:serial_msg_type
+sm_gb_read_var_num_bytes	cart_helper_enums.h	/^	sm_gb_read_var_num_bytes,$/;"	kind:e	enum:serial_msg_type
+sm_gb_write_32_bytes	cart_helper_enums.h	/^	sm_gb_write_32_bytes,$/;"	kind:e	enum:serial_msg_type
+sm_gb_write_var_num_bytes	cart_helper_enums.h	/^	sm_gb_write_var_num_bytes,$/;"	kind:e	enum:serial_msg_type
+sm_get_cart_stuff	cart_helper_enums.h	/^	sm_get_cart_stuff,$/;"	kind:e	enum:serial_msg_type
+sm_print_cart_stuff	cart_helper_enums.h	/^	sm_print_cart_stuff,$/;"	kind:e	enum:serial_msg_type
+sm_reset_tpak	cart_helper_enums.h	/^	sm_reset_tpak,$/;"	kind:e	enum:serial_msg_type
+some_globals_h	some_globals.h	2;"	kind:d
+stick_x	misc_types.h	/^	char stick_x;$/;"	kind:m	struct:N64_status_t	access:public
+stick_y	misc_types.h	/^	char stick_y;$/;"	kind:m	struct:N64_status_t	access:public
+tpak	tpak_class.cpp	/^tpak::tpak()$/;"	kind:f	class:tpak	signature:()
+tpak	tpak_class.h	/^	tpak();$/;"	kind:p	class:tpak	access:public	signature:()
+tpak	tpak_class.h	/^class tpak$/;"	kind:c
+tpak::addr_pkt	tpak_class.h	/^	addr_packet addr_pkt;$/;"	kind:m	class:tpak	access:protected
+tpak::command	tpak_class.h	/^	uint8_t command[wcmd_size];$/;"	kind:m	class:tpak	access:protected
+tpak::current_bank	tpak_class.h	/^	char current_bank;$/;"	kind:m	class:tpak	access:protected
+tpak::enable_tpak	tpak_class.cpp	/^void tpak::enable_tpak()$/;"	kind:f	class:tpak	signature:()
+tpak::enable_tpak	tpak_class.h	/^	void enable_tpak();$/;"	kind:p	class:tpak	access:public	signature:()
+tpak::get_access_mode	tpak_class.cpp	/^void tpak::get_access_mode()$/;"	kind:f	class:tpak	signature:()
+tpak::get_access_mode	tpak_class.h	/^	void get_access_mode();$/;"	kind:p	class:tpak	access:public	signature:()
+tpak::get_bank	tpak_class.cpp	/^char tpak::get_bank() const$/;"	kind:f	class:tpak	signature:() const
+tpak::get_bank	tpak_class.h	/^	char get_bank() const;$/;"	kind:p	class:tpak	access:public	signature:() const
+tpak::init	tpak_class.cpp	/^void tpak::init( cart_helper& the_cart_helper )$/;"	kind:f	class:tpak	signature:( cart_helper& the_cart_helper )
+tpak::init	tpak_class.h	/^	void init( cart_helper& the_cart_helper );$/;"	kind:p	class:tpak	access:public	signature:( cart_helper& the_cart_helper )
+tpak::rcmd_size	tpak_class.h	/^	static const word wcmd_size = 35, rcmd_size = 3;$/;"	kind:m	class:tpak	access:protected
+tpak::read	tpak_class.cpp	/^void tpak::read( uint16_t read_addr )$/;"	kind:f	class:tpak	signature:( uint16_t read_addr )
+tpak::read	tpak_class.cpp	/^void tpak::read()$/;"	kind:f	class:tpak	signature:()
+tpak::read	tpak_class.h	/^	void read( uint16_t read_addr );$/;"	kind:p	class:tpak	access:public	signature:( uint16_t read_addr )
+tpak::read	tpak_class.h	/^	void read();$/;"	kind:p	class:tpak	access:public	signature:()
+tpak::set_access_mode	tpak_class.cpp	/^void tpak::set_access_mode( bool n_mode )$/;"	kind:f	class:tpak	signature:( bool n_mode )
+tpak::set_access_mode	tpak_class.h	/^	void set_access_mode( bool n_mode );$/;"	kind:p	class:tpak	access:public	signature:( bool n_mode )
+tpak::set_bank	tpak_class.cpp	/^void tpak::set_bank( char n_tpak_bank )$/;"	kind:f	class:tpak	signature:( char n_tpak_bank )
+tpak::set_bank	tpak_class.h	/^	void set_bank( char n_tpak_bank );$/;"	kind:p	class:tpak	access:public	signature:( char n_tpak_bank )
+tpak::tpak	tpak_class.cpp	/^tpak::tpak()$/;"	kind:f	class:tpak	signature:()
+tpak::tpak	tpak_class.h	/^	tpak();$/;"	kind:p	class:tpak	access:public	signature:()
+tpak::wcmd_size	tpak_class.h	/^	static const word wcmd_size = 35, rcmd_size = 3;$/;"	kind:m	class:tpak	access:protected
+tpak::write	tpak_class.cpp	/^void tpak::write( uint16_t write_addr )$/;"	kind:f	class:tpak	signature:( uint16_t write_addr )
+tpak::write	tpak_class.cpp	/^void tpak::write( uint16_t write_addr, uint8_t* msg )$/;"	kind:f	class:tpak	signature:( uint16_t write_addr, uint8_t* msg )
+tpak::write	tpak_class.cpp	/^void tpak::write()$/;"	kind:f	class:tpak	signature:()
+tpak::write	tpak_class.h	/^	void write( uint16_t write_addr );$/;"	kind:p	class:tpak	access:public	signature:( uint16_t write_addr )
+tpak::write	tpak_class.h	/^	void write( uint16_t write_addr, uint8_t* msg );$/;"	kind:p	class:tpak	access:public	signature:( uint16_t write_addr, uint8_t* msg )
+tpak::write	tpak_class.h	/^	void write();$/;"	kind:p	class:tpak	access:public	signature:()
+tpak::write_byte	tpak_class.cpp	/^void tpak::write_byte( uint16_t write_addr, uint8_t data )$/;"	kind:f	class:tpak	signature:( uint16_t write_addr, uint8_t data )
+tpak::write_byte	tpak_class.h	/^	void write_byte( uint16_t write_addr, uint8_t data );$/;"	kind:p	class:tpak	access:public	signature:( uint16_t write_addr, uint8_t data )
+tpak::~tpak	tpak_class.cpp	/^tpak::~tpak()$/;"	kind:f	class:tpak	signature:()
+tpak::~tpak	tpak_class.h	/^	~tpak();$/;"	kind:p	class:tpak	access:public	signature:()
+tpak_class_h	tpak_class.h	2;"	kind:d
+tpak_stuff	aux_code.h	/^void tpak_stuff();$/;"	kind:p	signature:()
+tpak_stuff_2	aux_code.cpp	/^void tpak_stuff_2()$/;"	kind:f	signature:()
+tpak_stuff_2	aux_code.h	/^void tpak_stuff_2();$/;"	kind:p	signature:()
+translate_raw_data	aux_code.cpp	/^void translate_raw_data()$/;"	kind:f	signature:()
+translate_raw_data	aux_code.h	/^void translate_raw_data();$/;"	kind:p	signature:()
+uint	misc_types.h	/^typedef unsigned int uint;$/;"	kind:t
+unknown_mbc_type	cart_helper_enums.h	/^	unknown_mbc_type		\/\/ Debug, etc.$/;"	kind:e	enum:mbc_type
+w	misc_types.h	/^	word w;$/;"	kind:m	union:addr_packet	access:public
+wcmd_size	tpak_class.h	/^	static const word wcmd_size = 35, rcmd_size = 3;$/;"	kind:m	class:tpak	access:protected
+write	tpak_class.cpp	/^void tpak::write( uint16_t write_addr )$/;"	kind:f	class:tpak	signature:( uint16_t write_addr )
+write	tpak_class.cpp	/^void tpak::write( uint16_t write_addr, uint8_t* msg )$/;"	kind:f	class:tpak	signature:( uint16_t write_addr, uint8_t* msg )
+write	tpak_class.cpp	/^void tpak::write()$/;"	kind:f	class:tpak	signature:()
+write	tpak_class.h	/^	void write( uint16_t write_addr );$/;"	kind:p	class:tpak	access:public	signature:( uint16_t write_addr )
+write	tpak_class.h	/^	void write( uint16_t write_addr, uint8_t* msg );$/;"	kind:p	class:tpak	access:public	signature:( uint16_t write_addr, uint8_t* msg )
+write	tpak_class.h	/^	void write();$/;"	kind:p	class:tpak	access:public	signature:()
+write_byte	tpak_class.cpp	/^void tpak::write_byte( uint16_t write_addr, uint8_t data )$/;"	kind:f	class:tpak	signature:( uint16_t write_addr, uint8_t data )
+write_byte	tpak_class.h	/^	void write_byte( uint16_t write_addr, uint8_t data );$/;"	kind:p	class:tpak	access:public	signature:( uint16_t write_addr, uint8_t data )
+write_byte_with_gb_addr	cart_helper_class.cpp	/^void cart_helper::write_byte_with_gb_addr( uint16_t gb_addr, uint8_t data )$/;"	kind:f	class:cart_helper	signature:( uint16_t gb_addr, uint8_t data )
+write_byte_with_gb_addr	cart_helper_class.h	/^	void write_byte_with_gb_addr( uint16_t gb_addr, uint8_t data );$/;"	kind:p	class:cart_helper	access:public	signature:( uint16_t gb_addr, uint8_t data )
+write_mem_managed	aux_code.cpp	/^void write_mem_managed()$/;"	kind:f	signature:()
+write_mem_managed	aux_code.h	/^void write_mem_managed();$/;"	kind:p	signature:()
+~cart_helper	cart_helper_class.cpp	/^cart_helper::~cart_helper()$/;"	kind:f	class:cart_helper	signature:()
+~cart_helper	cart_helper_class.h	/^	~cart_helper();$/;"	kind:p	class:cart_helper	access:public	signature:()
+~tpak	tpak_class.cpp	/^tpak::~tpak()$/;"	kind:f	class:tpak	signature:()
+~tpak	tpak_class.h	/^	~tpak();$/;"	kind:p	class:tpak	access:public	signature:()

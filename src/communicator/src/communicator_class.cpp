@@ -40,6 +40,7 @@ communicator::communicator( int argc, char** argv )
 	//	ifile.open( if_name, ios_base::in | ios_base::binary );
 	//}
 	
+	//fd = open( argv[1], O_RDWR | O_NOCTTY | O_NONBLOCK | O_SYNC );
 	fd = open( argv[1], O_RDWR | O_NOCTTY | O_NONBLOCK );
 	
 	if ( fd < 0 )
@@ -48,6 +49,9 @@ communicator::communicator( int argc, char** argv )
 		return;
 	}
 	
+	// Wait for the Arduino Mega to finish resetting.  It'd be nice if it
+	// didn't always reset upon serial connection!
+	usleep(1000 * 1000);
 	
 	string argv2 = argv[2], argv3 = argv[3];
 	
@@ -174,9 +178,6 @@ communicator::communicator( int argc, char** argv )
 	}
 	
 	
-	
-	get_cart_stuff();
-	
 }
 
 communicator::~communicator()
@@ -193,10 +194,37 @@ void communicator::get_cart_stuff()
 		cout << "Unable to write!\n";
 	}
 	
-	write( fd, send_buf.data (), 1 );
+	int num_written_bytes = write( fd, send_buf.data (), 1 );
+	if ( num_written_bytes <= 0 )
+	{
+		cout << "No bytes were written!\n";
+		exit(1);
+	}
 	
-	loop_for_reading_32_bytes();
+	for (;;)
+	{
+		int select_result = do_select_for_read(fd);
+		
+		if ( select_result == 1 )
+		{
+			cout << "Error in select()ing for read()!\n";
+			exit(1);
+		}
+		else if ( select_result == 2 )
+		{
+			//cout << "The Arduino isn't ready to be read() from!\n";
+		}
+		else
+		{
+			//cout << "Ready to read()!\n";
+			break;
+		}
+	}
 	
+	if ( loop_for_reading_32_bytes() )
+	{
+		exit(1);
+	}
 	
 	cart_mbc_type = (mbc_type)(recv_buf[0]);
 	
@@ -208,6 +236,10 @@ void communicator::get_cart_stuff()
 	
 	ram_size = (ram_size_type)(recv_buf[3]);
 	
+	cout << hex << cart_mbc_type << " " << rom_size << " " << ram_size 
+		<< dec << endl;
+	
+	//exit(1);
 }
 
 
@@ -260,15 +292,10 @@ void communicator::hl_read_bytes_and_write_to_ofile( u16 gb_start_addr,
 	
 	write( fd, send_buf.data(), 5 );
 	
+	loop_for_reading_var_num_bytes(num_bytes);
 	
-	for ( uint i2=0; i2<( num_bytes_pkt.w / 0x20 ); ++i2 )
-	{
-		loop_for_reading_32_bytes();
-		
-		ofile.write( recv_buf.data(), 0x20 );
-		ofile.flush();
-	}
-	
+	ofile.write( recv_buf.data(), num_bytes );
+	ofile.flush();
 	
 }
 
@@ -375,29 +402,6 @@ void communicator::hl_read_from_ifile_and_write_bytes( u16 gb_start_addr,
 	//cout << "LIVE TO BEEF AGAIN!  Is end.\n\n\n";
 }
 
-inline int communicator::loop_for_reading_32_bytes()
-{
-	int left_to_read = 32;
-	
-	while ( left_to_read > 0 )
-	{
-		int num_read = read( fd, &( recv_buf[32 - left_to_read] ), 
-			recv_buf.size() );
-		
-		if ( num_read < 0 )
-		{
-			cout << "There was an error reading from the Arduino.\n";
-			return 1;
-		}
-		
-		left_to_read -= num_read;
-		
-		//cout << left_to_read << endl;
-		//cout << "Still in left_to_read while loop!\n";
-	}
-	
-	return 0;
-}
 
 void communicator::dump_rom_test()
 {
@@ -441,11 +445,11 @@ void communicator::rom_only_dump_single_rom_bank( u16 bank )
 	
 	if ( bank == 0x0000 )
 	{
-		hl_read_bytes_and_write_to_ofile( 0x0000, 0x4000 );
+		hl_read_bytes_and_write_to_ofile( 0x0000, rom_bank_size );
 	}
 	else
 	{
-		hl_read_bytes_and_write_to_ofile( 0x4000, 0x4000 );
+		hl_read_bytes_and_write_to_ofile( 0x4000, rom_bank_size );
 	}
 }
 
@@ -455,7 +459,7 @@ void communicator::mbc1_dump_single_rom_bank( u16 bank )
 	
 	if ( bank == 0x0000 )
 	{
-		hl_read_bytes_and_write_to_ofile( 0x0000, 0x4000 );
+		hl_read_bytes_and_write_to_ofile( 0x0000, rom_bank_size );
 	}
 	else
 	{
@@ -469,7 +473,7 @@ void communicator::mbc1_dump_single_rom_bank( u16 bank )
 		hl_write_rept_byte( 0x2000, (u8)( bank & 0x1f ) );
 		
 		// Finally, read the ROM bank
-		hl_read_bytes_and_write_to_ofile( 0x4000, 0x4000 );
+		hl_read_bytes_and_write_to_ofile( 0x4000, rom_bank_size );
 	}
 	
 }
@@ -480,12 +484,12 @@ void communicator::mbc2_dump_single_rom_bank( u16 bank )
 	
 	if( bank == 0x0000 )
 	{
-		hl_read_bytes_and_write_to_ofile( 0x0000, 0x4000 );
+		hl_read_bytes_and_write_to_ofile( 0x0000, rom_bank_size );
 	}
 	else
 	{
 		hl_write_rept_byte( 0x2100,(u8)( bank & 0x0f ) );
-		hl_read_bytes_and_write_to_ofile( 0x4000, 0x4000 );
+		hl_read_bytes_and_write_to_ofile( 0x4000, rom_bank_size );
 	}
 	
 }
@@ -496,12 +500,12 @@ void communicator::mbc3_dump_single_rom_bank( u16 bank )
 	
 	if( bank == 0x0000 )
 	{
-		hl_read_bytes_and_write_to_ofile( 0x0000, 0x4000 );
+		hl_read_bytes_and_write_to_ofile( 0x0000, rom_bank_size );
 	}
 	else
 	{
 		hl_write_rept_byte( 0x2000, (u8)( bank & 0x7f ) );
-		hl_read_bytes_and_write_to_ofile( 0x4000, 0x4000 );
+		hl_read_bytes_and_write_to_ofile( 0x4000, rom_bank_size );
 	}
 }
 
@@ -512,7 +516,7 @@ void communicator::mbc5_dump_single_rom_bank( u16 bank )
 	// MBC5 is nice because it lets me do everything with just the
 	// SWITCHABLE ROM bank
 	hl_write_rept_byte( 0x2000, (u8)( bank & 0xff ) );
-	hl_read_bytes_and_write_to_ofile( 0x4000, 0x4000 );
+	hl_read_bytes_and_write_to_ofile( 0x4000, rom_bank_size );
 }
 
 
@@ -923,7 +927,7 @@ void communicator::mbc1_dump_ram()
 				hl_write_rept_byte( 0x6000, 0x01 );
 				
 				// Now we set the RAM bank
-				hl_write_rept_byte( 0x4000, (u8)( i & 0x0f ) );
+				hl_write_rept_byte( 0x4000, (u8)( i & 0x03 ) );
 				
 				// Then we enable RAM again
 				hl_write_rept_byte( 0x0000, 0x0a );
@@ -1116,7 +1120,82 @@ void communicator::mbc5_dump_ram()
 // Main RAM restoring functions
 void communicator::mbc1_restore_ram()
 {
-	
+	switch (ram_size)
+	{
+		case rs_none:
+			cout << "Error:  This cartridge doesn't have any RAM.\n";
+			break;
+		
+		// 0x800 bytes (2 kiB) of RAM (not even a full 8 kiB bank)
+		case rs_2:
+			// Enable RAM so we can read from it
+			hl_write_rept_byte( 0x0000, 0x0a );
+			
+			// Now we read the 2 kiB of RAM
+			//hl_read_bytes_and_write_to_ofile( 0xa000, 0x800 );
+			
+			hl_read_from_ifile_and_write_bytes( 0xa000, 0x400 );
+			hl_read_from_ifile_and_write_bytes( 0xa400, 0x400 );
+			
+			// Disable RAM for safety
+			hl_write_rept_byte( 0x0000, 0x00 );
+			
+			break;
+		
+		
+		// 0x2000 bytes (8 kiB) of RAM (only one full 8 kiB bank)
+		case rs_8:
+			// Enable RAM so we can read from it
+			hl_write_rept_byte( 0x0000, 0x0a );
+			
+			// Now we read the 8 kiB of RAM
+			//hl_read_bytes_and_write_to_ofile( 0xa000, 0x2000 );
+			
+			for ( uint i=0x0000; i<0x2000; i+=0x400 )
+			{
+				hl_read_from_ifile_and_write_bytes( 0xa000 + i, 0x400 );
+			}
+			
+			// Disable RAM for safety
+			hl_write_rept_byte( 0x0000, 0x00 );
+			
+			
+			break;
+		
+		case rs_32:
+			for ( uint i=0; i<4; ++i )
+			{
+				cout << "Dumping RAM bank " << i << endl;
+				
+				// In order to set the RAM bank, we have to disable RAM
+				hl_write_rept_byte( 0x0000, 0x00 );
+				
+				// Now we enable RAM banking mode
+				hl_write_rept_byte( 0x6000, 0x01 );
+				
+				// Now we set the RAM bank
+				hl_write_rept_byte( 0x4000, (u8)( i & 0x03 ) );
+				
+				// Then we enable RAM again
+				hl_write_rept_byte( 0x0000, 0x0a );
+				
+				// Now we write the 8 kiB of RAM
+				for ( uint j=0x0000; j<0x2000; j+=0x400 )
+				{
+					hl_read_from_ifile_and_write_bytes( 0xa000 + j, 0x400,
+						i );
+				}
+			}
+			
+			// Disable RAM for safety
+			hl_write_rept_byte( 0x0000, 0x00 );
+			
+			break;
+		
+		default:
+			
+			break;
+	}
 }
 void communicator::mbc2_restore_ram()
 {
@@ -1131,7 +1210,7 @@ void communicator::mbc3_restore_ram()
 			break;
 		
 		// 0x800 bytes (2 kiB) of RAM (not even a full 8 kiB bank)
-		// I'm not sure MBC5 cartridges ever had only 2 kiB of RAM.
+		// I'm not sure MBC3 cartridges ever had only 2 kiB of RAM.
 		case rs_2:
 			// Enable RAM so we can write to it
 			hl_write_rept_byte( 0x0000, 0x0a );
@@ -1168,6 +1247,9 @@ void communicator::mbc3_restore_ram()
 		case rs_32:
 			for ( uint i=0; i<4; ++i )
 			{
+				cout << "Restoring RAM bank " << i << endl;
+				
+				
 				// Disable RAM so that we can change RAM banks.
 				// It'd be nice if they'd SAY that you need to do that in
 				// places like the Pan Docs.  I had a hard time figuring

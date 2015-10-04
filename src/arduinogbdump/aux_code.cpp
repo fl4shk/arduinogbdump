@@ -87,9 +87,12 @@ void tpak_stuff_2()
 	
 	for (;;)
 	{
-		if ( hamburger.interpret_serial_message() == 1 )
+		//if ( Serial.available() > 0 )
 		{
-			return;
+			if ( hamburger.interpret_serial_message() == 1 )
+			{
+				return;
+			}
 		}
 	}
 }

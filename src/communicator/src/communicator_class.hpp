@@ -1,6 +1,8 @@
 #ifndef communicator_cls_hpp
 #define communicator_cls_hpp
 
+#include <errno.h>
+
 enum communicator_action
 {
 	do_rom_dump,
@@ -17,12 +19,14 @@ enum communicator_action
 class communicator
 {
 public:		// variables
+	static constexpr u32 rom_bank_size = 0x4000;
+	
 	int fd;
 	
 	// Buffers for Sending/Receiving data
-	// They really don't need to be as large as they are, but...
+	//// They really don't need to be as large as they are, but...
 	array< char, 2048 > send_buf;
-	array< char, 1024 > recv_buf;
+	array< char, rom_bank_size > recv_buf;
 	
 	
 	
@@ -58,6 +62,7 @@ public:		// functions
 		u16 num_bytes, u8 gb_ram_bank=0x00 );
 	
 	inline int loop_for_reading_32_bytes();
+	inline int loop_for_reading_var_num_bytes( u16 num_bytes );
 	
 	
 	void dump_rom_test();
@@ -111,6 +116,68 @@ public:		// functions
 };
 
 
+inline int communicator::loop_for_reading_32_bytes()
+{
+	
+	int left_to_read = 32;
+	
+	while ( left_to_read > 0 )
+	{
+		int num_read = read( fd, &( recv_buf[32 - left_to_read] ), 
+			recv_buf.size() );
+		
+		if ( num_read < 0 )
+		{
+			cout << "There was an error reading from the Arduino:  "
+				<< num_read << "\n";
+			cout << "This was the error:  " << strerror(errno) << "\n";
+			return 1;
+		}
+		//else if ( num_read == 0 )
+		//{
+		//	cout << "Nothing was read....\n";
+		//	
+		//	//exit(1);
+		//}
+		
+		left_to_read -= num_read;
+		
+		//cout << left_to_read << endl;
+		//cout << "Still in left_to_read while loop!\n";
+	}
+	
+	return 0;
+}
+inline int communicator::loop_for_reading_var_num_bytes( u16 num_bytes )
+{
+	
+	int left_to_read = num_bytes;
+	
+	while ( left_to_read > 0 )
+	{
+		int num_read = read( fd, &( recv_buf[num_bytes - left_to_read] ), 
+			recv_buf.size() );
+		
+		if ( num_read < 0 )
+		{
+			cout << "There was an error reading from the Arduino.\n";
+			return 1;
+		}
+		//else if ( num_read == 0 )
+		//{
+		//	cout << "Nothing was read....\n";
+		//	
+		//	//exit(1);
+		//}
+		
+		left_to_read -= num_read;
+		
+		//cout << left_to_read << endl;
+		//cout << "Still in left_to_read while loop!\n";
+	}
+	
+	return 0;
+}
 
 
 #endif		// communicator_cls_hpp

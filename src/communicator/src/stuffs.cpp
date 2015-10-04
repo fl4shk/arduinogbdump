@@ -33,10 +33,10 @@ int do_select_for_write( int fd )
 	// We want to wait until we can write to the Arduino.
 	FD_SET( fd, &writefds );
 	
-	// Wait 1 ms
-	timeval timeout = { 0, 1000 };
+	// Wait 10 ms
+	timeval timeout = { 0, 10000 };
 	
-	if ( select( nfds, &readfds, &writefds, &exceptfds, &timeout ) <= 0 )
+	if ( select( nfds, &readfds, &writefds, &exceptfds, &timeout ) < 0 )
 	{
 		return 1;
 	}
@@ -64,10 +64,10 @@ int do_select_for_read( int fd )
 	FD_SET( fd, &readfds );
 	
 	
-	// Wait 1 ms
-	timeval timeout = { 0, 1000 };
+	// Wait 10 ms
+	timeval timeout = { 0, 10000 };
 	
-	if ( select( nfds, &readfds, &writefds, &exceptfds, &timeout ) <= 0 )
+	if ( select( nfds, &readfds, &writefds, &exceptfds, &timeout ) < 0 )
 	{
 		return 1;
 	}

@@ -9,6 +9,8 @@
 	#define PORT_THING default_bitwise_thing
 #elif defined (__AVR_ATmega32U4__)
 	#define PORT_THING micro_bitwise_thing
+#elif ( defined (__AVR_ATmega1280__) || defined (__AVR_ATmega2560__) )
+	#define PORT_THING mega_bitwise_thing
 #else
 	#error This program doesn't work on your Arduino (yet)!
 #endif
@@ -17,51 +19,63 @@
 // This should be used for the Arduino Uno.
 static const byte default_bitwise_thing = 0x04;
 
-// This should be used for the Arduino Micro.
+// This should be used for the Arduino Micro or Arduino Leonardo.
 static const byte micro_bitwise_thing = 0x02;
 
 
-// If I knew the correct value for the Arduino Mega, I would have said to
-// use this for it.
-//static const byte mega_bitwise_thing =
+//// If I knew the correct value for the Arduino Mega, I would have said to
+//// use this for it.
+// This should be used for the Arduino Mega or Arduino Mega 2560.
+static const byte mega_bitwise_thing = 0x10;
 
 
 
 #define N64_PIN 2
-#define N64_PIN_DIR DDRD
+//#define N64_PIN_DIR DDRD
 
 // these two macros set arduino pin 2 to input or output, which with an
 // external 1K pull-up resistor to the 3.3V rail, is like pulling it high or
 // low.  These operations translate to 1 op code, which takes 2 cycles
-#define N64_HIGH DDRD &= ~PORT_THING
-#define N64_LOW DDRD |= PORT_THING
-#define N64_QUERY (PIND & PORT_THING)
+#if ( defined (__AVR_ATmega328P__) || defined (__AVR_ATmega168__) )
+	#define N64_HIGH DDRD &= ~PORT_THING
+	#define N64_LOW DDRD |= PORT_THING
+	#define N64_QUERY (PIND & PORT_THING)
+#elif defined (__AVR_ATmega32U4__)
+	#define N64_HIGH DDRD &= ~PORT_THING
+	#define N64_LOW DDRD |= PORT_THING
+	#define N64_QUERY (PIND & PORT_THING)
+#elif ( defined (__AVR_ATmega1280__) || defined (__AVR_ATmega2560__) )
+	#define N64_HIGH DDRE &= ~PORT_THING
+	#define N64_LOW DDRE |= PORT_THING
+	#define N64_QUERY (PINE & PORT_THING)
+#else
+	#error This program doesn't work on your Arduino (yet)!
+#endif
 
 
 
+void print_mem_managed();
+void print_mem_managed2();
+void write_mem_managed();
 
-void print_mem_managed ();
-void print_mem_managed2 ();
-void write_mem_managed ();
+void print_crc_managed();
 
-void print_crc_managed ();
+void clear_mem_dump();
 
-void clear_mem_dump ();
-
-void manage_mem_dump ();		// arrange data into bytes 
-
+void manage_mem_dump();		// arrange data into bytes 
 
 
-void N64_stuff ( unsigned char *buff, char length );
+
+void N64_stuff( unsigned char *buff, char length );
 
 
-void N64_stuff_2 ( unsigned char *buff, char length );
+void N64_stuff_2( unsigned char *buff, char length );
 
 
 void tpak_stuff_2();
 
 
-void tpak_stuff ();
+void tpak_stuff();
 
 
 void translate_raw_data();
@@ -82,16 +96,15 @@ void N64_get();
 void loop2();
 
 
-word calc_addr_crc ( word address );
+word calc_addr_crc( word address );
 
 
 unsigned char calc_data_crc( unsigned char *data );
 
+void N64_read_addr();
 
-void N64_read_addr ();
 
-
-bool cmp_buf ( const char* to_cmp, int num_recv );
+bool cmp_buf( const char* to_cmp, int num_recv );
 
 
 #endif		// aux_code_h

@@ -573,7 +573,7 @@ int cart_helper::interpret_serial_message()
 	
 	else
 	{
-		Serial.println("Invalid Command!!!!");
+		Serial.println("Invalid Command!!");
 	}
 	
 	//delay(10);

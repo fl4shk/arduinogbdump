@@ -11,10 +11,6 @@ void setup()
 {
 	memset( N64_raw_dump, 0, 33 );
 	
-	Serial.begin(115200);
-	
-	// 1 ms timeout
-	Serial.setTimeout(1);
 	
 	pinMode( 13, OUTPUT );
 	
@@ -46,9 +42,9 @@ void setup()
 		{
 			x = 0;
 			
-			digitalWrite( 13, HIGH );
-			delay(200);
-			digitalWrite( 13, LOW );
+			//digitalWrite( 13, HIGH );
+			//delay(200);
+			//digitalWrite( 13, LOW );
 		}
 	}
 	
@@ -60,6 +56,10 @@ void setup()
 	//N64_get();
 	interrupts();
 	
+	Serial.begin(115200);
+	
+	// 2 ms timeout
+	Serial.setTimeout(2);
 	
 	//tpak_stuff_2();
 }
